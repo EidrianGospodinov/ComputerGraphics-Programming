@@ -399,3 +399,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Allow the pre-compiled libraries for DirectXTK
+!external/DirectXTK/lib/
+!external/DirectXTK/bin/
+!external/DirectXTK/lib/**
+!external/DirectXTK/bin/**
