@@ -197,7 +197,7 @@ namespace Library
         mWindow.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
         mWindow.lpszClassName = mWindowClass.c_str();		
 
-        RECT windowRectangle = { 0, 0, mScreenWidth, mScreenHeight };
+        RECT windowRectangle = { 0, 0, static_cast<LONG>(mScreenWidth), static_cast<long>(mScreenHeight) };
         AdjustWindowRect(&windowRectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
         RegisterClassEx(&mWindow);

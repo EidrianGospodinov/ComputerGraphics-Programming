@@ -44,7 +44,21 @@ namespace Rendering
 		
 		//1. load the effect file (vertex and pixel shader)
 		//insert code here
-        
+        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\BasicEffect.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
+        if (FAILED(hr))
+        {
+            const char* errorMessage = (errorMessages != nullptr ? (char*)errorMessages->GetBufferPointer() : "D3DX11CompileFromFile() failed");
+            GameException ex(errorMessage, hr);
+            ReleaseObject(errorMessages);
+            throw ex;
+        }
+        // Create an effect object from the compiled shader
+        hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), 0, mGame->Direct3DDevice(), &mEffect);
+        if (FAILED(hr))
+        {
+            throw GameException("D3DX11CreateEffectFromMemory() failed.", hr);
+        }
+
 	
 
         ReleaseObject(compiledShader);
@@ -81,12 +95,39 @@ namespace Rendering
 		//2. create the vetex layout
 		//insert code here
 		
-    
+        D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
+        {
+            { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+        };
+        if (FAILED(hr = mGame->Direct3DDevice()->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
+        {
+            throw GameException("ID3D11Device::CreateInputLayout() failed.", hr);
+        }  
+
 
 
         // 3. Create the vertex buffer
 		//insert code here
-	
+        BasicEffectVertex vertices[] = 
+        {
+            BasicEffectVertex(XMFLOAT4(-1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
+            BasicEffectVertex(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
+            BasicEffectVertex(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+                };
+        D3D11_BUFFER_DESC vertexBufferDesc;
+        ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
+        vertexBufferDesc.ByteWidth = sizeof(BasicEffectVertex) * ARRAYSIZE(vertices);
+        vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;		
+        vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+        D3D11_SUBRESOURCE_DATA vertexSubResourceData;
+        ZeroMemory(&vertexSubResourceData, sizeof(vertexSubResourceData));
+        vertexSubResourceData.pSysMem = vertices;
+        if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&vertexBufferDesc,  &vertexSubResourceData, &mVertexBuffer)))
+        {
+            throw GameException("ID3D11Device::CreateBuffer() failed.");
+        }
+
     
 		
     }
@@ -100,6 +141,17 @@ namespace Rendering
     {
 		//4. draw function
 		//insert the code here
+        ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+        direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+        direct3DDeviceContext->IASetInputLayout(mInputLayout);
+        UINT stride = sizeof(BasicEffectVertex);
+        UINT offset = 0;
+        direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+        XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
+        XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+        mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
+        mPass->Apply(0, direct3DDeviceContext);
+        direct3DDeviceContext->Draw(3, 0);
 
      
     }
