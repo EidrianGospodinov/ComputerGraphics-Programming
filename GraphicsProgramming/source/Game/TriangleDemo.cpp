@@ -111,9 +111,21 @@ namespace Rendering
 		//insert code here
         BasicEffectVertex vertices[] = 
         {
-            BasicEffectVertex(XMFLOAT4(-1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-            BasicEffectVertex(XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-            BasicEffectVertex(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+            BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
+            BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
+            BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+
+            BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
+            BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
+            BasicEffectVertex(XMFLOAT4(-0.3f, 0.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+
+            BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
+            BasicEffectVertex(XMFLOAT4(-0.7f, 0.75f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
+            BasicEffectVertex(XMFLOAT4(-1.1f, 0.65f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+
+            BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+            BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
+            BasicEffectVertex(XMFLOAT4(0.4f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
                 };
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
@@ -134,8 +146,8 @@ namespace Rendering
 
 	void TriangleDemo::Update(const GameTime& gameTime)
 	{
-        mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
-        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));
+        /*mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
+        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));*/
 
 	}
 
@@ -153,7 +165,7 @@ namespace Rendering
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
         mPass->Apply(0, direct3DDeviceContext);
-        direct3DDeviceContext->Draw(3, 0);
+        direct3DDeviceContext->Draw(12, 0);
 
      
     }
