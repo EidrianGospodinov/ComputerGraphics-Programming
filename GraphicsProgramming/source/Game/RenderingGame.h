@@ -9,6 +9,8 @@ namespace Library
 {
     class FirstPersonCamera;
 	class RenderStateHelper;
+    class Keyboard;
+    class Mouse;
 }
 
 namespace Rendering
@@ -32,5 +34,8 @@ namespace Rendering
 		static const XMFLOAT4 BackgroundColor;
         FirstPersonCamera * mCamera;
         TriangleDemo* mDemo;
+        LPDIRECTINPUT8 mDirectInput;
+        Keyboard* mKeyboard;
+        Mouse* mMouse;
     };
 }
