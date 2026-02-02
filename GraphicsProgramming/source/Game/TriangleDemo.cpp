@@ -114,25 +114,54 @@ namespace Rendering
         
         BasicEffectVertex vertices[] =
         {
-            BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//0
-            BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
-            BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//2
+            //BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,-1.0f,1.0f)),//0
+            //BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
+            //BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//2
 
-            BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//3
-            BasicEffectVertex(XMFLOAT4(-0.4f, 0.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//4
+            //BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//3
+            //BasicEffectVertex(XMFLOAT4(-0.4f, 0.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//4
 
             //BasicEffectVertex(XMFLOAT4(-0.7f, 0.75f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//5
-            BasicEffectVertex(XMFLOAT4(-1.1f, 0.65f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//5
+            //BasicEffectVertex(XMFLOAT4(-1.1f, 0.65f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//5
 
-            BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//6
-            BasicEffectVertex(XMFLOAT4(0.55f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//7
+            //BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//6
+            //BasicEffectVertex(XMFLOAT4(0.55f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//7
+
+            //Base
+            BasicEffectVertex(XMFLOAT4(-1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,-1.0f,1.0f)),//0
+            BasicEffectVertex(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
+            BasicEffectVertex(XMFLOAT4(0.6f, 0.8f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//2
+            BasicEffectVertex(XMFLOAT4(-0.6f, 0.8f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//3
+
+            //neck base
+            BasicEffectVertex(XMFLOAT4(-1.2f, 2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//4
+
+            //mout
+            BasicEffectVertex(XMFLOAT4(-1.4f, 1.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//5
+            BasicEffectVertex(XMFLOAT4(-1.15f, 1.75f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//6
+
+            //tail
+            BasicEffectVertex(XMFLOAT4(1.8f, 2.2f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//7
+
+            //wing inward
+            BasicEffectVertex(XMFLOAT4(0.0F, 2.5f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//8
+
+            //wing outward
+            BasicEffectVertex(XMFLOAT4(0.0F, 2.5f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//9
+
+
+
+
         };
         
         UINT indices[] =
-        { 1, 2, 0,
-        1, 4, 3,
-        5, 4, 3,
-        2, 6, 7,
+        { 0, 1, 3,
+        1, 2, 3,
+            0,3,4,
+            4,5,6,
+            1,7,2,
+            0,1,8,
+            0,9,1
 
         
         };
