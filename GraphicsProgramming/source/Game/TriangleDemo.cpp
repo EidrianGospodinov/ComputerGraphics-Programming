@@ -146,8 +146,8 @@ namespace Rendering
 
 	void TriangleDemo::Update(const GameTime& gameTime)
 	{
-        /*mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
-        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));*/
+        mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
+        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));
 
 	}
 
