@@ -4,8 +4,8 @@
 
 namespace Library
 {
-    const UINT Game::DefaultScreenWidth = 1092;
-    const UINT Game::DefaultScreenHeight = 1080;
+    const UINT Game::DefaultScreenWidth = 1280;
+    const UINT Game::DefaultScreenHeight = 720;
     const UINT Game::DefaultFrameRate = 60;
     const UINT Game::DefaultMultiSamplingCount = 4;	
 
