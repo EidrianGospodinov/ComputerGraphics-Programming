@@ -108,31 +108,35 @@ namespace Rendering
 
 
 
-        bool isBirdi = false;
+        
         // 3. Create the vertex buffer
 		//insert code here
-       /* if (isBirdi) {
-            BasicEffectVertex vertices[] =
-            {
-                BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-                BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-                BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+        
+        BasicEffectVertex vertices[] =
+        {
+            BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//0
+            BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
+            BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//2
 
-                BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-                BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-                BasicEffectVertex(XMFLOAT4(-0.3f, 0.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+            BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//3
+            BasicEffectVertex(XMFLOAT4(-0.3f, 0.7f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//4
 
-                BasicEffectVertex(XMFLOAT4(-0.7f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-                BasicEffectVertex(XMFLOAT4(-0.7f, 0.75f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-                BasicEffectVertex(XMFLOAT4(-1.1f, 0.65f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+            BasicEffectVertex(XMFLOAT4(-0.7f, 0.75f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//5
+            BasicEffectVertex(XMFLOAT4(-1.1f, 0.65f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//6
 
-                BasicEffectVertex(XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
-                BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-                BasicEffectVertex(XMFLOAT4(0.4f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-            };
-        }
-        else {
-        */
+            BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//7
+            BasicEffectVertex(XMFLOAT4(0.4f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//8
+        };
+        
+        UINT indices[] =
+        { 1, 2, 0,
+        1, 4, 3,
+        6, 4, 3,
+        2, 7, 8,
+
+        
+        };
+        /* diamond indices
         BasicEffectVertex vertices[] =
         {
             BasicEffectVertex(XMFLOAT4(-1.25f, 0.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//V0
@@ -143,14 +147,15 @@ namespace Rendering
 
 
         };
-        UINT indices[] =
+
+       UINT indices[] =
         { 0, 1, 3,
             0, 3, 2,
             1, 2, 3,
             0, 4, 1,
             0, 2, 4,
             1, 4, 2,
-        };
+        };*/
         D3D11_BUFFER_DESC indexBufferDesc;
         ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
         indexBufferDesc.ByteWidth = sizeof(UINT) * ARRAYSIZE(indices);
@@ -208,7 +213,7 @@ namespace Rendering
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
         mPass->Apply(0, direct3DDeviceContext);
-        direct3DDeviceContext->DrawIndexed(18, 0, 0);
+        direct3DDeviceContext->DrawIndexed(24, 0, 0);
 
      
     }
