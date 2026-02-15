@@ -1,14 +1,17 @@
-#pragma once
+    #pragma once
 
 
 #include "Game.h"
-
+#include "Keyboard.h"
+#include "Mouse.h"
 using namespace Library;
 
 namespace Library
 {
     class FirstPersonCamera;
 	class RenderStateHelper;
+    class keyboard;
+    class Mouse;
 }
 
 namespace Rendering
@@ -32,5 +35,8 @@ namespace Rendering
 		static const XMFLOAT4 BackgroundColor;
         FirstPersonCamera * mCamera;
         TriangleDemo* mDemo;
+        LPDIRECTINPUT8 mDirectInput;
+        Mouse* mMouse;
+        Keyboard* mKeyboard;
     };
 }

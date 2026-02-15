@@ -110,14 +110,34 @@ namespace Rendering
         // 3. Create the vertex buffer
 		//insert code here
         BasicEffectVertex vertices[] =
-        {
-BasicEffectVertex(XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//red
-BasicEffectVertex(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//green
-BasicEffectVertex(XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
-BasicEffectVertex(XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
-BasicEffectVertex(XMFLOAT4(-1.0f, 1.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
-BasicEffectVertex(XMFLOAT4(0.0f, 2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//blue
+        {//Vertices for a 3D gem
+        BasicEffectVertex(XMFLOAT4(-1.25f, 0.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//V0
+        BasicEffectVertex(XMFLOAT4(1.25f, 0.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)),//V1 
+        BasicEffectVertex(XMFLOAT4(0.0f, 0.0f, -1.5f, 1.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f)),//V2 
+        BasicEffectVertex(XMFLOAT4(0.0f, 2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//V3
+        BasicEffectVertex(XMFLOAT4(0.0f, -2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//V4
         };
+        UINT indices[] =
+        { 0, 1, 3,
+            0, 3, 2,
+            1, 2, 3,
+            0, 4, 1,
+            0, 2, 4,
+            1, 4, 2,
+        };
+        D3D11_BUFFER_DESC indexBufferDesc;
+        ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
+        indexBufferDesc.ByteWidth = sizeof(UINT) * ARRAYSIZE(indices);
+        indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+        indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+        D3D11_SUBRESOURCE_DATA indexSubResourceData;
+        ZeroMemory(&indexSubResourceData, sizeof(indexSubResourceData));
+        indexSubResourceData.pSysMem = indices;
+        if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&indexBufferDesc, &indexSubResourceData, &mIndexBuffer)))
+        {
+            throw GameException("ID3D11Device::CreateBuffer() failed.");
+        }
+
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
         vertexBufferDesc.ByteWidth = sizeof(BasicEffectVertex) * ARRAYSIZE(vertices);
@@ -151,6 +171,8 @@ BasicEffectVertex(XMFLOAT4(0.0f, 2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1
         UINT stride = sizeof(BasicEffectVertex);
         UINT offset = 0;
         direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+        direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+        direct3DDeviceContext->DrawIndexed(18, 0, 0);
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));

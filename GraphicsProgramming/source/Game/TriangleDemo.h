@@ -42,6 +42,8 @@ namespace Rendering
         ID3D11InputLayout* mInputLayout;		
         ID3D11Buffer* mVertexBuffer;
 
+		ID3D11Buffer* mIndexBuffer;
+
         XMFLOAT4X4 mWorldMatrix;
 		float mAngle;
     };
