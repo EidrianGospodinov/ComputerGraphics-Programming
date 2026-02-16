@@ -66,6 +66,9 @@ namespace Rendering
     {
 		DeleteObject(mDemo);
         DeleteObject(mCamera);
+
+        ReleaseObject(mDirectInput);
+
         Game::Shutdown();
     }
 

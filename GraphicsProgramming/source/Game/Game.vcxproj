@@ -134,11 +134,13 @@ IF EXIST "$(SolutionDir)..\content" xcopy /E /Y "$(SolutionDir)..\content" "$(Ou
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ModelFromFile.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RenderingGame.cpp" />
     <ClCompile Include="TriangleDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ModelFromFile.h" />
     <ClInclude Include="RenderingGame.h" />
     <ClInclude Include="TriangleDemo.h" />
   </ItemGroup>
