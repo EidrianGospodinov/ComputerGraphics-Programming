@@ -19,10 +19,12 @@ namespace Rendering
 		ModelFromFile(Game& game, Camera& camera, const std::string modelFilename);
 		~ModelFromFile();
 
+
 		virtual void Update(const GameTime& gameTime) override;
 
 
 		//add to support multiple model in the scene, remove this function
+		void SetPosition(const float rotateX, const float rotateY, const float rotateZ, const float scaleFactor, const float translateX, const float translateY, const float translateZ);
 
 		
 

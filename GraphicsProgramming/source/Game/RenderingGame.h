@@ -2,6 +2,7 @@
 
 
 #include "Game.h"
+#include "ModelFromFile.h"
 
 using namespace Library;
 
@@ -37,5 +38,7 @@ namespace Rendering
         LPDIRECTINPUT8 mDirectInput;
         Keyboard* mKeyboard;
         Mouse* mMouse;
+
+        ModelFromFile* mModel;
     };
 }

@@ -50,11 +50,13 @@ namespace Rendering
         mComponents.push_back(mMouse);
         mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
-
-
-        Game::Initialize();
+        mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
+        mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
+        mComponents.push_back(mModel);
 
 		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
+        Game::Initialize();
+
 
         
 

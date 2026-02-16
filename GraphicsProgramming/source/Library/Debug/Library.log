@@ -1,44 +1,247 @@
-﻿  Camera.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+﻿  BasicMaterial.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Camera.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   DrawableGameComponent.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Effect.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   FirstPersonCamera.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  FpsComponent.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   Game.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   GameClock.cpp
   GameComponent.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   GameException.cpp
   GameTime.cpp
   Keyboard.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Material.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   MatrixHelper.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Mesh.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         ]
+  (compiling source file 'Mesh.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(107,24):
+          see reference to class template instantiation 'aiQuaterniont<float>' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(186,1):
+          while compiling class template member function 'void aiQuaterniont<float>::Interpolate(aiQuaterniont<float> &,const aiQuaterniont<float> &,const aiQuaterniont<float> &,TReal)'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(435,28):
+              see the first reference to 'aiQuaterniont<float>::Interpolate' in 'Assimp::Interpolator<aiQuaternion>::operator ()'
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         ]
+  (compiling source file 'Mesh.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         ]
+  (compiling source file 'Mesh.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         ]
+  (compiling source file 'Mesh.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244: 'return': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         ]
+  (compiling source file 'Mesh.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(193,25):
+          see reference to function template instantiation 'aiVector3t<float> operator ^<float>(const aiVector3t<float> &,const aiVector3t<float> &)' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(92,57):
+          while compiling class template member function 'TReal aiVector3t<TReal>::Length(void) const'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(98,8):
+              see the first reference to 'aiVector3t<float>::Length' in 'aiVector3t<float>::Normalize'
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(191,50):
+              see the first reference to 'aiVector3t<float>::Normalize' in 'aiCamera::GetCameraMatrix'
+  
+  Model.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         ]
+  (compiling source file 'Model.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(107,24):
+          see reference to class template instantiation 'aiQuaterniont<float>' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(186,1):
+          while compiling class template member function 'void aiQuaterniont<float>::Interpolate(aiQuaterniont<float> &,const aiQuaterniont<float> &,const aiQuaterniont<float> &,TReal)'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(435,28):
+              see the first reference to 'aiQuaterniont<float>::Interpolate' in 'Assimp::Interpolator<aiQuaternion>::operator ()'
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         ]
+  (compiling source file 'Model.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         ]
+  (compiling source file 'Model.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         ]
+  (compiling source file 'Model.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244: 'return': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         ]
+  (compiling source file 'Model.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(193,25):
+          see reference to function template instantiation 'aiVector3t<float> operator ^<float>(const aiVector3t<float> &,const aiVector3t<float> &)' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(92,57):
+          while compiling class template member function 'TReal aiVector3t<TReal>::Length(void) const'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(98,8):
+              see the first reference to 'aiVector3t<float>::Length' in 'aiVector3t<float>::Normalize'
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(191,50):
+              see the first reference to 'aiVector3t<float>::Normalize' in 'aiCamera::GetCameraMatrix'
+  
+  ModelMaterial.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15): warning C4244:         ]
+  (compiling source file 'ModelMaterial.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(207,15):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(107,24):
+          see reference to class template instantiation 'aiQuaterniont<float>' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(186,1):
+          while compiling class template member function 'void aiQuaterniont<float>::Interpolate(aiQuaterniont<float> &,const aiQuaterniont<float> &,const aiQuaterniont<float> &,TReal)'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\anim.h(435,28):
+              see the first reference to 'aiQuaterniont<float>::Interpolate' in 'Assimp::Interpolator<aiQuaternion>::operator ()'
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(208,14): warning C4244:         ]
+  (compiling source file 'ModelMaterial.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(209,61): warning C4244:         ]
+  (compiling source file 'ModelMaterial.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244: '=': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\quaternion.inl(210,33): warning C4244:         ]
+  (compiling source file 'ModelMaterial.cpp')
+  
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244: 'return': conversion from 'double' to 'TReal', possible loss of data
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         with
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         [
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:             TReal=float
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13): warning C4244:         ]
+  (compiling source file 'ModelMaterial.cpp')
+      C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(93,13):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(193,25):
+          see reference to function template instantiation 'aiVector3t<float> operator ^<float>(const aiVector3t<float> &,const aiVector3t<float> &)' being compiled
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(92,57):
+          while compiling class template member function 'TReal aiVector3t<TReal>::Length(void) const'
+          with
+          [
+              TReal=float
+          ]
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\vector3.inl(98,8):
+              see the first reference to 'aiVector3t<float>::Length' in 'aiVector3t<float>::Normalize'
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\external\assimp\include\assimp\camera.h(191,50):
+              see the first reference to 'aiVector3t<float>::Normalize' in 'aiCamera::GetCameraMatrix'
+  
   Mouse.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Pass.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   RenderStateHelper.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Generating Code...
+  Compiling...
   ServiceContainer.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Technique.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   Utility.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
   (compiling source file 'Utility.cpp')
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
-  the template instantiation context (the oldest one first) is
-  	C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\source\Library\Utility.cpp(15,21):
-  	see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813,18):
+      the template instantiation context (the oldest one first) is
+          C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Library\Utility.cpp(15,21):
+          see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
           with
           [
               _Elem=wchar_t,
               _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
               _Alloc=std::allocator<char>
           ]
-  		C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\source\Library\Utility.cpp(15,3):
-  		see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'Library::Utility::CurrentDirectory'
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2600,17):
-  	see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+              C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Library\Utility.cpp(15,3):
+              see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'Library::Utility::CurrentDirectory'
+          C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812,17):
+          see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
           with
           [
               _Size_type=unsigned int,
@@ -46,8 +249,8 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
               _Sent=wchar_t *,
               _Size=unsigned int
           ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2756,18):
-  	see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968,18):
+          see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
           with
           [
               _OutIt=char *,
@@ -56,9 +259,11 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
               _SizeTy=unsigned int
           ]
   
+  Variable.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   VectorHelper.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   Generating Code...
-  Library.vcxproj -> C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.lib
-  A subdirectory or file C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\..\lib\ already exists.
+  Library.vcxproj -> C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.lib
+  A subdirectory or file C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\lib\ already exists.
           1 file(s) copied.
