@@ -172,13 +172,13 @@ namespace Rendering
         UINT offset = 0;
         direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-        direct3DDeviceContext->DrawIndexed(18, 0, 0);
+
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
         mPass->Apply(0, direct3DDeviceContext);
-        direct3DDeviceContext->Draw(6, 0);
 
+        direct3DDeviceContext->DrawIndexed(18, 0, 0);
      
     }
 }

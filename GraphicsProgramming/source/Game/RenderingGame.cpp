@@ -60,6 +60,8 @@ namespace Rendering
     {
 		DeleteObject(mDemo);
         DeleteObject(mCamera);
+        DeleteObject(mKeyboard);
+        DeleteObject(mMouse);
 
 		ReleaseObject(mDirectInput); 
         Game::Shutdown();
