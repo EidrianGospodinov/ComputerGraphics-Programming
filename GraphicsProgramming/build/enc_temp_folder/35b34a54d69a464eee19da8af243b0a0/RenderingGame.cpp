@@ -55,7 +55,7 @@ namespace Rendering
         mComponents.push_back(mModel); //Puts the model as a component in the scene
 
 
-        Game::Initialize(); //Makes the game render stuff
+        Game::Initialize();
 		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
 
        

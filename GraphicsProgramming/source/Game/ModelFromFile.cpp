@@ -33,6 +33,9 @@ namespace Rendering
         ReleaseObject(mIndexBuffer);
     }
 
+	/// <summary>
+	/// Function for changing the position and rotation of the game object
+	/// </summary>
 	void ModelFromFile::SetPosition(const float rotateX, const float rotateY, const 							float rotateZ, const float scaleFactor, const float 						translateX, const float translateY, const float translateZ)
 	{
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
