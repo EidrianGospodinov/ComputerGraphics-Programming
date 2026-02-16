@@ -54,8 +54,8 @@ namespace Rendering
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
         mComponents.push_back(mModel);
 
-		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
         Game::Initialize();
+		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
 
 
         
