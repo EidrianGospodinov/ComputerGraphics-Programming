@@ -53,6 +53,10 @@ namespace Rendering
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds"); //Gets mesh
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.005f, 2.0f, 0.6f, 0.0f); //Sets mesh position
         mComponents.push_back(mModel); //Puts the model as a component in the scene
+        //Add the following code in Initialize() to create and position the model object :
+        mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds"); //Gets mesh
+        mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 0.0f); //Sets mesh position
+        mComponents.push_back(mModel); //Puts the model as a component in the scene
 
 
         Game::Initialize(); //Makes the game render stuff
