@@ -1,11 +1,12 @@
-﻿  C:\Users\Z7\Documents\GitHub\ComputerGraphics-Programming-his\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
-  C:\Users\Z7\Documents\GitHub\ComputerGraphics-Programming-his\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
+﻿  A subdirectory or file C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
+  C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
+  C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
   2 File(s) copied
   Program.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   RenderingGame.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   TriangleDemo.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   Generating Code...
-  Game.vcxproj -> C:\Users\Z7\Documents\GitHub\ComputerGraphics-Programming-his\GraphicsProgramming\build\Debug\Game.exe
+  Game.vcxproj -> C:\Users\edgos\Dev\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
