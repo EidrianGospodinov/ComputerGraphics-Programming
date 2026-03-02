@@ -14,7 +14,8 @@ namespace Rendering
     TriangleDemo::TriangleDemo(Game& game, Camera& camera)
         : DrawableGameComponent(game, camera),
           mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr),
-          mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mAngle(0.0f),
+          mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr),
+          mAngle(0.0f),
           mColorTextureVariable(nullptr), mTextureShaderResourceView(nullptr)
     {
     }
@@ -26,47 +27,37 @@ namespace Rendering
         ReleaseObject(mTechnique);
         ReleaseObject(mColorTextureVariable);
         ReleaseObject(mTextureShaderResourceView);
-        
-        ReleaseObject(mEffect);		
+
+        ReleaseObject(mEffect);
         ReleaseObject(mInputLayout);
         ReleaseObject(mVertexBuffer);
         ReleaseObject(mIndexBuffer);
     }
 
-    void TriangleDemo::Initialize()
+    HRESULT TriangleDemo::LoadEffectFromFile(UINT shaderFlags, ID3D10Blob* compiledShader, ID3D10Blob* errorMessages)
     {
-        SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-
-        // Compile the shader
-        UINT shaderFlags = 0;
-
-#if defined( DEBUG ) || defined( _DEBUG )
-    shaderFlags |= D3DCOMPILE_DEBUG;
-    shaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif
-
-        ID3D10Blob* compiledShader = nullptr;
-        ID3D10Blob* errorMessages = nullptr;	
-		
-		//1. load the effect file (vertex and pixel shader)
-		//insert code here
-        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
+        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0",
+                                        shaderFlags, 0, &compiledShader, &errorMessages);
+        //CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), L"Content\\Effects\\TextureMapping.fx", nullptr, &mTextureShaderResourceView );
         if (FAILED(hr))
         {
-            const char* errorMessage = (errorMessages != nullptr ? (char*)errorMessages->GetBufferPointer() : "D3DX11CompileFromFile() failed");
+            const char* errorMessage = (errorMessages != nullptr
+                                            ? (char*)errorMessages->GetBufferPointer()
+                                            : "D3DX11CompileFromFile() failed");
             GameException ex(errorMessage, hr);
             ReleaseObject(errorMessages);
             throw ex;
         }
         // Create an effect object from the compiled shader
-        //CreateWICTextureFromFile()
-        hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), 0, mGame->Direct3DDevice(), &mEffect);
+
+
+        hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(),
+                                          0, mGame->Direct3DDevice(), &mEffect);
         if (FAILED(hr))
         {
             throw GameException("D3DX11CreateEffectFromMemory() failed.", hr);
         }
 
-	
 
         ReleaseObject(compiledShader);
 
@@ -95,30 +86,78 @@ namespace Rendering
             throw GameException("Invalid effect variable cast.");
         }
 
-        // Create the input layout
+
+        variable = mEffect->GetVariableByName("ColorTexture");
+        if (variable == nullptr)
+        {
+            throw GameException("ID3DX11Effect::GetVariableByName() could not find the specified variable.", hr);
+        }
+        mColorTextureVariable = variable->AsShaderResource();
+        if (mColorTextureVariable->IsValid() == false)
+        {
+            throw GameException("Invalid effect variable cast.");
+        }
+        return hr;
+    }
+
+    void TriangleDemo::Initialize()
+    {
+        SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
+
+        // Compile the shader
+        UINT shaderFlags = 0;
+
+#if defined( DEBUG ) || defined( _DEBUG )
+        shaderFlags |= D3DCOMPILE_DEBUG;
+        shaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+        ID3D10Blob* compiledShader = nullptr;
+        ID3D10Blob* errorMessages = nullptr;
+
+        //1. load the effect file (vertex and pixel shader)
+        //insert code here
+        HRESULT hr = LoadEffectFromFile(shaderFlags, compiledShader, errorMessages);
+
+        //2. create the vetex layout
+        //insert code here
+
+      /*  D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
+        {
+            {"POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+            {
+                "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT,
+                D3D11_INPUT_PER_VERTEX_DATA, 0
+            }
+        };*/
+        
+        
         D3DX11_PASS_DESC passDesc;
         mPass->GetDesc(&passDesc);
-
-		//2. create the vetex layout
-		//insert code here
-		
-        D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
+        D3D11_INPUT_ELEMENT_DESC inputElementDescription[] =
         {
-            { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+            {
+                "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0
+            },
+            {
+                "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT,
+                D3D11_INPUT_PER_VERTEX_DATA, 0
+            }
         };
-        if (FAILED(hr = mGame->Direct3DDevice()->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
+
+        if (FAILED(
+            hr = mGame->Direct3DDevice()->CreateInputLayout(inputElementDescription, ARRAYSIZE(inputElementDescription
+            ), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
         {
             throw GameException("ID3D11Device::CreateInputLayout() failed.", hr);
-        }  
+        }
 
 
 
-        
         // 3. Create the vertex buffer
-		//insert code here
-        
-        BasicEffectVertex vertices[] =
+        //insert code here
+
+        TextureMappingVertex vertices[] =
         {
             //BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,-1.0f,1.0f)),//0
             //BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
@@ -133,6 +172,7 @@ namespace Rendering
             //BasicEffectVertex(XMFLOAT4(1.0f, 1.3f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//6
             //BasicEffectVertex(XMFLOAT4(0.55f, 0.5f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//7
 
+            /*
             //Base
             BasicEffectVertex(XMFLOAT4(-1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,-1.0f,1.0f)),//0
             BasicEffectVertex(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
@@ -154,23 +194,36 @@ namespace Rendering
 
             //wing outward
             BasicEffectVertex(XMFLOAT4(0.0F, 2.5f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//9
+*/
 
-
-
+            TextureMappingVertex(XMFLOAT4(-5.0f, 0.0f, 5.0f, 1.0f), XMFLOAT2(0.0f,
+                                                                             1.0f)),
+            TextureMappingVertex(XMFLOAT4(+5.0f, 0.0f, 5.0f, 1.0f), XMFLOAT2(1.0f,
+                                                                             1.0f)),
+            TextureMappingVertex(XMFLOAT4(+5.0f, 0.0f, -5.0f, 1.0f), XMFLOAT2(1.0f,
+                                                                              0.0f)),
+            TextureMappingVertex(XMFLOAT4(-5.0f, 0.0f, -5.0f, 1.0f), XMFLOAT2(0.0f,
+                                                                              0.0f)),
 
         };
-        
-        UINT indices[] =
-        { 0, 1, 3,
-        1, 2, 3,
-            0,3,4,
-            4,5,6,
-            1,7,2,
-            0,1,8,
-            0,9,1
 
+        UINT indices[] = {
+            0, 3, 1,
+            3, 2, 1,};
         
-        };
+        //horse with basic effect vertex
+        /*UINT indices[] =
+        {
+            0, 1, 3,
+            1, 2, 3,
+            0, 3, 4,
+            4, 5, 6,
+            1, 7, 2,
+            0, 1, 8,
+            0, 9, 1
+
+
+        };*/
         /* diamond indices
         BasicEffectVertex vertices[] =
         {
@@ -204,52 +257,55 @@ namespace Rendering
             throw GameException("ID3D11Device::CreateBuffer() failed.");
         }
 
-        
+
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
-        vertexBufferDesc.ByteWidth = sizeof(BasicEffectVertex) * ARRAYSIZE(vertices);
-        vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;		
+        vertexBufferDesc.ByteWidth = sizeof(TextureMappingVertex) * ARRAYSIZE(vertices);
+        vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
         vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
         D3D11_SUBRESOURCE_DATA vertexSubResourceData;
         ZeroMemory(&vertexSubResourceData, sizeof(vertexSubResourceData));
         vertexSubResourceData.pSysMem = vertices;
-        if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&vertexBufferDesc,  &vertexSubResourceData, &mVertexBuffer)))
+        if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexSubResourceData, &mVertexBuffer)))
         {
             throw GameException("ID3D11Device::CreateBuffer() failed.");
         }
-
-    
-		
+        std::wstring textureName = L"Content\\Textures\\grass.jpg";
+        if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), 
+            textureName.c_str(), nullptr, &mTextureShaderResourceView )))
+        {
+            throw GameException("Failed to load texture from file.", hr);
+        }
     }
 
-	void TriangleDemo::Update(const GameTime& gameTime)
-	{
-        mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
-        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));
-
-	}
+    void TriangleDemo::Update(const GameTime& gameTime)
+    {
+        /*mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
+        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));*/
+    }
 
     void TriangleDemo::Draw(const GameTime& gameTime)
     {
-		//4. draw function
-		//insert the code here
+        //4. draw function
+        //insert the code here
         ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
         direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
         direct3DDeviceContext->IASetInputLayout(mInputLayout);
-        UINT stride = sizeof(BasicEffectVertex);
+        UINT stride = sizeof(TextureMappingVertex);
         UINT offset = 0;
 
         direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
 
-        
+
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+        
+        mColorTextureVariable->SetResource(mTextureShaderResourceView);
+        
         
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
         mPass->Apply(0, direct3DDeviceContext);
         direct3DDeviceContext->DrawIndexed(24, 0, 0);
-
-     
     }
 }

@@ -13,13 +13,14 @@ namespace Rendering
 	public:
 		TriangleDemo(Game& game, Camera& camera);
 		~TriangleDemo();
+		HRESULT LoadEffectFromFile(UINT shaderFlags, ID3D10Blob* compiledShader, ID3D10Blob* errorMessages);
 
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;
 		virtual void Draw(const GameTime& gameTime) override;
 
 	private:
-		typedef struct _BasicEffectVertex
+		/*typedef struct _BasicEffectVertex
 		{
 			XMFLOAT4 Position;
 			XMFLOAT4 Color;
@@ -29,7 +30,7 @@ namespace Rendering
 			_BasicEffectVertex(XMFLOAT4 position, XMFLOAT4 color)
 				: Position(position), Color(color) {
 			}
-		} BasicEffectVertex;
+		} BasicEffectVertex;*/
 
 
 		typedef struct _TextureMappingVertex {
@@ -39,7 +40,7 @@ namespace Rendering
 
 			_TextureMappingVertex(XMFLOAT4 pos, XMFLOAT2 textureCoords) 
 				: Position(pos), TextureCoordinates(textureCoords) {}
-		} TextureMappingVertext;
+		} TextureMappingVertex;
 
 
 
