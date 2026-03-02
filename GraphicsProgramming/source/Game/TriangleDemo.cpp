@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Utility.h"
 #include "D3DCompiler.h"
+#include "WICTextureLoader.h"
 
 namespace Rendering
 {
@@ -13,7 +14,8 @@ namespace Rendering
     TriangleDemo::TriangleDemo(Game& game, Camera& camera)
         : DrawableGameComponent(game, camera),
           mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr),
-          mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mAngle(0.0f)
+          mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mAngle(0.0f),
+          mColorTextureVariable(nullptr), mTextureShaderResourceView(nullptr)
     {
     }
 
@@ -22,6 +24,9 @@ namespace Rendering
         ReleaseObject(mWvpVariable);
         ReleaseObject(mPass);
         ReleaseObject(mTechnique);
+        ReleaseObject(mColorTextureVariable);
+        ReleaseObject(mTextureShaderResourceView);
+        
         ReleaseObject(mEffect);		
         ReleaseObject(mInputLayout);
         ReleaseObject(mVertexBuffer);
@@ -45,7 +50,7 @@ namespace Rendering
 		
 		//1. load the effect file (vertex and pixel shader)
 		//insert code here
-        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\BasicEffect.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
+        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
         if (FAILED(hr))
         {
             const char* errorMessage = (errorMessages != nullptr ? (char*)errorMessages->GetBufferPointer() : "D3DX11CompileFromFile() failed");
@@ -54,6 +59,7 @@ namespace Rendering
             throw ex;
         }
         // Create an effect object from the compiled shader
+        //CreateWICTextureFromFile()
         hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), 0, mGame->Direct3DDevice(), &mEffect);
         if (FAILED(hr))
         {
