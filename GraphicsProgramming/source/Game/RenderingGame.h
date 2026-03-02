@@ -5,6 +5,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "ModelFromFile.h"
+#include "FpsComponent.h"
+#include "RenderStateHelper.h"
 using namespace Library;
 
 namespace Library
@@ -13,6 +15,7 @@ namespace Library
 	class RenderStateHelper;
     class keyboard;
     class Mouse;
+    class FpsComponent;
 }
 
 namespace Rendering
@@ -40,5 +43,7 @@ namespace Rendering
         Mouse* mMouse;
         Keyboard* mKeyboard;
         ModelFromFile* mModel;
+        FpsComponent* mFpsComponent;
+        RenderStateHelper* mRenderStateHelper;
     };
 }

@@ -57,7 +57,11 @@ namespace Rendering
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds"); //Gets mesh
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 0.0f); //Sets mesh position
         mComponents.push_back(mModel); //Puts the model as a component in the scene
+        
+        mFpsComponent = new FpsComponent(*this);
+        mFpsComponent->Initialize();
 
+        mRenderStateHelper = new RenderStateHelper(*this);
 
         Game::Initialize(); //Makes the game render stuff
 		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
@@ -71,6 +75,8 @@ namespace Rendering
         DeleteObject(mCamera);
         DeleteObject(mKeyboard);
         DeleteObject(mMouse);
+        DeleteObject(mFpsComponent);
+        DeleteObject(mRenderStateHelper);
 
 		ReleaseObject(mDirectInput); 
         Game::Shutdown();
@@ -84,6 +90,7 @@ namespace Rendering
         {
             Exit();
 		}
+        mFpsComponent->Update(gameTime);
         Game::Update(gameTime);
 
 
@@ -96,10 +103,14 @@ namespace Rendering
 
         Game::Draw(gameTime);
        
+        mRenderStateHelper->SaveAll();
+        mFpsComponent->Draw(gameTime);
+        mRenderStateHelper->RestoreAll();
         HRESULT hr = mSwapChain->Present(0, 0);
         if (FAILED(hr))
         {
             throw GameException("IDXGISwapChain::Present() failed.", hr);
         }
+
     }
 }
