@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Utility.h"
 #include "D3DCompiler.h"
+#include "WICTextureLoader.h"
 
 namespace Rendering
 {
@@ -40,11 +41,11 @@ namespace Rendering
 #endif
 
         ID3D10Blob* compiledShader = nullptr;
-        ID3D10Blob* errorMessages = nullptr;	
+        ID3D10Blob* errorMessages = nullptr;
 		
-		//1. load the effect file (vertex and pixel shader)
+		//1. load the effect (texture) file (vertex and pixel shader)
 		//insert code here
-        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\BasicEffect.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
+        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0", shaderFlags, 0, &compiledShader, &errorMessages);
         if (FAILED(hr))
         {
             const char* errorMessage = (errorMessages != nullptr ? (char*)errorMessages->GetBufferPointer() : "D3DX11CompileFromFile() failed");
@@ -87,6 +88,18 @@ namespace Rendering
         {
             throw GameException("Invalid effect variable cast.");
         }
+        //Do some stuff with using the texture information
+        variable = mEffect->GetVariableByName("ColorTexture");
+        if (variable == nullptr)
+        {
+            throw GameException("ID3DX11Effect::GetVariableByName() could not find the specified 				variable.", hr);
+        }
+        mColourTextureVariable = variable->AsShaderResource();
+        if (mColourTextureVariable->IsValid() == false)
+        {
+            throw GameException("Invalid effect variable cast.");
+        }
+
 
         // Create the input layout
         D3DX11_PASS_DESC passDesc;
@@ -96,8 +109,8 @@ namespace Rendering
 		//insert code here
         D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
         {
-{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+            { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
         };
         if (FAILED(hr = mGame->Direct3DDevice()->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
         {
@@ -109,22 +122,20 @@ namespace Rendering
 
         // 3. Create the vertex buffer
 		//insert code here
-        BasicEffectVertex vertices[] =
+        TextureMappingVertex vertices[] =
         {//Vertices for a 3D gem
-        BasicEffectVertex(XMFLOAT4(-1.25f, 0.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,0.0f,1.0f)),//V0
-        BasicEffectVertex(XMFLOAT4(1.25f, 0.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)),//V1 
-        BasicEffectVertex(XMFLOAT4(0.0f, 0.0f, -1.5f, 1.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f)),//V2 
-        BasicEffectVertex(XMFLOAT4(0.0f, 2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//V3
-        BasicEffectVertex(XMFLOAT4(0.0f, -2.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//V4
+            TextureMappingVertex(XMFLOAT4(-5.0f, 0.0f, 5.0f, 1.0f), XMFLOAT2(0.0f, 1.0f)),//V0
+            TextureMappingVertex(XMFLOAT4(5.0f, 0.0f, 5.0f, 1.0f), XMFLOAT2(1.0f, 1.0f)),//V1 
+            TextureMappingVertex(XMFLOAT4(5.0f, 0.0f, -5.0f, 1.0f), XMFLOAT2(1.0f, 0.0f)),//V2 
+            TextureMappingVertex(XMFLOAT4(-5.0f, 0.0f, -5.0f, 1.0f), XMFLOAT2(0.0f, 0.0f)),//V3
         };
-        UINT indices[] =
-        { 0, 1, 3,
-            0, 3, 2,
-            1, 2, 3,
-            0, 4, 1,
-            0, 2, 4,
-            1, 4, 2,
-        };
+        UINT indices[] = //Provides a 2d texture map 
+        { 0, 3, 1,
+            3, 2, 1, };
+
+
+        mColourTextureVariable->SetResource(mTextureShaderResourceView);
+
         D3D11_BUFFER_DESC indexBufferDesc;
         ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
         indexBufferDesc.ByteWidth = sizeof(UINT) * ARRAYSIZE(indices);
@@ -140,7 +151,7 @@ namespace Rendering
 
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
-        vertexBufferDesc.ByteWidth = sizeof(BasicEffectVertex) * ARRAYSIZE(vertices);
+        vertexBufferDesc.ByteWidth = sizeof(TextureMappingVertex) * ARRAYSIZE(vertices);
         vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
         vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
         D3D11_SUBRESOURCE_DATA vertexSubResourceData;
@@ -151,14 +162,20 @@ namespace Rendering
             throw GameException("ID3D11Device::CreateBuffer() failed.");
         }
 
+        std::wstring textureName = L"Content\\Textures\\grass.jpg"; //Loads grass texture file
+        if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
+        {
+            throw GameException("CreateWICTextureFromFile() failed.", hr);
+        }
+
     
 		
     }
 
 	void TriangleDemo::Update(const GameTime& gameTime)
 	{
-        mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
-        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));
+    /*    mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
+        XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));*/
 	}
 
     void TriangleDemo::Draw(const GameTime& gameTime)
@@ -168,10 +185,11 @@ namespace Rendering
         ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
         direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
         direct3DDeviceContext->IASetInputLayout(mInputLayout);
-        UINT stride = sizeof(BasicEffectVertex);
+        UINT stride = sizeof(TextureMappingVertex);
         UINT offset = 0;
         direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+        mColourTextureVariable->SetResource(mTextureShaderResourceView);
 
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
