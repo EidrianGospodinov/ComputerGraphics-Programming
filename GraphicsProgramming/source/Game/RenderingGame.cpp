@@ -4,6 +4,7 @@
 #include "TriangleDemo.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "RenderStateHelper.h"
 
 namespace Rendering
 {;
@@ -53,6 +54,11 @@ namespace Rendering
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
         mComponents.push_back(mModel);
+        
+        mFpsComponent = new FpsComponent(*this);
+        mFpsComponent->Initialize();
+        mRenderStateHelper = new RenderStateHelper(*this);
+        
 
         Game::Initialize();
 		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
@@ -70,6 +76,8 @@ namespace Rendering
         DeleteObject(mCamera);
 
         ReleaseObject(mDirectInput);
+        DeleteObject(mFpsComponent);
+        DeleteObject(mRenderStateHelper);
 
         Game::Shutdown();
     }
@@ -79,6 +87,7 @@ namespace Rendering
 
         Game::Update(gameTime);
 
+        mFpsComponent->Update(gameTime);
         if (mKeyboard->WasKeyPressedThisFrame(DIK_ESCAPE)) {
             Exit();
         }
@@ -91,6 +100,10 @@ namespace Rendering
 
         Game::Draw(gameTime);
        
+        mRenderStateHelper->SaveAll();
+        mFpsComponent->Draw(gameTime);
+        mRenderStateHelper->RestoreAll();
+        
         HRESULT hr = mSwapChain->Present(0, 0);
         if (FAILED(hr))
         {

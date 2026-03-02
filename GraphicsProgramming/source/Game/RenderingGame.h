@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include "FpsComponent.h"
 #include "Game.h"
 #include "ModelFromFile.h"
 
@@ -12,6 +13,7 @@ namespace Library
 	class RenderStateHelper;
     class Keyboard;
     class Mouse;
+    class FpsCounter;
 }
 
 namespace Rendering
@@ -40,5 +42,8 @@ namespace Rendering
         Mouse* mMouse;
 
         ModelFromFile* mModel;
+
+        FpsComponent* mFpsComponent;
+        RenderStateHelper* mRenderStateHelper;
     };
 }

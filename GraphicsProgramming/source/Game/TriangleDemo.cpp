@@ -157,7 +157,7 @@ namespace Rendering
         // 3. Create the vertex buffer
         //insert code here
 
-        TextureMappingVertex vertices[] =
+        static const TextureMappingVertex vertices[] =
         {
             //BasicEffectVertex(XMFLOAT4(0.0f, 1.5f, 0.0f, 1.0f), XMFLOAT4(1.0f, 0.0f,-1.0f,1.0f)),//0
             //BasicEffectVertex(XMFLOAT4(-0.8f, 0.0f, 0.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),//1
