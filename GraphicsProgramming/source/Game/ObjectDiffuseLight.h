@@ -67,5 +67,8 @@ namespace Rendering
 		SpriteBatch* mSpriteBatch;
 		SpriteFont* mSpriteFont;
 		XMFLOAT2 mTextPosition;
+
+		bool updateAmbientLight;
+		bool updateDirectionalLight;
 	};
 }

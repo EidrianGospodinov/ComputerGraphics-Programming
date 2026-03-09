@@ -26,11 +26,15 @@ namespace Rendering
 
 	ObjectDiffuseLight::ObjectDiffuseLight(Game& game, Camera& camera)
 		: DrawableGameComponent(game, camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
-		  mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
-		  mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0), mDirectionalLight(nullptr),
-		  mWorldMatrix(MatrixHelper::Identity), mProxyModel(nullptr),
-		  mRenderStateHelper(nullptr), mSpriteBatch(nullptr), mSpriteFont(nullptr), mTextPosition(0.0f, 40.0f)
+		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
+		mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0), mDirectionalLight(nullptr),
+		mWorldMatrix(MatrixHelper::Identity), mProxyModel(nullptr),
+		mRenderStateHelper(nullptr), mSpriteBatch(nullptr), mSpriteFont(nullptr), mTextPosition(0.0f, 40.0f)
+
+	
 	{
+		updateAmbientLight = true;
+		updateDirectionalLight = true;
 	}
 
 	ObjectDiffuseLight::~ObjectDiffuseLight()
@@ -110,8 +114,16 @@ namespace Rendering
 
 	void ObjectDiffuseLight::Update(const GameTime& gameTime)
 	{
-		UpdateAmbientLight(gameTime);
-		UpdateDirectionalLight(gameTime);
+		if (updateAmbientLight) {
+			UpdateAmbientLight(gameTime);
+		}
+		else
+		{
+			mAmbientColor.a = 0.0f;
+		}
+		if (updateDirectionalLight) {
+			UpdateDirectionalLight(gameTime);
+		}
 
 		mProxyModel->Update(gameTime);
 	}
