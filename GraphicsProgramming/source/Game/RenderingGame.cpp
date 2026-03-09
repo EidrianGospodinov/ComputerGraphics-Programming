@@ -21,6 +21,7 @@ namespace Rendering
         mDirectInput = nullptr;
         mMouse = nullptr;
         mKeyboard = nullptr;
+        mObjectDiffuseLight = nullptr;
     }
 
     RenderingGame::~RenderingGame()
@@ -54,6 +55,10 @@ namespace Rendering
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
         mComponents.push_back(mModel);
+        
+        mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
+        mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
+        mComponents.push_back(mObjectDiffuseLight);
         
         mFpsComponent = new FpsComponent(*this);
         mFpsComponent->Initialize();

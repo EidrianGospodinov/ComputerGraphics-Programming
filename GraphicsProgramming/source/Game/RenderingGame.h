@@ -4,6 +4,7 @@
 #include "FpsComponent.h"
 #include "Game.h"
 #include "ModelFromFile.h"
+#include "ObjectDiffuseLight.h"
 
 using namespace Library;
 
@@ -45,5 +46,7 @@ namespace Rendering
 
         FpsComponent* mFpsComponent;
         RenderStateHelper* mRenderStateHelper;
+        
+        ObjectDiffuseLight* mObjectDiffuseLight;
     };
 }

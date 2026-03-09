@@ -5,7 +5,11 @@
       <FullPath>C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>

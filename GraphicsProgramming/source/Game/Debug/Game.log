@@ -1,14 +1,46 @@
 ﻿  A subdirectory or file C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.cso
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.fx
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.mtl
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
-  7 File(s) copied
-  TriangleDemo.cpp
+  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
+  14 File(s) copied
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\content\Effects\DiffuseLighting.fx(91,19-65): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso
+  DiffuseLightingMaterial.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  ObjectDiffuseLight.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Program.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  RenderingGame.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Generating Code...
+Libraryd.lib(Camera.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(DrawableGameComponent.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(FirstPersonCamera.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(Game.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(GameClock.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(GameComponent.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(GameException.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(GameTime.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(Keyboard.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(MatrixHelper.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(Mouse.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(ServiceContainer.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(Utility.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Libraryd.lib(VectorHelper.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
   Game.vcxproj -> C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
   C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.
