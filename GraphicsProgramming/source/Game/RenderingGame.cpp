@@ -3,6 +3,9 @@
 #include "FirstPersonCamera.h"
 #include "TriangleDemo.h"
 #include "ModelFromFile.h"
+#include "ObjectDiffuseLight.h"
+#include "SamplerStates.h"
+#include "RasterizerStates.h"
 namespace Rendering
 {;
 
@@ -63,6 +66,11 @@ namespace Rendering
 
         mRenderStateHelper = new RenderStateHelper(*this);
 
+        mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera); //Diffuse light that uses the camera to determine lighting
+        mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01, -1.0f, 0.75f, -2.5f);
+        mComponents.push_back(mObjectDiffuseLight);
+        RasterizerStates::Initialize(mDirect3DDevice);
+        SamplerStates::Initialize(mDirect3DDevice);
         Game::Initialize(); //Makes the game render stuff
 		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
 

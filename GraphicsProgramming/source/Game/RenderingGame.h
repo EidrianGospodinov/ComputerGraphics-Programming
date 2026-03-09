@@ -16,6 +16,7 @@ namespace Library
     class keyboard;
     class Mouse;
     class FpsComponent;
+    class ObjectDiffuseLight
 }
 
 namespace Rendering
@@ -45,5 +46,6 @@ namespace Rendering
         ModelFromFile* mModel;
         FpsComponent* mFpsComponent;
         RenderStateHelper* mRenderStateHelper;
+        ObjectDiffuseLight* mObjectDiffuseLight;
     };
 }
