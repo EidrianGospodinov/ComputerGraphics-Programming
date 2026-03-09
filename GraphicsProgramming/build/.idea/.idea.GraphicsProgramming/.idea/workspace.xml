@@ -16,6 +16,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -84,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772450304682</updated>
       <workItem from="1772450306294" duration="6462000" />
-      <workItem from="1773055191388" duration="3170000" />
+      <workItem from="1773055191388" duration="4439000" />
     </task>
     <servers />
   </component>

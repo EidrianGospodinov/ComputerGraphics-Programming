@@ -53,11 +53,15 @@ namespace Rendering
         mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
-        mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
+        mModel->SetPosition(-1.57f, 1.5f, -0.0f, 0.005f, -2.0f, -0.6f, 2.0f);
+        mComponents.push_back(mModel);
+        
+        mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
+        mModel->SetPosition(-1.57f, -1.5f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
         mComponents.push_back(mModel);
         
         mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
-        mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.2f, 0.0f);
+        mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, 0.0f, 0.7f, -3.0f);
         mComponents.push_back(mObjectDiffuseLight);
         
         mFpsComponent = new FpsComponent(*this);
@@ -66,7 +70,7 @@ namespace Rendering
         
 
         Game::Initialize();
-		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
+		mCamera->SetPosition(0.0f, 2.0f, 5.0f);
 
 
         
