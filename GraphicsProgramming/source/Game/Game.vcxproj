@@ -137,15 +137,26 @@ IF EXIST "$(SolutionDir)..\content" xcopy /E /Y "$(SolutionDir)..\content" "$(Ou
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DiffuseLightingMaterial.cpp" />
     <ClCompile Include="ModelFromFile.cpp" />
+    <ClCompile Include="ObjectDiffuseLight.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RenderingGame.cpp" />
     <ClCompile Include="TriangleDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiffuseLightingMaterial.h" />
     <ClInclude Include="ModelFromFile.h" />
+    <ClInclude Include="ObjectDiffuseLight.h" />
     <ClInclude Include="RenderingGame.h" />
     <ClInclude Include="TriangleDemo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\content\Effects\DiffuseLighting.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\Content\Effects\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

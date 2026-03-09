@@ -63,6 +63,13 @@ struct VS_OUTPUT
 VS_OUTPUT vertex_shader(VS_INPUT IN)
 {
 //add in the vertex shader code here
+    VS_OUTPUT OUT = (VS_OUTPUT) 0;
+    OUT.Position = mul(IN.ObjectPosition, WorldViewProjection);
+    OUT.TextureCoordinate = get_corrected_texture_coordinate(IN.TextureCoordinate);
+    OUT.Normal = normalize(mul(float4(IN.Normal, 0), World).xyz);
+    OUT.LightDirection = normalize(-LightDirection);
+	
+    return OUT;
 }
 
 /************* Pixel Shader *************/
@@ -70,6 +77,21 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
 float4 pixel_shader(VS_OUTPUT IN) : SV_Target
 {
 	//add in the pixel shader code here
+    float4 OUT = (float4) 0;
+    float3 normal = normalize(IN.Normal);
+    float3 lightDirection = normalize(IN.LightDirection);
+    float n_dot_l = dot(lightDirection, normal);
+    float4 color = ColorTexture.Sample(ColorSampler, IN.TextureCoordinate);
+    float3 ambient = AmbientColor.rgb * AmbientColor.a * color.rgb;
+    float3 diffuse = (float3) 0;
+    if (n_dot_l > 0)
+    {
+        diffuse = LightColor.rgb * LightColor.a * n_dot_l * color.rgb;
+    }
+    OUT.rgb = ambient + diffuse;
+    OUT.a = color.a;
+    return OUT;
+
 }
 
 /************* Techniques *************/

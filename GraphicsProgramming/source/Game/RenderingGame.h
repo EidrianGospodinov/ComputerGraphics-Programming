@@ -16,13 +16,13 @@ namespace Library
     class keyboard;
     class Mouse;
     class FpsComponent;
-    class ObjectDiffuseLight
+    
 }
 
 namespace Rendering
 {
     class TriangleDemo;
-
+    class ObjectDiffuseLight;
     class RenderingGame : public Game
     {
     public:
