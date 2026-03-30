@@ -7,23 +7,28 @@ namespace Library
     const UINT Game::DefaultScreenWidth = 1024;
     const UINT Game::DefaultScreenHeight = 768;
     const UINT Game::DefaultFrameRate = 60;
-    const UINT Game::DefaultMultiSamplingCount = 4;	
+    const UINT Game::DefaultMultiSamplingCount = 4;
+    bool Game::toPick = false;
+    int Game::screenX = 0;
+    int Game::screenY = 0;
+
 
     Game::Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
         : mInstance(instance), mWindowClass(windowClass), mWindowTitle(windowTitle), mShowCommand(showCommand),
-          mWindowHandle(), mWindow(),
-          mScreenWidth(DefaultScreenWidth), mScreenHeight(DefaultScreenHeight),
-          mGameClock(), mGameTime(),
-          mFeatureLevel(D3D_FEATURE_LEVEL_9_1), mDirect3DDevice(nullptr), mDirect3DDeviceContext(nullptr), mSwapChain(nullptr),  
-          mFrameRate(DefaultFrameRate), mIsFullScreen(false),
-          mDepthStencilBufferEnabled(false), mMultiSamplingEnabled(false), mMultiSamplingCount(DefaultMultiSamplingCount), mMultiSamplingQualityLevels(0), 
-          mDepthStencilBuffer(nullptr), mRenderTargetView(nullptr), mDepthStencilView(nullptr), mViewport(),
-		  mComponents(), mServices()
+        mWindowHandle(), mWindow(),
+        mScreenWidth(DefaultScreenWidth), mScreenHeight(DefaultScreenHeight),
+        mGameClock(), mGameTime(),
+        mFeatureLevel(D3D_FEATURE_LEVEL_9_1), mDirect3DDevice(nullptr), mDirect3DDeviceContext(nullptr), mSwapChain(nullptr),
+        mFrameRate(DefaultFrameRate), mIsFullScreen(false),
+        mDepthStencilBufferEnabled(false), mMultiSamplingEnabled(false), mMultiSamplingCount(DefaultMultiSamplingCount), mMultiSamplingQualityLevels(0),
+        mDepthStencilBuffer(nullptr), mRenderTargetView(nullptr), mDepthStencilView(nullptr), mViewport(),
+        mComponents(), mServices()
     {
+
     }
 
     Game::~Game()
-    {		
+    {
     }
 
     HINSTANCE Game::Instance() const
@@ -75,7 +80,7 @@ namespace Library
     {
         return static_cast<float>(mScreenWidth) / mScreenHeight;
     }
-    
+
     bool Game::IsFullScreen() const
     {
         return mIsFullScreen;
@@ -91,16 +96,16 @@ namespace Library
         return mViewport;
     }
 
-	const std::vector<GameComponent*>& Game::Components() const
+    const std::vector<GameComponent*>& Game::Components() const
     {
         return mComponents;
     }
 
-	const ServiceContainer& Game::Services() const
+    const ServiceContainer& Game::Services() const
     {
         return mServices;
     }
-        
+
     void Game::Run()
     {
         InitializeWindow();
@@ -109,8 +114,8 @@ namespace Library
 
         MSG message;
         ZeroMemory(&message, sizeof(message));
-        
-        mGameClock.Reset();		
+
+        mGameClock.Reset();
 
         while (message.message != WM_QUIT)
         {
@@ -127,7 +132,7 @@ namespace Library
             }
         }
 
-		Shutdown();
+        Shutdown();
     }
 
     void Game::Exit()
@@ -135,9 +140,9 @@ namespace Library
         PostQuitMessage(0);
     }
 
-	void Game::Shutdown()
+    void Game::Shutdown()
     {
-		ReleaseObject(mRenderTargetView);
+        ReleaseObject(mRenderTargetView);
         ReleaseObject(mDepthStencilView);
         ReleaseObject(mSwapChain);
         ReleaseObject(mDepthStencilBuffer);
@@ -195,7 +200,7 @@ namespace Library
         mWindow.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
         mWindow.hCursor = LoadCursor(nullptr, IDC_ARROW);
         mWindow.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
-        mWindow.lpszClassName = mWindowClass.c_str();		
+        mWindow.lpszClassName = mWindowClass.c_str();
 
         RECT windowRectangle = { 0, 0, mScreenWidth, mScreenHeight };
         AdjustWindowRect(&windowRectangle, WS_OVERLAPPEDWINDOW, FALSE);
@@ -212,10 +217,11 @@ namespace Library
     {
         HRESULT hr;
         UINT createDeviceFlags = 0;
-
-#if defined(DEBUG) || defined(_DEBUG)  
-        createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
+        /*
+        #if defined(DEBUG) || defined(_DEBUG)
+                createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+        #endif
+        */
 
         D3D_FEATURE_LEVEL featureLevels[] = {
             D3D_FEATURE_LEVEL_11_0,
@@ -223,7 +229,7 @@ namespace Library
             D3D_FEATURE_LEVEL_10_0
         };
 
-		//1. Create D3D deivce and device context interface
+        //1. Create D3D deivce and device context interface
         ID3D11Device* direct3DDevice = nullptr;
         ID3D11DeviceContext* direct3DDeviceContext = nullptr;
         if (FAILED(hr = D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, featureLevels, ARRAYSIZE(featureLevels), D3D11_SDK_VERSION, &direct3DDevice, &mFeatureLevel, &direct3DDeviceContext)))
@@ -240,24 +246,24 @@ namespace Library
         {
             throw GameException("ID3D11Device::QueryInterface() failed", hr);
         }
-        
-		ReleaseObject(direct3DDevice);
-		ReleaseObject(direct3DDeviceContext);
 
-		//2. check for multisampling support
+        ReleaseObject(direct3DDevice);
+        ReleaseObject(direct3DDeviceContext);
+
+        //2. check for multisampling support
         mDirect3DDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, mMultiSamplingCount, &mMultiSamplingQualityLevels);
         if (mMultiSamplingQualityLevels == 0)
         {
             throw GameException("Unsupported multi-sampling quality");
         }
 
-		//3. create the swap chain buffers for rendering
+        //3. create the swap chain buffers for rendering
         DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
         ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
         swapChainDesc.Width = mScreenWidth;
         swapChainDesc.Height = mScreenHeight;
         swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-        
+
         if (mMultiSamplingEnabled)
         {
             swapChainDesc.SampleDesc.Count = mMultiSamplingCount;
@@ -279,14 +285,14 @@ namespace Library
             throw GameException("ID3D11Device::QueryInterface() failed", hr);
         }
 
-        IDXGIAdapter *dxgiAdapter = nullptr;
-        if (FAILED(hr = dxgiDevice->GetParent(__uuidof(IDXGIAdapter),reinterpret_cast<void**>(&dxgiAdapter))))
+        IDXGIAdapter* dxgiAdapter = nullptr;
+        if (FAILED(hr = dxgiDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&dxgiAdapter))))
         {
             ReleaseObject(dxgiDevice);
             throw GameException("IDXGIDevice::GetParent() failed retrieving adapter.", hr);
         }
 
-        IDXGIFactory2* dxgiFactory = nullptr;		
+        IDXGIFactory2* dxgiFactory = nullptr;
         if (FAILED(hr = dxgiAdapter->GetParent(__uuidof(IDXGIFactory2), reinterpret_cast<void**>(&dxgiFactory))))
         {
             ReleaseObject(dxgiDevice);
@@ -312,7 +318,7 @@ namespace Library
         ReleaseObject(dxgiAdapter);
         ReleaseObject(dxgiFactory);
 
-		//4. create the render target view
+        //4. create the render target view
         ID3D11Texture2D* backBuffer;
         if (FAILED(hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer))))
         {
@@ -320,7 +326,7 @@ namespace Library
         }
 
         backBuffer->GetDesc(&mBackBufferDesc);
-    
+
         if (FAILED(hr = mDirect3DDevice->CreateRenderTargetView(backBuffer, nullptr, &mRenderTargetView)))
         {
             ReleaseObject(backBuffer);
@@ -328,8 +334,8 @@ namespace Library
         }
 
         ReleaseObject(backBuffer);
-        
-		//5. create the depth-stencil view
+
+        //5. create the depth-stencil view
         if (mDepthStencilBufferEnabled)
         {
             D3D11_TEXTURE2D_DESC depthStencilDesc;
@@ -340,7 +346,7 @@ namespace Library
             depthStencilDesc.ArraySize = 1;
             depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
             depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-            depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;            
+            depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
 
             if (mMultiSamplingEnabled)
             {
@@ -364,10 +370,10 @@ namespace Library
             }
         }
 
-		//6. Associate render target view and depth-stencil view with the output-merger stage
+        //6. Associate render target view and depth-stencil view with the output-merger stage
         mDirect3DDeviceContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
 
-		//7. Set the view port
+        //7. Set the view port
         mViewport.TopLeftX = 0.0f;
         mViewport.TopLeftY = 0.0f;
         mViewport.Width = static_cast<float>(mScreenWidth);
@@ -381,11 +387,18 @@ namespace Library
 
     LRESULT WINAPI Game::WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam)
     {
-        switch(message)
+        switch (message)
         {
-            case WM_DESTROY:
-                PostQuitMessage(0);
-                return 0;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+        case WM_MBUTTONDOWN:
+        case WM_RBUTTONDOWN:
+            Game::toPick = true;
+            Game::screenX = ((int)(short)LOWORD(lParam));
+            Game::screenY = ((int)(short)HIWORD(lParam));
+
+            return 0;
         }
 
         return DefWindowProc(windowHandle, message, wParam, lParam);
@@ -401,5 +414,5 @@ namespace Library
         center.y = (screenHeight - windowHeight) / 2;
 
         return center;
-    }	
+    }
 }

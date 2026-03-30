@@ -1,51 +1,78 @@
-    #pragma once
+#pragma once
 
 
 #include "Game.h"
-#include "Keyboard.h"
-#include "Mouse.h"
-#include "ModelFromFile.h"
-#include "FpsComponent.h"
-#include "RenderStateHelper.h"
+
 using namespace Library;
 
 namespace Library
 {
-    class FirstPersonCamera;
+	class FirstPersonCamera;
 	class RenderStateHelper;
-    class keyboard;
-    class Mouse;
-    class FpsComponent;
-    
+
+	class Keyboard;
+	class Mouse;
+	class FpsComponent;
+
 }
+
+namespace DirectX
+{
+	class SpriteBatch;
+	class SpriteFont;
+}
+
+
 
 namespace Rendering
 {
-    class TriangleDemo;
-    class ObjectDiffuseLight;
-    class RenderingGame : public Game
-    {
-    public:
-        RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
-        ~RenderingGame();
+	class TriangleDemo;
+	class ModelFromFile;
+	class ObjectDiffuseLight;
 
-        virtual void Initialize() override;		
-        virtual void Update(const GameTime& gameTime) override;
-        virtual void Draw(const GameTime& gameTime) override;
+	class RenderingGame : public Game
+	{
+	public:
+		RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
+		~RenderingGame();
 
-    protected:
-        virtual void Shutdown() override;
+		virtual void Initialize() override;
+		virtual void Update(const GameTime& gameTime) override;
+		virtual void Draw(const GameTime& gameTime) override;
 
-    private:
+
+	protected:
+		virtual void Shutdown() override;
+
+	private:
 		static const XMFLOAT4 BackgroundColor;
-        FirstPersonCamera * mCamera;
-        TriangleDemo* mDemo;
-        LPDIRECTINPUT8 mDirectInput;
-        Mouse* mMouse;
-        Keyboard* mKeyboard;
-        ModelFromFile* mModel;
-        FpsComponent* mFpsComponent;
-        RenderStateHelper* mRenderStateHelper;
-        ObjectDiffuseLight* mObjectDiffuseLight;
-    };
+		FirstPersonCamera* mCamera;
+		TriangleDemo* mDemo;
+
+		//Define member variables for Keyboard and mouse
+		LPDIRECTINPUT8 mDirectInput;
+
+		Keyboard* mKeyboard;
+		Mouse* mMouse;
+		ModelFromFile* mModel1;
+		ModelFromFile* mModel2;
+
+
+		FpsComponent* mFpsComponent;
+		RenderStateHelper* mRenderStateHelper;
+
+		ObjectDiffuseLight* mObjectDiffuseLight;
+
+		//for calculate the score
+		int mScore;
+		SpriteBatch* mSpriteBatch;
+		SpriteFont* mSpriteFont;
+
+
+
+		void Pick(int sx, int sy, ModelFromFile*);
+
+
+
+	};
 }

@@ -16,7 +16,7 @@ namespace Library
 
         HINSTANCE Instance() const;
         HWND WindowHandle() const;
-        const WNDCLASSEX& Window() const; 
+        const WNDCLASSEX& Window() const;
         const std::wstring& WindowClass() const;
         const std::wstring& WindowTitle() const;
         int ScreenWidth() const;
@@ -30,40 +30,52 @@ namespace Library
         const D3D11_TEXTURE2D_DESC& BackBufferDesc() const;
         const D3D11_VIEWPORT& Viewport() const;
 
-		const std::vector<GameComponent*>& Components() const;
-		const ServiceContainer& Services() const;
+        const std::vector<GameComponent*>& Components() const;
+        const ServiceContainer& Services() const;
 
         virtual void Run();
         virtual void Exit();
-        virtual void Initialize();		
+        virtual void Initialize();
         virtual void Update(const GameTime& gameTime);
         virtual void Draw(const GameTime& gameTime);
 
+
+        static bool toPick;
+        static int screenX;
+        static int screenY;
+
+
+
+
     protected:
         virtual void InitializeWindow();
-		virtual void InitializeDirectX();
-		virtual void Shutdown();
+        virtual void InitializeDirectX();
+        virtual void Shutdown();
 
         static const UINT DefaultScreenWidth;
         static const UINT DefaultScreenHeight;
-		static const UINT DefaultFrameRate;
+        static const UINT DefaultFrameRate;
         static const UINT DefaultMultiSamplingCount;
+
+
+
+
 
         HINSTANCE mInstance;
         std::wstring mWindowClass;
         std::wstring mWindowTitle;
         int mShowCommand;
-        
+
         HWND mWindowHandle;
-        WNDCLASSEX mWindow;		
+        WNDCLASSEX mWindow;
 
         UINT mScreenWidth;
         UINT mScreenHeight;
 
         GameClock mGameClock;
         GameTime mGameTime;
-		std::vector<GameComponent*> mComponents;
-		ServiceContainer mServices;
+        std::vector<GameComponent*> mComponents;
+        ServiceContainer mServices;
 
         D3D_FEATURE_LEVEL mFeatureLevel;
         ID3D11Device1* mDirect3DDevice;
@@ -88,6 +100,8 @@ namespace Library
         Game& operator=(const Game& rhs);
 
         POINT CenterWindow(int windowWidth, int windowHeight);
-        static LRESULT WINAPI WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam);		
+        static LRESULT WINAPI WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam);
+
+
     };
 }
