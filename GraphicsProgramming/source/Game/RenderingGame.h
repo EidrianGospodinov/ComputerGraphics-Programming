@@ -15,7 +15,11 @@ namespace Library
 	class FpsComponent;
 
 }
-
+namespace DirectX
+{
+	class SpriteBatch;
+	class SpriteFont;
+}
 
 
 namespace Rendering
@@ -56,6 +60,10 @@ namespace Rendering
 		RenderStateHelper* mRenderStateHelper;
 
 		ObjectDiffuseLight* mObjectDiffuseLight;
+
+    	int mScore;
+    	SpriteBatch* mSpriteBatch;
+    	SpriteFont* mSpriteFont;
 
 
 		void Pick(int sx, int sy, ModelFromFile*);

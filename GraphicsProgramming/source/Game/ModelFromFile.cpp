@@ -1,4 +1,8 @@
 #include "ModelFromFile.h"
+
+#include <SpriteBatch.h>
+#include <SpriteFont.h>
+
 #include "Game.h"
 #include "GameException.h"
 #include "MatrixHelper.h"

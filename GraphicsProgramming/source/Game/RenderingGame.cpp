@@ -29,6 +29,9 @@ namespace Rendering
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
 		mModel2 = nullptr;
+
+		mSpriteBatch =nullptr;
+		mSpriteFont = nullptr;
     }
 
     RenderingGame::~RenderingGame()
@@ -84,7 +87,9 @@ L"A tree",10);
 		mFpsComponent->Initialize();
 		mRenderStateHelper = new RenderStateHelper(*this);
 		
-		
+		mSpriteBatch = new SpriteBatch(mDirect3DDeviceContext);
+		mSpriteFont = new SpriteFont(mDirect3DDevice,
+		L"Content\\Fonts\\Arial_14_Regular.spritefont");
 
 
 		Game::Initialize();
@@ -119,6 +124,9 @@ L"A tree",10);
 		DeleteObject(mRenderStateHelper);
 
 		DeleteObject(mObjectDiffuseLight);
+
+		DeleteObject(mSpriteFont);
+		DeleteObject(mSpriteBatch);
 		
 
         Game::Shutdown();
@@ -191,6 +199,9 @@ L"A tree",10);
 			if (result == IDYES)
 			{ //hide the object
 				model->SetVisible(false);
+
+				//update the score
+				mScore += model->ModelValue();
 			}
 		}
 	}
@@ -205,8 +216,15 @@ L"A tree",10);
         Game::Draw(gameTime);
 		mRenderStateHelper->SaveAll();
 		mFpsComponent->Draw(gameTime);
-		
 
+		
+		mSpriteBatch->Begin();
+		//draw the score
+		std::wostringstream scoreLabel;
+		scoreLabel << L"Your current score: " << mScore<< "\n";
+		mSpriteFont->DrawString(mSpriteBatch, scoreLabel.str().c_str(),
+		XMFLOAT2(0.0f, 120.0f), Colors::Red);
+		mSpriteBatch->End();
 		
 		mRenderStateHelper->RestoreAll();
 
