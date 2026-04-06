@@ -4,10 +4,14 @@
 
 namespace Library
 {
-    const UINT Game::DefaultScreenWidth = 1280;
-    const UINT Game::DefaultScreenHeight = 720;
+    const UINT Game::DefaultScreenWidth = 1024;
+    const UINT Game::DefaultScreenHeight = 768;
     const UINT Game::DefaultFrameRate = 60;
     const UINT Game::DefaultMultiSamplingCount = 4;	
+	bool Game::toPick = false;
+	int Game::screenX = 0;
+	int Game::screenY = 0;
+
 
     Game::Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
         : mInstance(instance), mWindowClass(windowClass), mWindowTitle(windowTitle), mShowCommand(showCommand),
@@ -20,6 +24,7 @@ namespace Library
           mDepthStencilBuffer(nullptr), mRenderTargetView(nullptr), mDepthStencilView(nullptr), mViewport(),
 		  mComponents(), mServices()
     {
+
     }
 
     Game::~Game()
@@ -197,7 +202,7 @@ namespace Library
         mWindow.hbrBackground = GetSysColorBrush(COLOR_BTNFACE);
         mWindow.lpszClassName = mWindowClass.c_str();		
 
-        RECT windowRectangle = { 0, 0, static_cast<LONG>(mScreenWidth), static_cast<long>(mScreenHeight) };
+        RECT windowRectangle = { 0, 0, mScreenWidth, mScreenHeight };
         AdjustWindowRect(&windowRectangle, WS_OVERLAPPEDWINDOW, FALSE);
 
         RegisterClassEx(&mWindow);
@@ -212,10 +217,11 @@ namespace Library
     {
         HRESULT hr;
         UINT createDeviceFlags = 0;
-
+/*
 #if defined(DEBUG) || defined(_DEBUG)  
         createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
+*/
 
         D3D_FEATURE_LEVEL featureLevels[] = {
             D3D_FEATURE_LEVEL_11_0,
@@ -386,6 +392,13 @@ namespace Library
             case WM_DESTROY:
                 PostQuitMessage(0);
                 return 0;
+			case WM_MBUTTONDOWN:
+			case WM_RBUTTONDOWN:
+				Game::toPick= true;
+				Game::screenX = ((int)(short)LOWORD(lParam));
+				Game::screenY = ((int)(short)HIWORD(lParam));
+			
+				return 0;
         }
 
         return DefWindowProc(windowHandle, message, wParam, lParam);

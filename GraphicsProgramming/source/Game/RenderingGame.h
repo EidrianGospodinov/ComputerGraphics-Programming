@@ -1,10 +1,7 @@
 #pragma once
 
 
-#include "FpsComponent.h"
 #include "Game.h"
-#include "ModelFromFile.h"
-#include "ObjectDiffuseLight.h"
 
 using namespace Library;
 
@@ -12,14 +9,20 @@ namespace Library
 {
     class FirstPersonCamera;
 	class RenderStateHelper;
-    class Keyboard;
-    class Mouse;
-    class FpsCounter;
+
+	class Keyboard;
+	class Mouse;
+	class FpsComponent;
+
 }
+
+
 
 namespace Rendering
 {
     class TriangleDemo;
+	class ModelFromFile;
+	class ObjectDiffuseLight;
 
     class RenderingGame : public Game
     {
@@ -31,22 +34,33 @@ namespace Rendering
         virtual void Update(const GameTime& gameTime) override;
         virtual void Draw(const GameTime& gameTime) override;
 
-    protected:
+
+	protected:
         virtual void Shutdown() override;
 
     private:
 		static const XMFLOAT4 BackgroundColor;
         FirstPersonCamera * mCamera;
         TriangleDemo* mDemo;
-        LPDIRECTINPUT8 mDirectInput;
-        Keyboard* mKeyboard;
-        Mouse* mMouse;
 
-        ModelFromFile* mModel;
+		//Define member variables for Keyboard and mouse
+		LPDIRECTINPUT8 mDirectInput;
 
-        FpsComponent* mFpsComponent;
-        RenderStateHelper* mRenderStateHelper;
-        
-        ObjectDiffuseLight* mObjectDiffuseLight;
+		Keyboard* mKeyboard;
+		Mouse*    mMouse;
+		ModelFromFile* mModel1;
+    	ModelFromFile* mModel2;
+	
+
+		FpsComponent* mFpsComponent;
+		RenderStateHelper* mRenderStateHelper;
+
+		ObjectDiffuseLight* mObjectDiffuseLight;
+
+
+		void Pick(int sx, int sy, ModelFromFile*);
+
+	
+
     };
 }

@@ -39,6 +39,14 @@ namespace Library
         virtual void Update(const GameTime& gameTime);
         virtual void Draw(const GameTime& gameTime);
 
+
+		static bool toPick;
+		static int screenX;
+		static int screenY;
+		
+
+
+
     protected:
         virtual void InitializeWindow();
 		virtual void InitializeDirectX();
@@ -48,6 +56,10 @@ namespace Library
         static const UINT DefaultScreenHeight;
 		static const UINT DefaultFrameRate;
         static const UINT DefaultMultiSamplingCount;
+
+
+	
+
 
         HINSTANCE mInstance;
         std::wstring mWindowClass;
@@ -89,5 +101,7 @@ namespace Library
 
         POINT CenterWindow(int windowWidth, int windowHeight);
         static LRESULT WINAPI WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam);		
+
+		
     };
 }
