@@ -75,6 +75,7 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+!DirectionalLightProxy.obj
 *.iobj
 *.pch
 *.pdb
