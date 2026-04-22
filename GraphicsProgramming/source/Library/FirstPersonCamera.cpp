@@ -76,9 +76,8 @@ namespace Library
         Camera::Initialize();
     }
 
-    void FirstPersonCamera::Update(const GameTime& gameTime)
+    void FirstPersonCamera::Input(XMFLOAT3& movementAmount) const
     {
-        XMFLOAT3 movementAmount = Vector3Helper::Zero;
         if (mKeyboard != nullptr)
         {
             /*if (mKeyboard->IsKeyDown(DIK_W))
@@ -107,7 +106,10 @@ namespace Library
                 movementAmount.z = -1.0f;
             }*/
         }
+    }
 
+    void FirstPersonCamera::ApplyRotation(const GameTime& gameTime, float& elapsedTime)
+    {
         XMFLOAT2 rotationAmount = Vector2Helper::Zero;
         if ((mMouse != nullptr) && (mMouse->IsButtonHeldDown(MouseButtonsLeft)))
         {
@@ -116,15 +118,18 @@ namespace Library
             rotationAmount.y = -mouseState->lY * mMouseSensitivity;
         }
 
-        float elapsedTime = (float)gameTime.ElapsedGameTime();
+        elapsedTime = (float)gameTime.ElapsedGameTime();
         XMVECTOR rotationVector = XMLoadFloat2(&rotationAmount) * mRotationRate * elapsedTime;
         XMVECTOR right = XMLoadFloat3(&mRight);
 
         XMMATRIX pitchMatrix = XMMatrixRotationAxis(right, XMVectorGetY(rotationVector));
         XMMATRIX yawMatrix = XMMatrixRotationY(XMVectorGetX(rotationVector));
 
-        ApplyRotation(XMMatrixMultiply(pitchMatrix, yawMatrix));
+        Camera::ApplyRotation(XMMatrixMultiply(pitchMatrix, yawMatrix));
+    }
 
+    void FirstPersonCamera::ApplyMovement(XMFLOAT3 movementAmount, float elapsedTime)
+    {
         XMVECTOR position = XMLoadFloat3(&mPosition);
         XMVECTOR movement = XMLoadFloat3(&movementAmount) * mMovementRate * elapsedTime;
 
@@ -140,6 +145,17 @@ namespace Library
 
 
         XMStoreFloat3(&mPosition, position);
+    }
+
+    void FirstPersonCamera::Update(const GameTime& gameTime)
+    {
+        XMFLOAT3 movementAmount = Vector3Helper::Zero;
+        Input(movementAmount);
+
+        float elapsedTime;
+        ApplyRotation(gameTime,elapsedTime);
+
+        ApplyMovement(movementAmount, elapsedTime);
 
         Camera::Update(gameTime);
     }

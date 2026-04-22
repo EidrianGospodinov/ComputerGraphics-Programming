@@ -28,6 +28,10 @@ namespace Library
         float& MovementRate();		
         
         virtual void Initialize() override;
+        void Input(XMFLOAT3& movementAmount) const;
+        void ApplyRotation(const GameTime& gameTime, float& elapsedTime);
+        void ApplyMovement(XMFLOAT3 movementAmount, float elapsedTime);
+        void RotationLogic(const GameTime& gameTime, float elapsedTime);
         virtual void Update(const GameTime& gameTime) override;
 
         static const float DefaultMouseSensitivity;

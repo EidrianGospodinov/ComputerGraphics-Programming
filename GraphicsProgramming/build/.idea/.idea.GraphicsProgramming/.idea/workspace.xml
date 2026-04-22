@@ -13,9 +13,11 @@
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Camera.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Camera.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Library/FirstPersonCamera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/FirstPersonCamera.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/FirstPersonCamera.h" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/FirstPersonCamera.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +111,7 @@
       <workItem from="1772450306294" duration="6462000" />
       <workItem from="1773055191388" duration="7167000" />
       <workItem from="1776874167929" duration="2908000" />
-      <workItem from="1776877093766" duration="3150000" />
+      <workItem from="1776877093766" duration="5241000" />
     </task>
     <servers />
   </component>
