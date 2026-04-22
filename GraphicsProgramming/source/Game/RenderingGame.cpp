@@ -70,15 +70,15 @@ namespace Rendering
 		mModel1->SetPosition(-1.57f, 1.5f, -0.0f, 0.005f, -2.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 
-		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds",
-L"A tree",10);
+		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",10);
 		mModel2->SetPosition(-1.57f, -1.5f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel2);
 
 		//house object with diffuse lighting effect:
-		mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
+		/*mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
 		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
-		mComponents.push_back(mObjectDiffuseLight);
+		mComponents.push_back(mObjectDiffuseLight);*/
+		
 		RasterizerStates::Initialize(mDirect3DDevice);
 		SamplerStates::Initialize(mDirect3DDevice);
 

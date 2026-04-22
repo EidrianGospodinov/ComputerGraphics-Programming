@@ -4,7 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e057bc86-964c-4b56-95ea-2737cddee6e0" name="Changes" comment="" />
+    <list default="true" id="e057bc86-964c-4b56-95ea-2737cddee6e0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GraphicsProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GraphicsProgramming/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/Libraryd.lib" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/Libraryd.lib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.exe.recipe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/Cl.items.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.secondary.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.secondary.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Program.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Program.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Game/RenderingGame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/RenderingGame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Camera.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Camera.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/DrawableGameComponent.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/DrawableGameComponent.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Game.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Game.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/GameClock.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/GameClock.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/GameComponent.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/GameComponent.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/GameException.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/GameException.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/GameTime.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/GameTime.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Keyboard.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Keyboard.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Cl.items.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Lib-link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Lib-link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/MatrixHelper.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/MatrixHelper.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Mouse.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Mouse.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/RenderStateHelper.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/RenderStateHelper.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/ServiceContainer.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/ServiceContainer.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Utility.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Utility.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/VectorHelper.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/VectorHelper.obj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +53,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://4" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -29,23 +65,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ Project.Game.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ Project.Game.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Computer-Graphics-Programming__Coursework2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RiderProblemsViewState">
+    <hideBySeverity>
+      <option value="20" />
+      <option value="300" />
+    </hideBySeverity>
+  </component>
   <component name="RunManager">
     <configuration name="Game" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -80,6 +122,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e057bc86-964c-4b56-95ea-2737cddee6e0" name="Changes" comment="" />
@@ -89,6 +132,8 @@
       <updated>1772450304682</updated>
       <workItem from="1772450306294" duration="6462000" />
       <workItem from="1773055191388" duration="7167000" />
+      <workItem from="1776874167929" duration="2908000" />
+      <workItem from="1776877093766" duration="692000" />
     </task>
     <servers />
   </component>
@@ -100,18 +145,11 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/../source/Game/ObjectDiffuseLight.cpp</url>
+          <line>72</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
