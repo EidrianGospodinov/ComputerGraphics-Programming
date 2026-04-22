@@ -23,7 +23,7 @@ namespace Rendering
 		~ModelFromFile();
 
 		virtual void Update(const GameTime& gameTime) override;
-
+		void MoveModel(const GameTime& gameTime, float speed);
 
 		//add to support multiple model in the scene, remove this function
 

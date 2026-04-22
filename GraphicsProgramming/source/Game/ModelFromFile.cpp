@@ -207,11 +207,24 @@ namespace Rendering
 
 	//	XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
 
-
+    	float speed = 1.0f; 
+    	MoveModel(gameTime, speed);
+	
 
 		
 	}
+	void ModelFromFile::MoveModel(const GameTime& gameTime, float speed)
+    {
+    	float deltaTime = static_cast<float>(gameTime.ElapsedGameTime());
 
+    	XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
+
+    	XMMATRIX translation = XMMatrixTranslation(speed * deltaTime, 0.0f, 0.0f);
+
+    	worldMatrix = worldMatrix * translation;
+
+    	XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
+    }
 
     void ModelFromFile::Draw(const GameTime& gameTime)
     {
