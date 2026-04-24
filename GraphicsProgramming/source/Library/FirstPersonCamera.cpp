@@ -143,7 +143,15 @@ namespace Library
         XMVECTOR upDown = XMLoadFloat3(&mUp) * XMVectorGetZ(movement);
         position += upDown;
 
-
+        ///Stops the player from moving out of bounds
+        if (mPosition.x < -3.0f && movementAmount.x == -1.0f)
+        {
+            return;
+        }
+        else if (mPosition.x > 3.0f && movementAmount.x == 1.0f)
+        {
+            return;
+		}
         XMStoreFloat3(&mPosition, position);
     }
 
@@ -159,5 +167,6 @@ namespace Library
 
         Camera::Update(gameTime);
     }
+
     
 }
