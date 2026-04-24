@@ -35,6 +35,7 @@ namespace Rendering
 
 		//need to access this , make this public for simplicity
 		DirectX::BoundingBox mBoundingBox;
+		DirectX::BoundingBox mWorldBox;
 		const std::wstring GetModelDes() { return modelDes; }
 		int const ModelValue() { return mModelValue; }
 

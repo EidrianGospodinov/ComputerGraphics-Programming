@@ -65,14 +65,15 @@ namespace Rendering
 		mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
      
-		
 		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench",20);
 		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
+		mCollidableModels.push_back(mModel1);
 
 		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",10);
 		mModel2->SetPosition(-1.57f, -1.57f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel2);
+		mCollidableModels.push_back(mModel2);
 
 		//house object with diffuse lighting effect:
 		/*mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
@@ -132,9 +133,47 @@ namespace Rendering
         Game::Shutdown();
     }
 
+    void RenderingGame::LookForCollsion_Manual(BoundingSphere cameraSphere)
+    {
+	    // 3. Collision Check
+	    bool collision = false;
+	    float obsticleValue = 0;
+	    if (mModel1->Visible() && cameraSphere.Intersects(mModel1->mWorldBox))
+	    {
+		    collision = true;
+		    obsticleValue = mModel1->ModelValue();
+	    }
+	    if (mModel2->Visible() && cameraSphere.Intersects(mModel2->mWorldBox))
+	    {
+		    collision = true;
+		    obsticleValue = mModel2->ModelValue();
+	    }
+
+	    if (collision)
+	    {
+		    OutputDebugString(L"HIT\n");
+		    mScore += obsticleValue;
+	    }
+    }
+
+    void RenderingGame::DetectingCollsion_AllCollidables(BoundingSphere cameraSphere)
+    {
+	    for (ModelFromFile* model : mCollidableModels)
+	    {
+		    if (!model->Visible()) continue;
+
+		    if (cameraSphere.Intersects(model->mWorldBox))
+		    {
+			    OutputDebugString(L"Player hit a model!\n");
+			    mScore += model->ModelValue();
+		    	model->SetVisible(false);
+			    break; 
+		    }
+	    }
+    }
+
     void RenderingGame::Update(const GameTime &gameTime)
     {
-
 		mFpsComponent->Update(gameTime);
 		Game::Update(gameTime);
 		
@@ -144,8 +183,14 @@ namespace Rendering
 		{
 			Exit();
 		}
+		BoundingSphere cameraSphere;
+		XMStoreFloat3(&cameraSphere.Center, mCamera->PositionVector());
+		cameraSphere.Radius = 1.5f; // Increased radius slightly to ensure hit
 
+		//LookForCollsion_Manual(cameraSphere);
 
+		
+		DetectingCollsion_AllCollidables(cameraSphere);
 		//bounding box , we need to see if we need to do the picking test
 		if (Game::toPick)
 		{
@@ -161,7 +206,11 @@ namespace Rendering
 		}
 
 	}
-
+	bool RenderingGame::CheckCollision(ModelFromFile* a, ModelFromFile* b)
+	{
+		// Must use mWorldBox for objects that have been moved!
+		return a->mWorldBox.Intersects(b->mWorldBox);
+	}
 
 	// do the picking here
 	void RenderingGame::Pick(int sx, int sy, ModelFromFile* model)

@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <DirectXCollision.h>
+
 #include "Game.h"
 
 using namespace Library;
@@ -41,6 +43,8 @@ namespace Rendering
 
 	protected:
         virtual void Shutdown() override;
+        void LookForCollsion_Manual(BoundingSphere cameraSphere);
+        void DetectingCollsion_AllCollidables(BoundingSphere cameraSphere);
 
     private:
 		static const XMFLOAT4 BackgroundColor;
@@ -65,10 +69,10 @@ namespace Rendering
     	SpriteBatch* mSpriteBatch;
     	SpriteFont* mSpriteFont;
 
-
+    	std::vector<ModelFromFile*> mCollidableModels; 
+    	void CheckAllCollisions(XMVECTOR oldPos);
+    	
 		void Pick(int sx, int sy, ModelFromFile*);
-
-	
-
+        static bool CheckCollision(ModelFromFile* a, ModelFromFile* b);
     };
 }

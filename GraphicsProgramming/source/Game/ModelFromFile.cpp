@@ -191,6 +191,7 @@ namespace Rendering
 		worldMatrix = RotationZ*RotationX *RotationY* Scale * Translation;
 
 		XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
+    	mBoundingBox.Transform(mWorldBox, worldMatrix);
 	}
 
 
@@ -210,7 +211,8 @@ namespace Rendering
     	float speed = 1.0f; 
     	MoveModel(gameTime, speed);
 	
-
+    	XMMATRIX world = XMLoadFloat4x4(&mWorldMatrix);
+    	mBoundingBox.Transform(mWorldBox, world);
 		
 	}
 	void ModelFromFile::MoveModel(const GameTime& gameTime, float speed)
