@@ -121,10 +121,15 @@ namespace Rendering
 		DeleteObject(mMouse);
 		ReleaseObject(mDirectInput);
 		
-		DeleteObject(mModel1);
-		DeleteObject(mModel2);
 		
-	
+		for (auto model : mCollidableModels)
+		{
+			DeleteObject(model);
+		}
+		mCollidableModels.clear();
+		
+		mModel1 = nullptr;
+		mModel2 = nullptr;
 
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);
