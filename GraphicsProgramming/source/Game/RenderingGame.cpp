@@ -65,15 +65,20 @@ namespace Rendering
 		mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
      
-		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench",20);
+		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench",-20);
 		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 		mCollidableModels.push_back(mModel1);
 
-		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",10);
+		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",-10);
 		mModel2->SetPosition(-1.57f, -1.57f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel2);
 		mCollidableModels.push_back(mModel2);
+
+		auto mModel3 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Bench",20);
+		mModel3->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
+		mComponents.push_back(mModel3);
+		mCollidableModels.push_back(mModel3);
 
 		//house object with diffuse lighting effect:
 		/*mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
