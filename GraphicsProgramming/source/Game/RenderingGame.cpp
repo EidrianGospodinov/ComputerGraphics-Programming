@@ -67,11 +67,11 @@ namespace Rendering
      
 		
 		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench",20);
-		mModel1->SetPosition(-1.57f, 1.5f, -0.0f, 0.005f, -2.0f, -0.6f, 2.0f);
+		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 
 		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",10);
-		mModel2->SetPosition(-1.57f, -1.5f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
+		mModel2->SetPosition(-1.57f, -1.57f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel2);
 
 		//house object with diffuse lighting effect:

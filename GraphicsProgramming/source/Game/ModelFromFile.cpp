@@ -219,7 +219,7 @@ namespace Rendering
 
     	XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
 
-    	XMMATRIX translation = XMMatrixTranslation(speed * deltaTime, 0.0f, 0.0f);
+    	XMMATRIX translation = XMMatrixTranslation(0.0f, 0.0f, speed * deltaTime);
 
     	worldMatrix = worldMatrix * translation;
 
