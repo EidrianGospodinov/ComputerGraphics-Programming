@@ -10,13 +10,118 @@
 #include "Utility.h"
 #include "D3DCompiler.h"
 #include "Model.h"
+#include "ModelMaterial.h"
 #include "Mesh.h"
 #include <WICTextureLoader.h>
+#include <Shlwapi.h>
 
 using namespace DirectX;
 
 namespace Rendering
 {
+    namespace
+    {
+        bool IsObjModel(const std::string& modelFile)
+        {
+            std::wstring extension = Utility::ToWideString(modelFile);
+            extension = PathFindExtensionW(extension.c_str());
+
+            return (_wcsicmp(extension.c_str(), L".obj") == 0);
+        }
+
+        std::wstring ResolveTexturePath(const std::string& modelFile, const std::wstring& textureReference)
+        {
+            if (textureReference.empty() || textureReference[0] == L'*')
+            {
+                return L"";
+            }
+
+            std::wstring normalizedReference(textureReference);
+            for (wchar_t& character : normalizedReference)
+            {
+                if (character == L'/')
+                {
+                    character = L'\\';
+                }
+            }
+
+            if (PathFileExistsW(normalizedReference.c_str()))
+            {
+                return normalizedReference;
+            }
+
+            std::string modelDirectoryA;
+            Utility::GetDirectory(modelFile, modelDirectoryA);
+            std::wstring modelDirectory = Utility::ToWideString(modelDirectoryA);
+
+            std::wstring candidatePath;
+            Utility::PathJoin(candidatePath, modelDirectory, normalizedReference);
+            if (PathFileExistsW(candidatePath.c_str()))
+            {
+                return candidatePath;
+            }
+
+            std::wstring executableRelativeModelDirectory;
+            Utility::PathJoin(executableRelativeModelDirectory, Utility::ExecutableDirectory(), modelDirectory);
+            Utility::PathJoin(candidatePath, executableRelativeModelDirectory, normalizedReference);
+            if (PathFileExistsW(candidatePath.c_str()))
+            {
+                return candidatePath;
+            }
+
+            wchar_t textureFileName[MAX_PATH];
+            wcscpy_s(textureFileName, normalizedReference.c_str());
+            PathStripPathW(textureFileName);
+
+            Utility::PathJoin(candidatePath, Utility::ExecutableDirectory(), L"Content\\Textures");
+            Utility::PathJoin(candidatePath, candidatePath, textureFileName);
+            if (PathFileExistsW(candidatePath.c_str()))
+            {
+                return candidatePath;
+            }
+
+            return L"";
+        }
+
+        void CreateSolidColorTexture(ID3D11Device* device, ID3D11ShaderResourceView** shaderResourceView, byte red, byte green, byte blue, byte alpha = 255)
+        {
+            assert(device != nullptr);
+            assert(shaderResourceView != nullptr);
+
+            const byte pixel[] = { red, green, blue, alpha };
+
+            D3D11_TEXTURE2D_DESC textureDesc;
+            ZeroMemory(&textureDesc, sizeof(textureDesc));
+            textureDesc.Width = 1;
+            textureDesc.Height = 1;
+            textureDesc.MipLevels = 1;
+            textureDesc.ArraySize = 1;
+            textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+            textureDesc.SampleDesc.Count = 1;
+            textureDesc.Usage = D3D11_USAGE_IMMUTABLE;
+            textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+            D3D11_SUBRESOURCE_DATA textureData;
+            ZeroMemory(&textureData, sizeof(textureData));
+            textureData.pSysMem = pixel;
+            textureData.SysMemPitch = sizeof(pixel);
+
+            ID3D11Texture2D* texture = nullptr;
+            HRESULT hr = device->CreateTexture2D(&textureDesc, &textureData, &texture);
+            if (FAILED(hr))
+            {
+                throw GameException("ID3D11Device::CreateTexture2D() failed.", hr);
+            }
+
+            hr = device->CreateShaderResourceView(texture, nullptr, shaderResourceView);
+            ReleaseObject(texture);
+            if (FAILED(hr))
+            {
+                throw GameException("ID3D11Device::CreateShaderResourceView() failed.", hr);
+            }
+        }
+    }
+
     RTTI_DEFINITIONS(ModelFromFile)
 
     ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
@@ -53,6 +158,8 @@ namespace Rendering
 
     void ModelFromFile::Initialize()
     {
+    	std::wstring defaultTexture = L"Content\\Textures\\bench.jpg";
+        const bool isObjModel = IsObjModel(modelFile);
         SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
         // Compile the shader
@@ -154,10 +261,27 @@ namespace Rendering
         // Load the texture
        // std::wstring textureName = L"Content\\Textures\\EarthComposite.jpg";
 
-		std::wstring textureName = L"Content\\Textures\\bench.jpg";
+		std::wstring textureName = isObjModel ? L"" : defaultTexture;
+        ModelMaterial* material = mesh->GetMaterial();
+        if (material != nullptr)
+        {
+            const auto textures = material->Textures();
+            auto diffuseTextures = textures.find(TextureTypeDifffuse);
+            if (diffuseTextures != textures.end() && diffuseTextures->second != nullptr && diffuseTextures->second->empty() == false)
+            {
+                std::wstring resolvedTexture = ResolveTexturePath(modelFile, diffuseTextures->second->at(0));
+                if (resolvedTexture.empty() == false)
+                {
+                    textureName = resolvedTexture;
+                }
+            }
+        }
         
-		
-		if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
+        if (textureName.empty())
+        {
+            CreateSolidColorTexture(mGame->Direct3DDevice(), &mTextureShaderResourceView, 255, 255, 255);
+        }
+		else if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
         {
             throw GameException("CreateWICTextureFromFile() failed.", hr);
         }
