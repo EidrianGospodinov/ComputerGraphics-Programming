@@ -60,7 +60,8 @@ namespace Rendering
 		
 		ID3D11ShaderResourceView* mTextureShaderResourceView;
 		ID3DX11EffectShaderResourceVariable* mColorTextureVariable;
-
+		ID3DX11EffectScalarVariable* time;
+		float mTime;
 		XMFLOAT4X4 mWorldMatrix;
 		float mAngle;
 	};

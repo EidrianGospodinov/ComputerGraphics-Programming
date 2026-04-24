@@ -36,7 +36,7 @@ namespace Rendering
 
     HRESULT TriangleDemo::LoadEffectFromFile(UINT shaderFlags, ID3D10Blob* compiledShader, ID3D10Blob* errorMessages)
     {
-        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0",
+        HRESULT hr = D3DCompileFromFile(L"Content\\Effects\\Road TextureMapping.fx", nullptr, nullptr, nullptr, "fx_5_0", ///The loaded Texture mapping shader file for the road
                                         shaderFlags, 0, &compiledShader, &errorMessages);
         //CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), L"Content\\Effects\\TextureMapping.fx", nullptr, &mTextureShaderResourceView );
         if (FAILED(hr))
@@ -57,6 +57,7 @@ namespace Rendering
         {
             throw GameException("D3DX11CreateEffectFromMemory() failed.", hr);
         }
+        
 
 
         ReleaseObject(compiledShader);
@@ -75,6 +76,8 @@ namespace Rendering
         }
 
         ID3DX11EffectVariable* variable = mEffect->GetVariableByName("WorldViewProjection");
+         time = mEffect->GetVariableByName("Time")->AsScalar();
+        mEffect->GetVariableByName("Speed")->AsScalar()->SetFloat(0.5f); //Sets speed
         if (variable == nullptr)
         {
             throw GameException("ID3DX11Effect::GetVariableByName() could not find the specified variable.", hr);
@@ -99,7 +102,9 @@ namespace Rendering
         }
         return hr;
     }
-
+    /// <summary>
+    /// Start method 
+    /// </summary>
     void TriangleDemo::Initialize()
     {
         SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
@@ -270,16 +275,19 @@ namespace Rendering
         {
             throw GameException("ID3D11Device::CreateBuffer() failed.");
         }
-        std::wstring textureName = L"Content\\Textures\\grass.jpg";
+        std::wstring textureName = L"Content\\Textures\\Road.jpg";
         if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), 
             textureName.c_str(), nullptr, &mTextureShaderResourceView )))
         {
             throw GameException("Failed to load texture from file.", hr);
         }
+
     }
 
     void TriangleDemo::Update(const GameTime& gameTime)
     {
+		mTime += static_cast<float>(gameTime.ElapsedGameTime());
+        time->SetFloat(mTime);
         /*mAngle += XM_PI * static_cast<float>(gameTime.ElapsedGameTime());
         XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationY(mAngle));*/
     }
