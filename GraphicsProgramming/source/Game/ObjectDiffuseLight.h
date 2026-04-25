@@ -57,6 +57,8 @@ namespace Rendering
 		UINT mIndexCount;
 		
 		XMCOLOR mAmbientColor;
+		XMFLOAT4 mSpecularColor;
+		float mSpecularPower;
 		DirectionalLight* mDirectionalLight;
 		Keyboard* mKeyboard;
 		XMFLOAT4X4 mWorldMatrix;

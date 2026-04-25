@@ -1,33 +1,40 @@
-﻿  A subdirectory or file C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.cso
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.fx
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.mtl
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
-  14 File(s) copied
-Libraryd.lib(Camera.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(DrawableGameComponent.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(FirstPersonCamera.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(Game.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(GameClock.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(GameComponent.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(GameException.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(GameTime.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(Keyboard.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(MatrixHelper.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(Mouse.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(ServiceContainer.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(Utility.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-Libraryd.lib(VectorHelper.obj) : warning LNK4204: 'C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-  Game.vcxproj -> C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
-  C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
+﻿  A subdirectory or file C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\Road TextureMapping.fx
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.cso
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.fx
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.mtl
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.obj
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\filters_format(jpeg)_quality(75).jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Star.obj
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Road.jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\RoadText .txt
+  20 File(s) copied
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\content\Effects\DiffuseLighting.fx(114,19-65): warning X3206: implicit truncation of vector type
+  
+  compilation object save succeeded; see C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso
+  DiffuseLightingMaterial.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  ObjectDiffuseLight.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\ObjectDiffuseLight.cpp(124,22): warning C4244: '=': conversion from 'float' to 'uint8_t', possible loss of data
+  RenderingGame.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(160,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(165,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(171,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  Game.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.

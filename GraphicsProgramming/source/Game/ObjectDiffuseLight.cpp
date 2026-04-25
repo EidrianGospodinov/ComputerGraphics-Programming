@@ -27,7 +27,9 @@ namespace Rendering
 	ObjectDiffuseLight::ObjectDiffuseLight(Game& game, Camera& camera)
 		: DrawableGameComponent(game, camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
-		mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0), mDirectionalLight(nullptr),
+		mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0),
+		mSpecularColor(1.0f, 1.0f, 1.0f, 1.0f), mSpecularPower(25.0f),
+		mDirectionalLight(nullptr),
 		mWorldMatrix(MatrixHelper::Identity), mProxyModel(nullptr),
 		mRenderStateHelper(nullptr), mSpriteBatch(nullptr), mSpriteFont(nullptr), mTextPosition(0.0f, 40.0f)
 
@@ -151,6 +153,9 @@ namespace Rendering
 		mMaterial->AmbientColor() << ambientColor;
 		mMaterial->LightColor() << mDirectionalLight->ColorVector();
 		mMaterial->LightDirection() << mDirectionalLight->DirectionVector();
+		mMaterial->CameraPosition() << mCamera->PositionVector();
+		mMaterial->SpecularColor() << XMLoadFloat4(&mSpecularColor);
+		mMaterial->SpecularPower() << mSpecularPower;
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 		
 		pass->Apply(0, direct3DDeviceContext);

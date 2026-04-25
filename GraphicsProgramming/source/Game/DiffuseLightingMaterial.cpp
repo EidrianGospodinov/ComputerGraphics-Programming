@@ -10,7 +10,9 @@ namespace Rendering
         : Material("main11"),
           MATERIAL_VARIABLE_INITIALIZATION(WorldViewProjection), MATERIAL_VARIABLE_INITIALIZATION(World),
           MATERIAL_VARIABLE_INITIALIZATION(AmbientColor), MATERIAL_VARIABLE_INITIALIZATION(LightColor),
-          MATERIAL_VARIABLE_INITIALIZATION(LightDirection), MATERIAL_VARIABLE_INITIALIZATION(ColorTexture)
+          MATERIAL_VARIABLE_INITIALIZATION(LightDirection), MATERIAL_VARIABLE_INITIALIZATION(CameraPosition),
+          MATERIAL_VARIABLE_INITIALIZATION(SpecularColor), MATERIAL_VARIABLE_INITIALIZATION(SpecularPower),
+          MATERIAL_VARIABLE_INITIALIZATION(ColorTexture)
     {
     }
 
@@ -19,6 +21,9 @@ namespace Rendering
     MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, AmbientColor)
     MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, LightColor)
     MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, LightDirection)
+    MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, CameraPosition)
+    MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, SpecularColor)
+    MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, SpecularPower)
     MATERIAL_VARIABLE_DEFINITION(DiffuseLightingMaterial, ColorTexture)
 
     void DiffuseLightingMaterial::Initialize(Effect* effect)
@@ -30,6 +35,9 @@ namespace Rendering
         MATERIAL_VARIABLE_RETRIEVE(AmbientColor)
         MATERIAL_VARIABLE_RETRIEVE(LightColor)
         MATERIAL_VARIABLE_RETRIEVE(LightDirection)
+        MATERIAL_VARIABLE_RETRIEVE(CameraPosition)
+        MATERIAL_VARIABLE_RETRIEVE(SpecularColor)
+        MATERIAL_VARIABLE_RETRIEVE(SpecularPower)
         MATERIAL_VARIABLE_RETRIEVE(ColorTexture)
 
         D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =

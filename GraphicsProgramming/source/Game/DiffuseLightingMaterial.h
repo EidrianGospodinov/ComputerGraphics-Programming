@@ -28,6 +28,9 @@ namespace Rendering
         MATERIAL_VARIABLE_DECLARATION(AmbientColor)
         MATERIAL_VARIABLE_DECLARATION(LightColor)
         MATERIAL_VARIABLE_DECLARATION(LightDirection)
+        MATERIAL_VARIABLE_DECLARATION(CameraPosition)
+        MATERIAL_VARIABLE_DECLARATION(SpecularColor)
+        MATERIAL_VARIABLE_DECLARATION(SpecularPower)
         MATERIAL_VARIABLE_DECLARATION(ColorTexture)
 
     public:

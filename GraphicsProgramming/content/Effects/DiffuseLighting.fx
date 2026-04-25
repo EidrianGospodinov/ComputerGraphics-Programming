@@ -20,6 +20,23 @@ cbuffer CBufferPerFrame
 		string UIName =  "Light Direction";
 		string Space = "World";
 	> = { 0.0f, 0.0f, -1.0f };
+
+    float3 CameraPosition : CAMERAPOSITION <
+		string UIWidget = "None";
+	> = { 0.0f, 0.0f, 0.0f };
+
+    float4 SpecularColor : SPECULAR <
+		string UIName = "Specular Color";
+		string UIWidget = "Color";
+	> = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    float SpecularPower : SPECULARPOWER <
+		string UIName = "Specular Power";
+		string UIWidget = "slider";
+		float UIMin = 1.0;
+		float UIMax = 255.0;
+		float UIStep = 1.0;
+	> = { 25.0f };
 }
 
 cbuffer CBufferPerObject
@@ -56,6 +73,7 @@ struct VS_OUTPUT
     float3 Normal : NORMAL;
     float2 TextureCoordinate : TEXCOORD0;
     float3 LightDirection : TEXCOORD1;
+    float3 ViewDirection : TEXCOORD2;
 };
 
 /************* Vertex Shader *************/
@@ -68,7 +86,10 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
     Out.TextureCoordinate = get_corrected_texture_coordinate(IN.TextureCoordinate);
     Out.Normal = normalize(mul(float4(IN.Normal, 0), World).xyz);
     Out.LightDirection = normalize(-LightDirection);
-    
+
+    float3 worldPosition = mul(IN.ObjectPosition, World).xyz;
+    Out.ViewDirection = normalize(CameraPosition - worldPosition);
+
     return Out;
 	
 
@@ -82,15 +103,22 @@ float4 pixel_shader(VS_OUTPUT IN) : SV_Target
     float4 Out = (float4) 0;
     float3 normal = normalize(IN.Normal);
     float3 lightDir = normalize(IN.LightDirection);
+    float3 viewDir = normalize(IN.ViewDirection);
     float n_dot_1 = dot(lightDir, normal);
     float4 color = ColorTexture.Sample(ColorSampler, IN.TextureCoordinate);
     float3 ambient = AmbientColor.rgb * AmbientColor.a * color.rgb;
     float3 diffuse = (float3) 0;
+    float3 specular = (float3) 0;
     if (n_dot_1 > 0)
     {
         diffuse = LightColor * LightColor.a * n_dot_1 * color.rgb;
+
+        float3 halfVector = normalize(lightDir + viewDir);
+        float n_dot_h = saturate(dot(normal, halfVector));
+        float specularIntensity = pow(n_dot_h, SpecularPower);
+        specular = SpecularColor.rgb * SpecularColor.a * specularIntensity;
     }
-    Out.rgb = ambient + diffuse;
+    Out.rgb = ambient + diffuse + specular;
     Out.a = color.a;
     return Out;
 }

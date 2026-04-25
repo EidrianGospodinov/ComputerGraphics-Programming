@@ -1,14 +1,3 @@
-﻿  DirectionalLight.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  Light.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  ProxyModel.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  RasterizerStates.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  SamplerStates.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  Generating Code...
-  Library.vcxproj -> C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.lib
-  A subdirectory or file C:\Users\w1886249\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\lib\ already exists.
+﻿  Library.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.lib
+  A subdirectory or file C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\lib\ already exists.
           1 file(s) copied.
