@@ -54,7 +54,7 @@ namespace Rendering
 			XMFLOAT4 Position;
 			XMFLOAT2 TextureCoordinates;
 
-			_TextureMappingVertex() { }
+			_TextureMappingVertex() : Position{0,0,0,0}, TextureCoordinates{0,0} { }
 
 			_TextureMappingVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates)
 				: Position(position), TextureCoordinates(textureCoordinates) { }

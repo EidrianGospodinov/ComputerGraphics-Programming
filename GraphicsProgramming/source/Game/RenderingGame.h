@@ -1,9 +1,14 @@
 #pragma once
 
-
 #include <DirectXCollision.h>
-
 #include "Game.h"
+
+enum class GameState
+{
+	Menu,
+	Playing,
+	Paused
+};
 
 using namespace Library;
 
@@ -29,6 +34,8 @@ namespace Rendering
     class TriangleDemo;
 	class ModelFromFile;
 	class ObjectDiffuseLight;
+	class MenuComponent;
+	class Projectile;
 
     class RenderingGame : public Game
     {
@@ -66,14 +73,21 @@ namespace Rendering
 
 		ObjectDiffuseLight* mObjectDiffuseLight;
 
+		MenuComponent* mMenu;
+		GameState mGameState;
+
     	int mScore;
     	SpriteBatch* mSpriteBatch;
     	SpriteFont* mSpriteFont;
 
-    	std::vector<ModelFromFile*> mCollidableModels; 
+    	std::vector<ModelFromFile*> mCollidableModels;
     	void CheckAllCollisions(XMVECTOR oldPos);
-    	
+
 		void Pick(int sx, int sy, ModelFromFile*);
         static bool CheckCollision(ModelFromFile* a, ModelFromFile* b);
+
+		std::vector<Projectile*> mProjectiles;
+		float mLastFireTime;
+		const float FIRE_COOLDOWN = 0.5f;
     };
 }

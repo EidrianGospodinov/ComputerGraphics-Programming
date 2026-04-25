@@ -6,15 +6,18 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "ModelFromFile.h"
+#include "Projectile.h"
 #include "FpsComponent.h"
 #include "RenderStateHelper.h"
 #include "ObjectDiffuseLight.h"
+#include "MenuComponent.h"
 #include "SamplerStates.h"
 #include "RasterizerStates.h"
 
 //display score
 #include <SpriteFont.h>
 #include <sstream>
+#include <algorithm>
 
 namespace Rendering
 {;
@@ -24,7 +27,8 @@ namespace Rendering
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
 		: Game(instance, windowClass, windowTitle, showCommand),
 		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
-		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr)
+		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
+		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -97,11 +101,13 @@ namespace Rendering
 		mFpsComponent = new FpsComponent(*this);
 		mFpsComponent->Initialize();
 		mRenderStateHelper = new RenderStateHelper(*this);
-		
+
 		mSpriteBatch = new SpriteBatch(mDirect3DDeviceContext);
 		mSpriteFont = new SpriteFont(mDirect3DDevice,
 		L"Content\\Fonts\\Arial_14_Regular.spritefont");
 
+		mMenu = new MenuComponent(*this, mSpriteBatch, mSpriteFont, mKeyboard);
+		mMenu->Initialize();
 
 		Game::Initialize();
 
@@ -115,24 +121,30 @@ namespace Rendering
 
     void RenderingGame::Shutdown()
     {
-		
 
-		
+
+
 		DeleteObject(mDemo);
         DeleteObject(mCamera);
-		
-		
+
+
 		DeleteObject(mKeyboard);
 		DeleteObject(mMouse);
 		ReleaseObject(mDirectInput);
-		
-		
+
+
 		for (auto model : mCollidableModels)
 		{
 			DeleteObject(model);
 		}
 		mCollidableModels.clear();
-		
+
+		for (auto projectile : mProjectiles)
+		{
+			DeleteObject(projectile);
+		}
+		mProjectiles.clear();
+
 		mModel1 = nullptr;
 		mModel2 = nullptr;
 		mModel4 = nullptr;
@@ -142,9 +154,10 @@ namespace Rendering
 
 		DeleteObject(mObjectDiffuseLight);
 
+		DeleteObject(mMenu);
 		DeleteObject(mSpriteFont);
 		DeleteObject(mSpriteBatch);
-		
+
 
         Game::Shutdown();
     }
@@ -190,34 +203,132 @@ namespace Rendering
 
     void RenderingGame::Update(const GameTime &gameTime)
     {
-		mFpsComponent->Update(gameTime);
-		Game::Update(gameTime);
-		
+		if (mKeyboard != nullptr)
+			mKeyboard->Update(gameTime);
 
-		//Add "ESC" to exit the application
+		mMenu->Update(gameTime);
+
+		if (mGameState == GameState::Menu)
+		{
+			if (mMenu->IsConfirmed())
+			{
+				if (mMenu->GetSelectedOption() == 0)
+				{
+					mGameState = GameState::Playing;
+				}
+				else if (mMenu->GetSelectedOption() == 1)
+				{
+					Exit();
+				}
+				mMenu->ResetConfirmed();
+			}
+			return;
+		}
+
+		if (mGameState == GameState::Paused)
+		{
+			if (mMenu->IsConfirmed())
+			{
+				if (mMenu->GetSelectedOption() == 0)
+				{
+					mGameState = GameState::Playing;
+					mMenu->SetMenuMode(MenuMode::MainMenu);
+				}
+				else if (mMenu->GetSelectedOption() == 1)
+				{
+					Exit();
+				}
+				mMenu->ResetConfirmed();
+			}
+			return;
+		}
+
+		// ESC key to pause (check before Game::Update which updates keyboard again)
 		if (mKeyboard->WasKeyPressedThisFrame(DIK_ESCAPE))
 		{
-			Exit();
+			mGameState = GameState::Paused;
+			mMenu->SetMenuMode(MenuMode::PauseMenu);
+			mMenu->ResetConfirmed();
+			return;
 		}
+
+		// Only update game when Playing
+		mFpsComponent->Update(gameTime);
+		Game::Update(gameTime);
+
+		// Handle shooting
+		mLastFireTime += (float)gameTime.ElapsedGameTime();
+		if (mMouse != nullptr && mMouse->IsButtonDown(MouseButtonsRight))
+		{
+			if (mLastFireTime >= FIRE_COOLDOWN)
+			{
+				// Get camera direction
+				XMVECTOR cameraDir = mCamera->DirectionVector();
+				XMFLOAT3 direction;
+				XMStoreFloat3(&direction, cameraDir);
+
+				// Get camera position
+				XMFLOAT3 cameraPos;
+				XMStoreFloat3(&cameraPos, mCamera->PositionVector());
+
+				// Create projectile
+				Projectile* projectile = new Projectile(*this, *mCamera, cameraPos, direction, 50.0f);
+				projectile->Initialize();
+				mComponents.push_back(projectile);
+				mProjectiles.push_back(projectile);
+				OutputDebugString(L"Projectile created!\n");
+
+				mLastFireTime = 0.0f;
+			}
+		}
+
+		// Update projectiles and check collisions
+		for (int i = (int)mProjectiles.size() - 1; i >= 0; --i)
+		{
+			Projectile* projectile = mProjectiles[i];
+
+			if (!projectile->IsAlive())
+			{
+				// Remove from mComponents
+				auto it = std::find(mComponents.begin(), mComponents.end(), projectile);
+				if (it != mComponents.end())
+				{
+					mComponents.erase(it);
+				}
+				DeleteObject(projectile);
+				mProjectiles.erase(mProjectiles.begin() + i);
+				continue;
+			}
+
+			// Check collision with models
+			DirectX::BoundingSphere projSphere = projectile->GetBoundingSphere();
+			for (ModelFromFile* model : mCollidableModels)
+			{
+				if (!model->Visible()) continue;
+
+				if (projSphere.Intersects(model->mWorldBox))
+				{
+					model->SetVisible(false);
+					projectile->SetAlive(false);
+					mScore += model->ModelValue();
+					break;
+				}
+			}
+		}
+
 		BoundingSphere cameraSphere;
 		XMStoreFloat3(&cameraSphere.Center, mCamera->PositionVector());
-		cameraSphere.Radius = 1.5f; // Increased radius slightly to ensure hit
+		cameraSphere.Radius = 1.5f;
 
-		//LookForCollsion_Manual(cameraSphere);
-
-		
 		DetectingCollsion_AllCollidables(cameraSphere);
-		//bounding box , we need to see if we need to do the picking test
+
 		if (Game::toPick)
 		{
-			
 			if (mModel1->Visible())
 				Pick(Game::screenX, Game::screenY, mModel1);
 			if (mModel2->Visible())
 				Pick(Game::screenX, Game::screenY, mModel2);
-	
-			
-			
+
 			Game::toPick = false;
 		}
 
@@ -278,30 +389,42 @@ namespace Rendering
         mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView, reinterpret_cast<const float*>(&BackgroundColor));
         mDirect3DDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-        Game::Draw(gameTime);
-		mRenderStateHelper->SaveAll();
-		mFpsComponent->Draw(gameTime);
+		if (mGameState == GameState::Menu)
+		{
+			mMenu->Draw();
+		}
+		else if (mGameState == GameState::Playing)
+		{
+			Game::Draw(gameTime);
+			mRenderStateHelper->SaveAll();
+			mFpsComponent->Draw(gameTime);
 
-		
-		mSpriteBatch->Begin();
-		//draw the score
-		std::wostringstream scoreLabel;
-		scoreLabel << L"Your current score: " << mScore<< "\n";
-		mSpriteFont->DrawString(mSpriteBatch, scoreLabel.str().c_str(),
-		XMFLOAT2(0.0f, 120.0f), Colors::Red);
-		mSpriteBatch->End();
-		
-		mRenderStateHelper->RestoreAll();
+			mSpriteBatch->Begin();
+			std::wostringstream scoreLabel;
+			scoreLabel << L"Your current score: " << mScore << "\n";
+			scoreLabel << L"Press ESC to Pause";
+			mSpriteFont->DrawString(mSpriteBatch, scoreLabel.str().c_str(),
+			XMFLOAT2(0.0f, 120.0f), Colors::Red);
+			mSpriteBatch->End();
 
-       
+			mRenderStateHelper->RestoreAll();
+		}
+		else if (mGameState == GameState::Paused)
+		{
+			mMenu->Draw();
+
+			mRenderStateHelper->SaveAll();
+			mSpriteBatch->Begin();
+			mSpriteFont->DrawString(mSpriteBatch, L"PAUSED", XMFLOAT2(500.0f, 50.0f), Colors::Red);
+			mSpriteBatch->End();
+			mRenderStateHelper->RestoreAll();
+		}
+
         HRESULT hr = mSwapChain->Present(0, 0);
         if (FAILED(hr))
         {
             throw GameException("IDXGISwapChain::Present() failed.", hr);
         }
-
-
-		
 
     }
 }

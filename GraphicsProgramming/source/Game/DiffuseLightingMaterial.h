@@ -13,7 +13,7 @@ namespace Rendering
         XMFLOAT2 TextureCoordinates;
         XMFLOAT3 Normal;
 
-        _DiffuseLightingMaterialVertex() { }
+        _DiffuseLightingMaterialVertex() : Position{0,0,0,0}, TextureCoordinates{0,0}, Normal{0,0,0} { }
 
         _DiffuseLightingMaterialVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates, XMFLOAT3 normal)
             : Position(position), TextureCoordinates(textureCoordinates), Normal(normal) { }

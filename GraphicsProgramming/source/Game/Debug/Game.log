@@ -20,21 +20,8 @@
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Road.jpg
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\RoadText .txt
   20 File(s) copied
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\content\Effects\DiffuseLighting.fx(114,19-65): warning X3206: implicit truncation of vector type
-  
-  compilation object save succeeded; see C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso
-  DiffuseLightingMaterial.cpp
+  Projectile.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  ObjectDiffuseLight.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\ObjectDiffuseLight.cpp(124,22): warning C4244: '=': conversion from 'float' to 'uint8_t', possible loss of data
-  RenderingGame.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(160,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(165,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(171,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
   Game.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.
