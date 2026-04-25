@@ -80,6 +80,11 @@ namespace Rendering
 		mComponents.push_back(mModel3);
 		mCollidableModels.push_back(mModel3);
 
+		//Car model
+		mModel4 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20);
+		mModel4->SetPosition(1, 0.0f, -0.0f, 0.05f, 2.0f, 1.0f, 0.0f);
+		mComponents.push_back(mModel4);
+		mCollidableModels.push_back(mModel4);
 		//house object with diffuse lighting effect:
 		/*mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
 		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
@@ -130,6 +135,7 @@ namespace Rendering
 		
 		mModel1 = nullptr;
 		mModel2 = nullptr;
+		mModel4 = nullptr;
 
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);
