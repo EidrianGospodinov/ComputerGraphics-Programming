@@ -13,6 +13,15 @@ namespace Library
 
 namespace Rendering
 {
+	struct ModelMovementSettings
+	{
+		bool ShouldMove;
+		float MoveSpeed;
+
+		ModelMovementSettings(bool shouldMove = true, float moveSpeed = 1.0f)
+			: ShouldMove(shouldMove), MoveSpeed(moveSpeed) { }
+	};
+
 	class ModelFromFile : public DrawableGameComponent
 	{
 		RTTI_DECLARATIONS(ModelFromFile, DrawableGameComponent)
@@ -20,6 +29,7 @@ namespace Rendering
 	public:
 		ModelFromFile(Game& game, Camera& camera, const std::string modelFilename);
 		ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring modelDes, int modelValue);
+		ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring modelDes, int modelValue, const ModelMovementSettings& movementSettings);
 		~ModelFromFile();
 
 		virtual void Update(const GameTime& gameTime) override;
@@ -88,6 +98,8 @@ namespace Rendering
 
 		XMFLOAT4X4 mWorldMatrix;	
 		float mAngle;
+		bool mShouldMove;
+		float mMoveSpeed;
 
 		const std::string modelFile;
 

@@ -157,16 +157,21 @@ namespace Rendering
     ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
         : DrawableGameComponent(game, camera),  
           mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
-          mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), modelFile(modelFilename)
+          mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(true), mMoveSpeed(1.0f), modelFile(modelFilename)
     {
 		//we don't use the model description and model value for this constructor
 		mModelValue = 0;
     }
 
-	ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue)
+	ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue) : ModelFromFile(game, camera, modelFilename, ModelDes, ModelValue, ModelMovementSettings())
+	{
+    	
+	}
+
+	ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue, const ModelMovementSettings& movementSettings)
 		: DrawableGameComponent(game, camera),
 		mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
-		mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
+		mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(movementSettings.ShouldMove), mMoveSpeed(movementSettings.MoveSpeed), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
 	{
 
 	}
@@ -391,8 +396,10 @@ namespace Rendering
 
 	//	XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
 
-    	float speed = 1.0f; 
-    	MoveModel(gameTime, speed);
+    	if (mShouldMove)
+    	{
+    		MoveModel(gameTime, mMoveSpeed);
+    	}
 	
     	XMMATRIX world = XMLoadFloat4x4(&mWorldMatrix);
     	mBoundingBox.Transform(mWorldBox, world);

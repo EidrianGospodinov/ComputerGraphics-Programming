@@ -74,7 +74,7 @@ namespace Rendering
 		mComponents.push_back(mModel1);
 		mCollidableModels.push_back(mModel1);
 
-		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",-10);
+		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",-50, ModelMovementSettings(false, 1.0f));
 		mModel2->SetPosition(-1.57f, -1.57f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
 		mComponents.push_back(mModel2);
 		mCollidableModels.push_back(mModel2);
@@ -91,7 +91,7 @@ namespace Rendering
 		mCollidableModels.push_back(treeModel);
 
 		//Car model
-		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20);
+		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20, ModelMovementSettings(true, 3.0f));
 		mCarModel->SetPosition(1, 0.0f, -0.0f, 0.5f, 2.0f, 1.0f, 0.0f);
 		mComponents.push_back(mCarModel);
 		mCollidableModels.push_back(mCarModel);

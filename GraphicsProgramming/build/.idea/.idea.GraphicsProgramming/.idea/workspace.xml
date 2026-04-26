@@ -6,29 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e057bc86-964c-4b56-95ea-2737cddee6e0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GraphicsProgramming/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GraphicsProgramming/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.exe.recipe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.ilk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/Cl.items.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.secondary.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.secondary.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Game.tlog/link.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/Debug/Program.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/Program.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/RenderingGame.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.idb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/Debug/vc143.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/ModelFromFile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/ModelFromFile.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/ModelFromFile.h" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/ModelFromFile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/ObjectDiffuseLight.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/ObjectDiffuseLight.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../source/Game/RenderingGame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/RenderingGame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Game/RenderingGame.h" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Game/RenderingGame.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/FirstPersonCamera.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Cl.items.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Lib-link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../source/Library/Debug/Library.tlog/Lib-link.write.1.tlog" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +26,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/um/DirectXMathConvert.inl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/um/d3dcompiler.h" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -127,7 +114,7 @@
       <workItem from="1773055191388" duration="7167000" />
       <workItem from="1776874167929" duration="2908000" />
       <workItem from="1776877093766" duration="5241000" />
-      <workItem from="1777199932163" duration="2718000" />
+      <workItem from="1777199932163" duration="3984000" />
     </task>
     <servers />
   </component>
