@@ -1,4 +1,5 @@
 ﻿  A subdirectory or file C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Audio\gun-gunshot-02.wav
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
@@ -30,12 +31,18 @@
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.tga
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.png
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.tga
-  31 File(s) copied
+  32 File(s) copied
+  MenuComponent.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Program.cpp
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   RenderingGame.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(181,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(186,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(192,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(183,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(188,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(194,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+Libraryd.lib(FirstPersonCamera.obj) : warning LNK4204: 'C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
   Game.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.

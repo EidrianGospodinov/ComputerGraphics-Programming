@@ -18,6 +18,8 @@
 #include <SpriteFont.h>
 #include <sstream>
 #include <algorithm>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 namespace Rendering
 {;
@@ -291,6 +293,8 @@ namespace Rendering
 				}
 				mProjectiles.push_back(projectile);
 				OutputDebugString(L"Projectile created!\n");
+
+				PlaySound(L"Content\\Audio\\gun-gunshot-02.wav", NULL, SND_FILENAME | SND_ASYNC);
 
 				mLastFireTime = 0.0f;
 			}
