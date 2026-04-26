@@ -60,24 +60,31 @@ namespace Rendering
 				: Position(position), TextureCoordinates(textureCoordinates) { }
 		} TextureMappingVertex;
 
+		typedef struct _MeshPart
+		{
+			ID3D11Buffer* VertexBuffer;
+			ID3D11Buffer* IndexBuffer;
+			ID3D11ShaderResourceView* TextureShaderResourceView;
+			UINT IndexCount;
+
+			_MeshPart() : VertexBuffer(nullptr), IndexBuffer(nullptr), TextureShaderResourceView(nullptr), IndexCount(0) { }
+		} MeshPart;
+
 		ModelFromFile();
 		ModelFromFile(const ModelFromFile& rhs);
 		ModelFromFile& operator=(const ModelFromFile& rhs);
 
-		void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const;
+		void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer, XMVECTOR& minBounds, XMVECTOR& maxBounds) const;
 
 		ID3DX11Effect* mEffect;
         ID3DX11EffectTechnique* mTechnique;
         ID3DX11EffectPass* mPass;
         ID3DX11EffectMatrixVariable* mWvpVariable;
 		
-		ID3D11ShaderResourceView* mTextureShaderResourceView;
 		ID3DX11EffectShaderResourceVariable* mColorTextureVariable;		
 
         ID3D11InputLayout* mInputLayout;		
-        ID3D11Buffer* mVertexBuffer;
-		ID3D11Buffer* mIndexBuffer;
-		UINT mIndexCount;
+		std::vector<MeshPart> mMeshParts;
 
 		XMFLOAT4X4 mWorldMatrix;	
 		float mAngle;

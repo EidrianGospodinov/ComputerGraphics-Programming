@@ -79,16 +79,22 @@ namespace Rendering
 		mComponents.push_back(mModel2);
 		mCollidableModels.push_back(mModel2);
 
-		auto mModel3 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Bench",20);
-		mModel3->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
-		mComponents.push_back(mModel3);
-		mCollidableModels.push_back(mModel3);
+		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Bench",20);
+		starModel->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
+		mComponents.push_back(starModel);
+		mCollidableModels.push_back(starModel);
+
+		
+		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20);
+		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
+		mComponents.push_back(treeModel);
+		mCollidableModels.push_back(treeModel);
 
 		//Car model
-		mModel4 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20);
-		mModel4->SetPosition(1, 0.0f, -0.0f, 0.05f, 2.0f, 1.0f, 0.0f);
-		mComponents.push_back(mModel4);
-		mCollidableModels.push_back(mModel4);
+		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20);
+		mCarModel->SetPosition(1, 0.0f, -0.0f, 0.5f, 2.0f, 1.0f, 0.0f);
+		mComponents.push_back(mCarModel);
+		mCollidableModels.push_back(mCarModel);
 		//house object with diffuse lighting effect:
 		mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
 		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
@@ -147,7 +153,7 @@ namespace Rendering
 
 		mModel1 = nullptr;
 		mModel2 = nullptr;
-		mModel4 = nullptr;
+		mCarModel = nullptr;
 
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);

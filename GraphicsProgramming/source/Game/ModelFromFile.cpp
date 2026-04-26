@@ -21,12 +21,12 @@ namespace Rendering
 {
     namespace
     {
-        bool IsObjModel(const std::string& modelFile)
+        bool UsesModelTextureFallback(const std::string& modelFile)
         {
             std::wstring extension = Utility::ToWideString(modelFile);
             extension = PathFindExtensionW(extension.c_str());
 
-            return (_wcsicmp(extension.c_str(), L".obj") == 0);
+            return (_wcsicmp(extension.c_str(), L".obj") == 0 || _wcsicmp(extension.c_str(), L".fbx") == 0);
         }
 
         std::wstring ResolveTexturePath(const std::string& modelFile, const std::wstring& textureReference)
@@ -120,14 +120,44 @@ namespace Rendering
                 throw GameException("ID3D11Device::CreateShaderResourceView() failed.", hr);
             }
         }
+
+        bool TryCreateTextureFromFile(Game& game, const std::wstring& textureName, ID3D11ShaderResourceView** shaderResourceView)
+        {
+            HRESULT hr = DirectX::CreateWICTextureFromFile(game.Direct3DDevice(), game.Direct3DDeviceContext(), textureName.c_str(), nullptr, shaderResourceView);
+            if (SUCCEEDED(hr))
+            {
+                return true;
+            }
+
+            std::wstring message = L"Texture load failed, falling back to solid color: ";
+            message += textureName;
+            message += L"\n";
+            OutputDebugString(message.c_str());
+
+            return false;
+        }
+
+        std::wstring ReplaceExtension(const std::wstring& path, const std::wstring& newExtension)
+        {
+            std::wstring updatedPath(path);
+            std::wstring currentExtension = PathFindExtensionW(updatedPath.c_str());
+            if (currentExtension.empty())
+            {
+                return updatedPath + newExtension;
+            }
+
+            updatedPath.resize(updatedPath.size() - currentExtension.size());
+            updatedPath += newExtension;
+            return updatedPath;
+        }
     }
 
     RTTI_DEFINITIONS(ModelFromFile)
 
     ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
         : DrawableGameComponent(game, camera),  
-          mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
-          mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename)
+          mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
+          mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), modelFile(modelFilename)
     {
 		//we don't use the model description and model value for this constructor
 		mModelValue = 0;
@@ -135,8 +165,8 @@ namespace Rendering
 
 	ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue)
 		: DrawableGameComponent(game, camera),
-		mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
-		mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue) 
+		mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
+		mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
 	{
 
 	}
@@ -144,14 +174,18 @@ namespace Rendering
     ModelFromFile::~ModelFromFile()
     {
         ReleaseObject(mColorTextureVariable);
-        ReleaseObject(mTextureShaderResourceView);
         ReleaseObject(mWvpVariable);
         ReleaseObject(mPass);
         ReleaseObject(mTechnique);
         ReleaseObject(mEffect);		
         ReleaseObject(mInputLayout);
-        ReleaseObject(mVertexBuffer);
-        ReleaseObject(mIndexBuffer);
+
+		for (MeshPart& meshPart : mMeshParts)
+		{
+			ReleaseObject(meshPart.TextureShaderResourceView);
+			ReleaseObject(meshPart.VertexBuffer);
+			ReleaseObject(meshPart.IndexBuffer);
+		}
     }
 
 
@@ -159,7 +193,7 @@ namespace Rendering
     void ModelFromFile::Initialize()
     {
     	std::wstring defaultTexture = L"Content\\Textures\\bench.jpg";
-        const bool isObjModel = IsObjModel(modelFile);
+        const bool usesModelTextureFallback = UsesModelTextureFallback(modelFile);
         SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
         // Compile the shader
@@ -249,42 +283,67 @@ namespace Rendering
 
         // Load the model
         std::unique_ptr<Model> model(new Model(*mGame, modelFile, true));
-        
-        // Create the vertex and index buffers
-        Mesh* mesh = model->Meshes().at(0);
-        CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
-        mesh->CreateIndexBuffer(&mIndexBuffer);
-        mIndexCount = mesh->Indices().size();
-
-		
-		
-        // Load the texture
-       // std::wstring textureName = L"Content\\Textures\\EarthComposite.jpg";
-
-		std::wstring textureName = isObjModel ? L"" : defaultTexture;
-        ModelMaterial* material = mesh->GetMaterial();
-        if (material != nullptr)
+        if (model->Meshes().empty())
         {
-            const auto textures = material->Textures();
-            auto diffuseTextures = textures.find(TextureTypeDifffuse);
-            if (diffuseTextures != textures.end() && diffuseTextures->second != nullptr && diffuseTextures->second->empty() == false)
-            {
-                std::wstring resolvedTexture = ResolveTexturePath(modelFile, diffuseTextures->second->at(0));
-                if (resolvedTexture.empty() == false)
-                {
-                    textureName = resolvedTexture;
-                }
-            }
+            throw GameException("Model does not contain any meshes.");
         }
         
-        if (textureName.empty())
-        {
-            CreateSolidColorTexture(mGame->Direct3DDevice(), &mTextureShaderResourceView, 255, 255, 255);
-        }
-		else if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
-        {
-            throw GameException("CreateWICTextureFromFile() failed.", hr);
-        }
+		float min = -1e38f;
+		float max = 1e38f;
+		XMFLOAT3 minBoundsVector(max, max, max);
+		XMFLOAT3 maxBoundsVector(min, min, min);
+		XMVECTOR minBounds = XMLoadFloat3(&minBoundsVector);
+		XMVECTOR maxBounds = XMLoadFloat3(&maxBoundsVector);
+
+		for (Mesh* mesh : model->Meshes())
+		{
+			MeshPart meshPart;
+			CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &meshPart.VertexBuffer, minBounds, maxBounds);
+			mesh->CreateIndexBuffer(&meshPart.IndexBuffer);
+			meshPart.IndexCount = mesh->Indices().size();
+
+			std::wstring textureName = usesModelTextureFallback ? L"" : defaultTexture;
+			ModelMaterial* material = mesh->GetMaterial();
+			if (material != nullptr)
+			{
+				const auto textures = material->Textures();
+				auto diffuseTextures = textures.find(TextureTypeDifffuse);
+				if (diffuseTextures != textures.end() && diffuseTextures->second != nullptr && diffuseTextures->second->empty() == false)
+				{
+					std::wstring resolvedTexture = ResolveTexturePath(modelFile, diffuseTextures->second->at(0));
+					if (resolvedTexture.empty() == false)
+					{
+						textureName = resolvedTexture;
+					}
+				}
+			}
+
+			if (textureName.empty())
+			{
+				CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, 255, 255, 255);
+			}
+			else if (TryCreateTextureFromFile(*mGame, textureName, &meshPart.TextureShaderResourceView) == false)
+			{
+				std::wstring extension = PathFindExtensionW(textureName.c_str());
+				if (_wcsicmp(extension.c_str(), L".tga") == 0)
+				{
+					std::wstring pngTextureName = ReplaceExtension(textureName, L".png");
+					if (TryCreateTextureFromFile(*mGame, pngTextureName, &meshPart.TextureShaderResourceView) == false)
+					{
+						CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, 255, 255, 255);
+					}
+				}
+				else
+				{
+					CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, 255, 255, 255);
+				}
+			}
+
+			mMeshParts.push_back(meshPart);
+		}
+
+		XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Center), 0.5f * (minBounds + maxBounds));
+		XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Extents), 0.5f * (maxBounds - minBounds));
 
 		
 
@@ -358,24 +417,23 @@ namespace Rendering
         direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
         direct3DDeviceContext->IASetInputLayout(mInputLayout);
 
-        UINT stride = sizeof(TextureMappingVertex);
-        UINT offset = 0;
-        direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);		
-        direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-                
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
         XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
 
-		
-        mColorTextureVariable->SetResource(mTextureShaderResourceView);
-
-        mPass->Apply(0, direct3DDeviceContext);
-
-        direct3DDeviceContext->DrawIndexed(mIndexCount, 0, 0);
+		for (const MeshPart& meshPart : mMeshParts)
+		{
+			UINT stride = sizeof(TextureMappingVertex);
+			UINT offset = 0;
+			direct3DDeviceContext->IASetVertexBuffers(0, 1, &meshPart.VertexBuffer, &stride, &offset);
+			direct3DDeviceContext->IASetIndexBuffer(meshPart.IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+			mColorTextureVariable->SetResource(meshPart.TextureShaderResourceView);
+			mPass->Apply(0, direct3DDeviceContext);
+			direct3DDeviceContext->DrawIndexed(meshPart.IndexCount, 0, 0);
+		}
     }
 
-    void ModelFromFile::CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const
+    void ModelFromFile::CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer, XMVECTOR& minBounds, XMVECTOR& maxBounds) const
     {
         const std::vector<XMFLOAT3>& sourceVertices = mesh.Vertices();
 
@@ -386,41 +444,16 @@ namespace Rendering
         assert(textureCoordinates->size() == sourceVertices.size());
           
 
-		//generate the bounding box
-		float min = -1e38f;
-		float max = 1e38f;
-
-		XMFLOAT3 vMinf3(max, max, max);
-		XMFLOAT3 vMaxf3(min,min,min);
-
-
-		XMVECTOR vMin = XMLoadFloat3(&vMinf3);
-		XMVECTOR vMax = XMLoadFloat3(&vMaxf3);
-
-		//end
-
-
         for (UINT i = 0; i < sourceVertices.size(); i++)
         {
             XMFLOAT3 position = sourceVertices.at(i);
             XMFLOAT3 uv = textureCoordinates->at(i);
             vertices.push_back(TextureMappingVertex(XMFLOAT4(position.x, position.y, position.z, 1.0f), XMFLOAT2(uv.x, uv.y)));
 
-
-			//create the bounding box from the list of vertices
 			XMVECTOR P = XMLoadFloat3(&position);
-			vMin = XMVectorMin(vMin, P);
-			vMax = XMVectorMax(vMax, P);
-			//the end
-
+			minBounds = XMVectorMin(minBounds, P);
+			maxBounds = XMVectorMax(maxBounds, P);
         }
-		
-	    //final step to generate the bounding box
-	
-		XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Center),  0.5f*(vMin + vMax));
-		XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Extents), 0.5f*(vMax - vMin));
-
-	
 
 		
         D3D11_BUFFER_DESC vertexBufferDesc;

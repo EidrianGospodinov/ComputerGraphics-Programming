@@ -65,7 +65,7 @@ namespace Rendering
 		Mouse*    mMouse;
 		ModelFromFile* mModel1;
     	ModelFromFile* mModel2;
-    	ModelFromFile* mModel4;
+    	ModelFromFile* mCarModel;
 	
 
 		FpsComponent* mFpsComponent;

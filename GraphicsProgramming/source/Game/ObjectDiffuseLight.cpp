@@ -74,7 +74,7 @@ namespace Rendering
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*mGame, "Content\\Models\\house.3ds", true));
+		//std::unique_ptr<Model> model(new Model(*mGame, "Content\\Models\\house.3ds", true));
 
 		// Initialize the material
 		mEffect = new Effect(*mGame);
@@ -85,10 +85,10 @@ namespace Rendering
 		mMaterial = new DiffuseLightingMaterial();
 		mMaterial->Initialize(mEffect);
 
-		Mesh* mesh = model->Meshes().at(0);
+		/*Mesh* mesh = model->Meshes().at(0);
 		mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
 		mesh->CreateIndexBuffer(&mIndexBuffer);
-		mIndexCount = mesh->Indices().size();
+		mIndexCount = mesh->Indices().size();*/
 
 		std::wstring textureName = L"Content\\Textures\\house.bmp";
 		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView);
