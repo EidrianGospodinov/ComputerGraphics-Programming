@@ -147,6 +147,8 @@ namespace Rendering
 
 		for (auto projectile : mProjectiles)
 		{
+			ModelFromFile* model = projectile->GetModel();
+			if (model != nullptr) delete model;
 			DeleteObject(projectile);
 		}
 		mProjectiles.clear();
@@ -273,14 +275,20 @@ namespace Rendering
 				XMFLOAT3 direction;
 				XMStoreFloat3(&direction, cameraDir);
 
-				// Get camera position
+				// Get camera position, spawn slightly ahead of camera so it's visible
 				XMFLOAT3 cameraPos;
 				XMStoreFloat3(&cameraPos, mCamera->PositionVector());
+				cameraPos.x += direction.x * 2.0f;
+				cameraPos.y += direction.y * 2.0f;
+				cameraPos.z += direction.z * 2.0f;
 
 				// Create projectile
 				Projectile* projectile = new Projectile(*this, *mCamera, cameraPos, direction, 50.0f);
-				projectile->Initialize();
 				mComponents.push_back(projectile);
+				if (projectile->GetModel() != nullptr)
+				{
+					mComponents.push_back(projectile->GetModel());
+				}
 				mProjectiles.push_back(projectile);
 				OutputDebugString(L"Projectile created!\n");
 
@@ -295,12 +303,19 @@ namespace Rendering
 
 			if (!projectile->IsAlive())
 			{
-				// Remove from mComponents
+				// Remove projectile from mComponents
 				auto it = std::find(mComponents.begin(), mComponents.end(), projectile);
-				if (it != mComponents.end())
+				if (it != mComponents.end()) mComponents.erase(it);
+
+				// Remove projectile's model from mComponents and delete it
+				ModelFromFile* model = projectile->GetModel();
+				if (model != nullptr)
 				{
-					mComponents.erase(it);
+					auto mit = std::find(mComponents.begin(), mComponents.end(), model);
+					if (mit != mComponents.end()) mComponents.erase(mit);
+					delete model;
 				}
+
 				DeleteObject(projectile);
 				mProjectiles.erase(mProjectiles.begin() + i);
 				continue;

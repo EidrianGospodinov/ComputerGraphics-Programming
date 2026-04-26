@@ -13,15 +13,29 @@
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\filters_format(jpeg)_quality(75).jpg
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\oak-a.fbx
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Star.obj
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\blue sky.png
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.png
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.tga
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.png
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.tga
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Road.jpg
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\RoadText .txt
-  20 File(s) copied
-  Projectile.cpp
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\sol-herbe.jpg
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.png
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.tga
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.png
+  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.tga
+  31 File(s) copied
+  RenderingGame.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(181,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(186,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(192,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
   Game.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
   C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.
