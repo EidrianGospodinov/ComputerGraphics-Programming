@@ -90,5 +90,11 @@ namespace Rendering
 		std::vector<Projectile*> mProjectiles;
 		float mLastFireTime;
 		const float FIRE_COOLDOWN = 0.5f;
+
+		// Pickup popup HUD
+		std::wstring mPickupMessage;
+		float mPickupMessageTimer;
+		const float PICKUP_MESSAGE_DURATION = 1.5f;
+		void ShowPickupMessage(int points);
     };
 }

@@ -30,7 +30,7 @@ namespace Rendering
 		: Game(instance, windowClass, windowTitle, showCommand),
 		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
 		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
-		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f)
+		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -211,11 +211,21 @@ namespace Rendering
 		    {
 			    OutputDebugString(L"Player hit a model!\n");
 			    mScore += model->ModelValue();
+				ShowPickupMessage(model->ModelValue());
 		    	model->SetVisible(false);
-			    break; 
+			    break;
 		    }
 	    }
     }
+
+	void RenderingGame::ShowPickupMessage(int points)
+	{
+		std::wostringstream ss;
+		if (points >= 0) ss << L"+" << points << L" POINTS!";
+		else ss << points << L" POINTS!";
+		mPickupMessage = ss.str();
+		mPickupMessageTimer = PICKUP_MESSAGE_DURATION;
+	}
 
     void RenderingGame::Update(const GameTime &gameTime)
     {
@@ -271,6 +281,11 @@ namespace Rendering
 		// Only update game when Playing
 		mFpsComponent->Update(gameTime);
 		Game::Update(gameTime);
+
+		if (mPickupMessageTimer > 0.0f)
+		{
+			mPickupMessageTimer -= (float)gameTime.ElapsedGameTime();
+		}
 
 		// Handle shooting
 		mLastFireTime += (float)gameTime.ElapsedGameTime();
@@ -342,6 +357,7 @@ namespace Rendering
 					model->SetVisible(false);
 					projectile->SetAlive(false);
 					mScore += model->ModelValue();
+					ShowPickupMessage(model->ModelValue());
 					break;
 				}
 			}
@@ -430,6 +446,20 @@ namespace Rendering
 			scoreLabel << L"Press ESC to Pause";
 			mSpriteFont->DrawString(mSpriteBatch, scoreLabel.str().c_str(),
 			XMFLOAT2(0.0f, 120.0f), Colors::Red);
+
+			// Crosshair at center of screen
+			float centerX = (float)Game::DefaultScreenWidth / 2.0f;
+			float centerY = (float)Game::DefaultScreenHeight / 2.0f;
+			mSpriteFont->DrawString(mSpriteBatch, L"+",
+				XMFLOAT2(centerX - 6.0f, centerY - 10.0f), Colors::White);
+
+			// Pickup popup near the crosshair
+			if (mPickupMessageTimer > 0.0f && !mPickupMessage.empty())
+			{
+				mSpriteFont->DrawString(mSpriteBatch, mPickupMessage.c_str(),
+					XMFLOAT2(centerX - 40.0f, centerY + 20.0f), Colors::Yellow);
+			}
+
 			mSpriteBatch->End();
 
 			mRenderStateHelper->RestoreAll();
