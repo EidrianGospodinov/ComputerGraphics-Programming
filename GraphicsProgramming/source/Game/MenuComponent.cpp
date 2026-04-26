@@ -80,7 +80,7 @@ namespace Rendering
 		mSpriteFont->DrawString(mSpriteBatch, L"Arrow Keys to select, ENTER to confirm", instructionPosition, Colors::Gray);
 
 		XMFLOAT2 controlsPosition(150.0f, 480.0f);
-		mSpriteFont->DrawString(mSpriteBatch, L"In-game: WASD to move, Right Click to shoot, ESC to pause", controlsPosition, Colors::Gray);
+		mSpriteFont->DrawString(mSpriteBatch, L"In-game: WASD to move, Left Click to look around, Right Click to shoot, ESC to pause", controlsPosition, Colors::Gray);
 
 		mSpriteBatch->End();
 	}

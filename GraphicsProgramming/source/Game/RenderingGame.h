@@ -81,6 +81,7 @@ namespace Rendering
     	SpriteFont* mSpriteFont;
 
     	std::vector<ModelFromFile*> mCollidableModels;
+    	std::vector<ModelFromFile*> mShootableModels;
     	void CheckAllCollisions(XMVECTOR oldPos);
 
 		void Pick(int sx, int sy, ModelFromFile*);

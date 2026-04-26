@@ -92,11 +92,11 @@ namespace Rendering
 		mComponents.push_back(treeModel);
 		mCollidableModels.push_back(treeModel);
 
-		//Car model
-		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Bench", 20, ModelMovementSettings(true, 3.0f));
+		//Car model - shootable (right-click), not in collidable list so picking/walking won't trigger
+		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Car", 50, ModelMovementSettings(true, 3.0f));
 		mCarModel->SetPosition(1, 0.0f, -0.0f, 0.5f, 2.0f, 1.0f, 0.0f);
 		mComponents.push_back(mCarModel);
-		mCollidableModels.push_back(mCarModel);
+		mShootableModels.push_back(mCarModel);
 		//house object with diffuse lighting effect:
 		mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
 		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
@@ -146,6 +146,12 @@ namespace Rendering
 			DeleteObject(model);
 		}
 		mCollidableModels.clear();
+
+		for (auto model : mShootableModels)
+		{
+			DeleteObject(model);
+		}
+		mShootableModels.clear();
 
 		for (auto projectile : mProjectiles)
 		{
@@ -325,9 +331,9 @@ namespace Rendering
 				continue;
 			}
 
-			// Check collision with models
+			// Check collision only with shootable models (different interaction from picking/walking)
 			DirectX::BoundingSphere projSphere = projectile->GetBoundingSphere();
-			for (ModelFromFile* model : mCollidableModels)
+			for (ModelFromFile* model : mShootableModels)
 			{
 				if (!model->Visible()) continue;
 
@@ -347,15 +353,9 @@ namespace Rendering
 
 		DetectingCollsion_AllCollidables(cameraSphere);
 
-		if (Game::toPick)
-		{
-			if (mModel1->Visible())
-				Pick(Game::screenX, Game::screenY, mModel1);
-			if (mModel2->Visible())
-				Pick(Game::screenX, Game::screenY, mModel2);
-
-			Game::toPick = false;
-		}
+		// Picking disabled - bench/star/tree are collected only via walk-into collision.
+		// Right-click is reserved for the shooting interaction (targets only the car).
+		Game::toPick = false;
 
 	}
 	bool RenderingGame::CheckCollision(ModelFromFile* a, ModelFromFile* b)
