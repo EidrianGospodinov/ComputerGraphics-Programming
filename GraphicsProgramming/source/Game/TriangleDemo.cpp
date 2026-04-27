@@ -78,7 +78,7 @@ namespace Rendering
         ID3DX11EffectVariable* variable = mEffect->GetVariableByName("WorldViewProjection");
          time = mEffect->GetVariableByName("Time")->AsScalar();
          //Sets speed that the road will move at
-        mEffect->GetVariableByName("Speed")->AsScalar()->SetFloat(0.5f); 
+        mEffect->GetVariableByName("Speed")->AsScalar()->SetFloat(0.2f); 
         if (variable == nullptr)
         {
             throw GameException("ID3DX11Effect::GetVariableByName() could not find the specified variable.", hr);
@@ -202,13 +202,13 @@ namespace Rendering
             BasicEffectVertex(XMFLOAT4(0.0F, 2.5f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),//9
 */
 
-            TextureMappingVertex(XMFLOAT4(-5.0f, -1.0f, 5.0f, 1.0f), XMFLOAT2(0.0f,
+            TextureMappingVertex(XMFLOAT4(-5.0f, -1.0f, 50.0f, 1.0f), XMFLOAT2(0.0f,
                                                                              1.0f)),
-            TextureMappingVertex(XMFLOAT4(+5.0f, -1.0f, 5.0f, 1.0f), XMFLOAT2(1.0f,
+            TextureMappingVertex(XMFLOAT4(+5.0f, -1.0f, 50.0f, 1.0f), XMFLOAT2(1.0f,
                                                                              1.0f)),
-            TextureMappingVertex(XMFLOAT4(+5.0f, -1.0f, -5.0f, 1.0f), XMFLOAT2(1.0f,
+            TextureMappingVertex(XMFLOAT4(+5.0f, -1.0f, -50.0f, 1.0f), XMFLOAT2(1.0f,
                                                                               0.0f)),
-            TextureMappingVertex(XMFLOAT4(-5.0f, -1.0f, -5.0f, 1.0f), XMFLOAT2(0.0f,
+            TextureMappingVertex(XMFLOAT4(-5.0f, -1.0f, -50.0f, 1.0f), XMFLOAT2(0.0f,
                                                                               0.0f)),
 
         };
