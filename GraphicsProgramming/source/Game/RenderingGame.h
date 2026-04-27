@@ -7,7 +7,8 @@ enum class GameState
 {
 	Menu,
 	Playing,
-	Paused
+	Paused,
+	GameOver
 };
 
 enum class WaveState
@@ -116,6 +117,9 @@ namespace Rendering
 		void UpdateWaves(const GameTime& gameTime);
 		void StartWave(int waveIndex);
 		void RestartGame();
-		void EndGame();
+		void BeginGameOver();
+		void UpdateGameOver(const GameTime& gameTime);
+		float mGameOverTimer;
+		const float GAME_OVER_DURATION = 2.0f;
     };
 }

@@ -31,7 +31,7 @@ namespace Rendering
 		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
 		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
 		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f),
-		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f)
+		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f), mGameOverTimer(0.0f)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -361,8 +361,20 @@ namespace Rendering
 		}
 	}
 
-	void RenderingGame::EndGame()
+	void RenderingGame::BeginGameOver()
 	{
+		mGameState = GameState::GameOver;
+		mGameOverTimer = GAME_OVER_DURATION;
+	}
+
+	void RenderingGame::UpdateGameOver(const GameTime& gameTime)
+	{
+		mGameOverTimer -= (float)gameTime.ElapsedGameTime();
+		if (mGameOverTimer > 0.0f)
+		{
+			return;
+		}
+
 		RestartGame();
 		mGameState = GameState::Menu;
 		mMenu->SetMenuMode(MenuMode::MainMenu);
@@ -496,6 +508,12 @@ namespace Rendering
 			return;
 		}
 
+		if (mGameState == GameState::GameOver)
+		{
+			UpdateGameOver(gameTime);
+			return;
+		}
+
 		// ESC key to pause (check before Game::Update which updates keyboard again)
 		if (mKeyboard->WasKeyPressedThisFrame(DIK_ESCAPE))
 		{
@@ -602,9 +620,9 @@ namespace Rendering
 		// Right-click is reserved for the shooting interaction (targets only the car).
 		Game::toPick = false;
 
-		if (mScore > 0)
+		if (mScore < 0)
 		{
-			EndGame();
+			BeginGameOver();
 			return;
 		}
 
@@ -725,6 +743,15 @@ namespace Rendering
 			mRenderStateHelper->SaveAll();
 			mSpriteBatch->Begin();
 			mSpriteFont->DrawString(mSpriteBatch, L"PAUSED", XMFLOAT2(500.0f, 50.0f), Colors::Red);
+			mSpriteBatch->End();
+			mRenderStateHelper->RestoreAll();
+		}
+		else if (mGameState == GameState::GameOver)
+		{
+			mRenderStateHelper->SaveAll();
+			mSpriteBatch->Begin();
+			mSpriteFont->DrawString(mSpriteBatch, L"YOU LOST", XMFLOAT2(470.0f, 220.0f), Colors::Red);
+			mSpriteFont->DrawString(mSpriteBatch, L"Returning to menu...", XMFLOAT2(410.0f, 270.0f), Colors::White);
 			mSpriteBatch->End();
 			mRenderStateHelper->RestoreAll();
 		}
