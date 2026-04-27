@@ -30,11 +30,11 @@ namespace Rendering
 		: Game(instance, windowClass, windowTitle, showCommand),
 		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
 		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
-		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f)
+		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f),
+		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
-		mModel2 = nullptr;
 
 		mSpriteBatch =nullptr;
 		mSpriteFont = nullptr;
@@ -71,32 +71,77 @@ namespace Rendering
 		mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
      
-		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench",-20);
+		// Pooled collidables — all use ModelMovementSettings(true, 2.5f) so they drift forward
+		// (toward camera at +Z) once spawned by the wave system. Faster speed than the default 1.0.
+		ModelMovementSettings collidableMove(true, 2.5f);
+
+		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
 		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 		mCollidableModels.push_back(mModel1);
 
-		mModel2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A bench",-50, ModelMovementSettings(false, 1.0f));
-		mModel2->SetPosition(-1.57f, -1.57f, -0.0f, 0.005f, 5.0f, -0.6f, 2.0f);
-		mComponents.push_back(mModel2);
-		mCollidableModels.push_back(mModel2);
-
-		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Bench",20);
+		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, collidableMove);
 		starModel->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
 		mComponents.push_back(starModel);
 		mCollidableModels.push_back(starModel);
 
-		
-		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20);
+		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20, collidableMove);
 		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
 		mComponents.push_back(treeModel);
 		mCollidableModels.push_back(treeModel);
 
-		//Car model - shootable (right-click), not in collidable list so picking/walking won't trigger
-		mCarModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Car", 50, ModelMovementSettings(true, 3.0f));
-		mCarModel->SetPosition(1, 0.0f, -0.0f, 0.5f, 2.0f, 1.0f, 0.0f);
-		mComponents.push_back(mCarModel);
-		mShootableModels.push_back(mCarModel);
+		auto bench3 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
+		bench3->SetPosition(-1.57f, 0.0f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
+		mComponents.push_back(bench3);
+		mCollidableModels.push_back(bench3);
+
+		auto bench4 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
+		bench4->SetPosition(-1.57f, 0.0f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
+		mComponents.push_back(bench4);
+		mCollidableModels.push_back(bench4);
+
+		auto star2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, collidableMove);
+		star2->SetPosition(-1.57f, 0.0f, 0.0f, 0.05f, 0.0f, 0.6f, 0.0f);
+		mComponents.push_back(star2);
+		mCollidableModels.push_back(star2);
+
+		auto tree2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20, collidableMove);
+		tree2->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 0.0f, 0.0f, 0.0f);
+		mComponents.push_back(tree2);
+		mCollidableModels.push_back(tree2);
+
+		// All collidables start hidden — wave system spawns them
+		for (auto* m : mCollidableModels) m->SetVisible(false);
+
+		// Wave configuration: 4, 6, 8 objects
+		mWaveCounts = { 4, 6, 8 };
+
+		// Spawn points: 8 staggered positions. FirstPersonCamera clamps X to [-2.2, +2.2],
+		// so X is kept within ±2. Z values are deliberately varied (not in straight rows) so
+		// objects aren't parallel — the player has to navigate forward as well as side-to-side.
+		mSpawnPoints = {
+			{-2.0f, 0.6f, -2.5f},
+			{-0.7f, 0.6f, -5.0f},
+			{ 0.7f, 0.6f, -3.5f},
+			{ 2.0f, 0.6f, -6.5f},
+			{-2.0f, 0.6f, -8.5f},
+			{-0.7f, 0.6f, -10.5f},
+			{ 0.7f, 0.6f, -9.0f},
+			{ 2.0f, 0.6f, -11.5f},
+		};
+
+		// Car pool — shootable, not collidable. 3 cars for waves 1/2/3 (1, 2, 3 cars per wave).
+		// All start hidden; the wave system positions and shows them on wave start.
+		ModelMovementSettings carMove(true, 5.0f);
+		for (int i = 0; i < 3; i++)
+		{
+			auto car = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Car", 50, carMove);
+			car->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, 0.0f, 1.0f, 0.0f);
+			car->SetVisible(false);
+			mComponents.push_back(car);
+			mShootableModels.push_back(car);
+			mCars.push_back(car);
+		}
 		//house object with diffuse lighting effect:
 		mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
 		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
@@ -162,8 +207,7 @@ namespace Rendering
 		mProjectiles.clear();
 
 		mModel1 = nullptr;
-		mModel2 = nullptr;
-		mCarModel = nullptr;
+		mCars.clear();
 
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);
@@ -183,15 +227,10 @@ namespace Rendering
 	    // 3. Collision Check
 	    bool collision = false;
 	    float obsticleValue = 0;
-	    if (mModel1->Visible() && cameraSphere.Intersects(mModel1->mWorldBox))
+	    if (mModel1 != nullptr && mModel1->Visible() && cameraSphere.Intersects(mModel1->mWorldBox))
 	    {
 		    collision = true;
 		    obsticleValue = mModel1->ModelValue();
-	    }
-	    if (mModel2->Visible() && cameraSphere.Intersects(mModel2->mWorldBox))
-	    {
-		    collision = true;
-		    obsticleValue = mModel2->ModelValue();
 	    }
 
 	    if (collision)
@@ -227,6 +266,179 @@ namespace Rendering
 		mPickupMessageTimer = PICKUP_MESSAGE_DURATION;
 	}
 
+	void RenderingGame::StartWave(int waveIndex)
+	{
+		int n = mWaveCounts[waveIndex];
+
+		// Hide all cars first, then activate (waveIndex + 1) cars at random positions.
+		// Wave 1 = 1 car, Wave 2 = 2 cars, Wave 3 = 3 cars.
+		for (auto* car : mCars) car->SetVisible(false);
+
+		int carsThisWave = waveIndex + 1;
+		if (carsThisWave > (int)mCars.size()) carsThisWave = (int)mCars.size();
+
+		for (int i = 0; i < carsThisWave; i++)
+		{
+			float carX = ((rand() % 2001) / 100.0f) - 10.0f;  // -10 to +10
+			float carZ = -((rand() % 1500) / 100.0f) - 2.0f;  // -2 to -17
+			mCars[i]->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, carX, 1.0f, carZ);
+			mCars[i]->SetVisible(true);
+		}
+
+		// Pick spawn points without repeats
+		std::vector<XMFLOAT3> shuffled = mSpawnPoints;
+		for (int i = (int)shuffled.size() - 1; i > 0; --i)
+		{
+			int j = rand() % (i + 1);
+			std::swap(shuffled[i], shuffled[j]);
+		}
+
+		int spawned = 0;
+		for (auto* model : mCollidableModels)
+		{
+			if (spawned >= n) break;
+			if (!model->Visible() && spawned < (int)shuffled.size())
+			{
+				const auto& p = shuffled[spawned];
+
+				// Use the appropriate scale for each model type (case-insensitive substring match
+				// since some models were created with inconsistent description casing)
+				std::wstring desc = model->GetModelDes();
+				std::wstring lower = desc;
+				std::transform(lower.begin(), lower.end(), lower.begin(), ::towlower);
+
+				float scale = 0.05f;
+				if (lower.find(L"bench") != std::wstring::npos) scale = 0.003f;
+				else if (lower.find(L"star") != std::wstring::npos) scale = 0.05f;
+				else if (lower.find(L"tree") != std::wstring::npos || lower.find(L"oak") != std::wstring::npos) scale = 0.30f;
+
+				model->SetPosition(-1.57f, 0.0f, 0.0f, scale, p.x, p.y, p.z);
+				model->SetVisible(true);
+				spawned++;
+			}
+		}
+	}
+
+	void RenderingGame::RestartGame()
+	{
+		// Reset score and HUD state
+		mScore = 0;
+		mPickupMessage.clear();
+		mPickupMessageTimer = 0.0f;
+
+		// Reset wave state
+		mCurrentWave = 0;
+		mWaveState = WaveState::WaitingToStart;
+		mWaveStateTimer = WAVE_START_DELAY;
+		mWaveElapsed = 0.0f;
+
+		// Hide all collidables and cars — wave system will respawn them
+		for (auto* m : mCollidableModels) m->SetVisible(false);
+		for (auto* car : mCars) car->SetVisible(false);
+
+		// Clear active projectiles and their models
+		for (auto* projectile : mProjectiles)
+		{
+			auto it = std::find(mComponents.begin(), mComponents.end(), projectile);
+			if (it != mComponents.end()) mComponents.erase(it);
+
+			ModelFromFile* model = projectile->GetModel();
+			if (model != nullptr)
+			{
+				auto mit = std::find(mComponents.begin(), mComponents.end(), model);
+				if (mit != mComponents.end()) mComponents.erase(mit);
+				delete model;
+			}
+			delete projectile;
+		}
+		mProjectiles.clear();
+		mLastFireTime = 0.0f;
+
+		// Reset camera position
+		if (mCamera != nullptr)
+		{
+			mCamera->SetPosition(0.0f, 1.0f, 10.0f);
+		}
+	}
+
+	void RenderingGame::UpdateWaves(const GameTime& gameTime)
+	{
+		float dt = (float)gameTime.ElapsedGameTime();
+
+		if (mWaveState == WaveState::WaitingToStart)
+		{
+			mWaveStateTimer -= dt;
+			if (mWaveStateTimer <= 0.0f)
+			{
+				StartWave(mCurrentWave);
+				mWaveState = WaveState::Spawning;
+				mWaveElapsed = 0.0f;
+			}
+		}
+		else if (mWaveState == WaveState::Spawning)
+		{
+			mWaveElapsed += dt;
+
+			// Auto-hide collidables that have drifted past the player. Objects move at +Z toward
+			// the camera; once they're behind the player there's no way to interact with them,
+			// so treat them as "done" and let the wave end naturally.
+			float playerZ = 10.0f;
+			if (mCamera != nullptr)
+			{
+				XMFLOAT3 camPos;
+				XMStoreFloat3(&camPos, mCamera->PositionVector());
+				playerZ = camPos.z;
+			}
+			for (auto* m : mCollidableModels)
+			{
+				if (!m->Visible()) continue;
+				float z = m->WorldMatrix()->_43;
+				if (z > playerZ + 1.0f) m->SetVisible(false);
+			}
+
+			int liveCount = 0;
+			for (auto* m : mCollidableModels) if (m->Visible()) liveCount++;
+
+			// Wave ends when all collected OR the wave time limit is reached
+			bool waveOver = (liveCount == 0) || (mWaveElapsed >= WAVE_MAX_DURATION);
+
+			if (waveOver)
+			{
+				// If timer ran out, hide any leftovers so the next wave starts clean
+				if (mWaveElapsed >= WAVE_MAX_DURATION)
+				{
+					for (auto* m : mCollidableModels) m->SetVisible(false);
+				}
+
+				mCurrentWave++;
+				if (mCurrentWave >= (int)mWaveCounts.size())
+				{
+					mWaveState = WaveState::GameWon;
+				}
+				else
+				{
+					mWaveState = WaveState::WaitingToStart;
+					mWaveStateTimer = WAVE_START_DELAY;
+				}
+			}
+		}
+
+		// Out-of-world check for moving cars — teleport any car that strays past WORLD_BOUNDS
+		for (auto* car : mCars)
+		{
+			if (!car->Visible()) continue;
+			XMFLOAT4X4* w = car->WorldMatrix();
+			float x = w->_41;
+			float z = w->_43;
+			if (fabsf(x) > WORLD_BOUNDS || fabsf(z) > WORLD_BOUNDS)
+			{
+				float carX = ((rand() % 2001) / 100.0f) - 10.0f;
+				float carZ = -((rand() % 1500) / 100.0f) - 2.0f;
+				car->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, carX, 1.0f, carZ);
+			}
+		}
+	}
+
     void RenderingGame::Update(const GameTime &gameTime)
     {
 		if (mKeyboard != nullptr)
@@ -255,12 +467,19 @@ namespace Rendering
 		{
 			if (mMenu->IsConfirmed())
 			{
-				if (mMenu->GetSelectedOption() == 0)
+				int sel = mMenu->GetSelectedOption();
+				if (sel == 0)        // CONTINUE
 				{
 					mGameState = GameState::Playing;
 					mMenu->SetMenuMode(MenuMode::MainMenu);
 				}
-				else if (mMenu->GetSelectedOption() == 1)
+				else if (sel == 1)   // RESTART
+				{
+					RestartGame();
+					mGameState = GameState::Playing;
+					mMenu->SetMenuMode(MenuMode::MainMenu);
+				}
+				else if (sel == 2)   // QUIT
 				{
 					Exit();
 				}
@@ -286,6 +505,8 @@ namespace Rendering
 		{
 			mPickupMessageTimer -= (float)gameTime.ElapsedGameTime();
 		}
+
+		UpdateWaves(gameTime);
 
 		// Handle shooting
 		mLastFireTime += (float)gameTime.ElapsedGameTime();
@@ -365,7 +586,7 @@ namespace Rendering
 
 		BoundingSphere cameraSphere;
 		XMStoreFloat3(&cameraSphere.Center, mCamera->PositionVector());
-		cameraSphere.Radius = 1.5f;
+		cameraSphere.Radius = 0.8f;  // smaller pickup radius so player can navigate past objects
 
 		DetectingCollsion_AllCollidables(cameraSphere);
 
@@ -443,6 +664,25 @@ namespace Rendering
 			mSpriteBatch->Begin();
 			std::wostringstream scoreLabel;
 			scoreLabel << L"Your current score: " << mScore << "\n";
+			if (mWaveState == WaveState::GameWon)
+			{
+				scoreLabel << L"YOU WIN! All waves complete\n";
+			}
+			else
+			{
+				scoreLabel << L"Wave " << (mCurrentWave + 1) << L" / " << mWaveCounts.size() << L"\n";
+				if (mWaveState == WaveState::WaitingToStart)
+				{
+					int seconds = (int)mWaveStateTimer + 1;
+					scoreLabel << L"Wave starts in " << seconds << L"...\n";
+				}
+				else if (mWaveState == WaveState::Spawning)
+				{
+					int remaining = (int)(WAVE_MAX_DURATION - mWaveElapsed) + 1;
+					if (remaining < 0) remaining = 0;
+					scoreLabel << L"Time left: " << remaining << L"s\n";
+				}
+			}
 			scoreLabel << L"Press ESC to Pause";
 			mSpriteFont->DrawString(mSpriteBatch, scoreLabel.str().c_str(),
 			XMFLOAT2(0.0f, 120.0f), Colors::Red);

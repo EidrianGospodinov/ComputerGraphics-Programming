@@ -36,6 +36,7 @@ namespace Rendering
 		void ResetConfirmed() { mConfirmed = false; }
 		void SetMenuMode(MenuMode mode);
 		MenuMode GetMenuMode() const;
+		int CurrentOptionCount() const;
 
 	private:
 		SpriteBatch* mSpriteBatch;
@@ -48,9 +49,10 @@ namespace Rendering
 		bool mWasDownPressed;
 		MenuMode mMenuMode;
 
-		static const int OPTION_COUNT = 2;
-		const wchar_t* mMainMenuOptions[OPTION_COUNT] = { L"> START", L"  QUIT" };
-		const wchar_t* mPauseMenuOptions[OPTION_COUNT] = { L"> CONTINUE", L"  QUIT" };
+		static const int MAIN_OPTION_COUNT = 2;
+		static const int PAUSE_OPTION_COUNT = 3;
+		const wchar_t* mMainMenuOptions[MAIN_OPTION_COUNT] = { L"> START", L"  QUIT" };
+		const wchar_t* mPauseMenuOptions[PAUSE_OPTION_COUNT] = { L"> CONTINUE", L"  RESTART", L"  QUIT" };
 		const wchar_t** mCurrentOptions;
 	};
 }

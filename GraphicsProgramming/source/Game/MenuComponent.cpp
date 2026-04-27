@@ -21,12 +21,14 @@ namespace Rendering
 	{
 		if (mKeyboard == nullptr) return;
 
+		int count = CurrentOptionCount();
+
 		// Handle UP arrow key
 		if (mKeyboard->IsKeyDown(DIK_UP))
 		{
 			if (!mWasUpPressed)
 			{
-				mSelectedOption = (mSelectedOption - 1 + OPTION_COUNT) % OPTION_COUNT;
+				mSelectedOption = (mSelectedOption - 1 + count) % count;
 				mWasUpPressed = true;
 			}
 		}
@@ -40,7 +42,7 @@ namespace Rendering
 		{
 			if (!mWasDownPressed)
 			{
-				mSelectedOption = (mSelectedOption + 1) % OPTION_COUNT;
+				mSelectedOption = (mSelectedOption + 1) % count;
 				mWasDownPressed = true;
 			}
 		}
@@ -68,7 +70,8 @@ namespace Rendering
 
 		// Draw menu options
 		XMFLOAT2 optionPosition(250.0f, 250.0f);
-		for (int i = 0; i < OPTION_COUNT; ++i)
+		int count = CurrentOptionCount();
+		for (int i = 0; i < count; ++i)
 		{
 			XMVECTORF32 color = (i == mSelectedOption) ? Colors::Yellow : Colors::White;
 			mSpriteFont->DrawString(mSpriteBatch, mCurrentOptions[i], optionPosition, color);
@@ -102,5 +105,10 @@ namespace Rendering
 	MenuMode MenuComponent::GetMenuMode() const
 	{
 		return mMenuMode;
+	}
+
+	int MenuComponent::CurrentOptionCount() const
+	{
+		return (mMenuMode == MenuMode::PauseMenu) ? PAUSE_OPTION_COUNT : MAIN_OPTION_COUNT;
 	}
 }

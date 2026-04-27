@@ -10,6 +10,13 @@ enum class GameState
 	Paused
 };
 
+enum class WaveState
+{
+	WaitingToStart,
+	Spawning,
+	GameWon
+};
+
 using namespace Library;
 
 namespace Library
@@ -64,8 +71,7 @@ namespace Rendering
 		Keyboard* mKeyboard;
 		Mouse*    mMouse;
 		ModelFromFile* mModel1;
-    	ModelFromFile* mModel2;
-    	ModelFromFile* mCarModel;
+    	std::vector<ModelFromFile*> mCars;
 	
 
 		FpsComponent* mFpsComponent;
@@ -96,5 +102,19 @@ namespace Rendering
 		float mPickupMessageTimer;
 		const float PICKUP_MESSAGE_DURATION = 1.5f;
 		void ShowPickupMessage(int points);
+
+		// Wave system
+		std::vector<int> mWaveCounts;       // objects to spawn per wave
+		std::vector<XMFLOAT3> mSpawnPoints; // pool of positions
+		int mCurrentWave;
+		WaveState mWaveState;
+		float mWaveStateTimer;
+		const float WAVE_START_DELAY = 1.5f;
+		const float WAVE_MAX_DURATION = 30.0f;
+		const float WORLD_BOUNDS = 30.0f;
+		float mWaveElapsed;
+		void UpdateWaves(const GameTime& gameTime);
+		void StartWave(int waveIndex);
+		void RestartGame();
     };
 }
