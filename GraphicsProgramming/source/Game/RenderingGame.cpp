@@ -85,7 +85,7 @@ namespace Rendering
 		mComponents.push_back(starModel);
 		mCollidableModels.push_back(starModel);
 
-		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20, collidableMove);
+		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Oak Tree", 20, collidableMove);
 		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
 		mComponents.push_back(treeModel);
 		mCollidableModels.push_back(treeModel);
@@ -105,15 +105,11 @@ namespace Rendering
 		mComponents.push_back(star2);
 		mCollidableModels.push_back(star2);
 
-		auto tree2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\oak-a.fbx", L"Oak Tree", 20, collidableMove);
+		auto tree2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Oak Tree", 20, collidableMove);
 		tree2->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 0.0f, 0.0f, 0.0f);
 		mComponents.push_back(tree2);
 		mCollidableModels.push_back(tree2);
 
-		auto orbModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\orb.fbx", L"Orb", 20, collidableMove);
-		orbModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
-		mComponents.push_back(orbModel);
-		mCollidableModels.push_back(orbModel);
 
 		// All collidables start hidden — wave system spawns them
 		for (auto* m : mCollidableModels) m->SetVisible(false);
