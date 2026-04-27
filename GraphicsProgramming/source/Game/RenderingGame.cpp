@@ -361,6 +361,14 @@ namespace Rendering
 		}
 	}
 
+	void RenderingGame::EndGame()
+	{
+		RestartGame();
+		mGameState = GameState::Menu;
+		mMenu->SetMenuMode(MenuMode::MainMenu);
+		mMenu->ResetConfirmed();
+	}
+
 	void RenderingGame::UpdateWaves(const GameTime& gameTime)
 	{
 		float dt = (float)gameTime.ElapsedGameTime();
@@ -593,6 +601,12 @@ namespace Rendering
 		// Picking disabled - bench/star/tree are collected only via walk-into collision.
 		// Right-click is reserved for the shooting interaction (targets only the car).
 		Game::toPick = false;
+
+		if (mScore > 0)
+		{
+			EndGame();
+			return;
+		}
 
 	}
 	bool RenderingGame::CheckCollision(ModelFromFile* a, ModelFromFile* b)

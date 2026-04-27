@@ -116,5 +116,6 @@ namespace Rendering
 		void UpdateWaves(const GameTime& gameTime);
 		void StartWave(int waveIndex);
 		void RestartGame();
+		void EndGame();
     };
 }
