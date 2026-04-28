@@ -74,13 +74,14 @@ namespace Rendering
 		// Pooled collidables — all use ModelMovementSettings(true, 2.5f) so they drift forward
 		// (toward camera at +Z) once spawned by the wave system. Faster speed than the default 1.0.
 		ModelMovementSettings collidableMove(true, 2.5f);
+		ModelMovementSettings starMove(true, 2.5f, 3.0f);  // stars also spin around Y at 3 rad/sec
 
 		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
 		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 		mCollidableModels.push_back(mModel1);
 
-		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, collidableMove);
+		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, starMove);
 		starModel->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
 		mComponents.push_back(starModel);
 		mCollidableModels.push_back(starModel);
@@ -100,7 +101,7 @@ namespace Rendering
 		mComponents.push_back(bench4);
 		mCollidableModels.push_back(bench4);
 
-		auto star2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, collidableMove);
+		auto star2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, starMove);
 		star2->SetPosition(-1.57f, 0.0f, 0.0f, 0.05f, 0.0f, 0.6f, 0.0f);
 		mComponents.push_back(star2);
 		mCollidableModels.push_back(star2);

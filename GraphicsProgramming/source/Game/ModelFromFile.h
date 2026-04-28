@@ -17,9 +17,10 @@ namespace Rendering
 	{
 		bool ShouldMove;
 		float MoveSpeed;
+		float RotationSpeed;  // radians/sec around Y axis, 0 = no spin
 
-		ModelMovementSettings(bool shouldMove = true, float moveSpeed = 1.0f)
-			: ShouldMove(shouldMove), MoveSpeed(moveSpeed) { }
+		ModelMovementSettings(bool shouldMove = true, float moveSpeed = 1.0f, float rotSpeed = 0.0f)
+			: ShouldMove(shouldMove), MoveSpeed(moveSpeed), RotationSpeed(rotSpeed) { }
 	};
 
 	class ModelFromFile : public DrawableGameComponent
@@ -100,6 +101,7 @@ namespace Rendering
 		float mAngle;
 		bool mShouldMove;
 		float mMoveSpeed;
+		float mRotationSpeed;
 
 		const std::string modelFile;
 

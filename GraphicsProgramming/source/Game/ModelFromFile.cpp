@@ -157,7 +157,7 @@ namespace Rendering
     ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
         : DrawableGameComponent(game, camera),  
           mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
-          mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(true), mMoveSpeed(1.0f), modelFile(modelFilename)
+          mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(true), mMoveSpeed(1.0f), mRotationSpeed(0.0f), modelFile(modelFilename)
     {
 		//we don't use the model description and model value for this constructor
 		mModelValue = 0;
@@ -171,7 +171,7 @@ namespace Rendering
 	ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue, const ModelMovementSettings& movementSettings)
 		: DrawableGameComponent(game, camera),
 		mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mColorTextureVariable(nullptr),
-		mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(movementSettings.ShouldMove), mMoveSpeed(movementSettings.MoveSpeed), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
+		mInputLayout(nullptr), mMeshParts(), mWorldMatrix(MatrixHelper::Identity), mShouldMove(movementSettings.ShouldMove), mMoveSpeed(movementSettings.MoveSpeed), mRotationSpeed(movementSettings.RotationSpeed), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
 	{
 
 	}
@@ -412,8 +412,24 @@ namespace Rendering
     	XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
 
     	XMMATRIX translation = XMMatrixTranslation(0.0f, 0.0f, speed * deltaTime);
-
     	worldMatrix = worldMatrix * translation;
+
+    	// Tumble in place: rotate around X, Y, and Z at slightly different rates so it spins
+    	// in all directions instead of just one axis. Translate to origin, rotate, translate back.
+    	if (mRotationSpeed != 0.0f)
+    	{
+    		XMFLOAT4X4 m;
+    		XMStoreFloat4x4(&m, worldMatrix);
+    		float tx = m._41, ty = m._42, tz = m._43;
+
+    		XMMATRIX toOrigin = XMMatrixTranslation(-tx, -ty, -tz);
+    		XMMATRIX rotX = XMMatrixRotationX(mRotationSpeed * 0.7f * deltaTime);
+    		XMMATRIX rotY = XMMatrixRotationY(mRotationSpeed * deltaTime);
+    		XMMATRIX rotZ = XMMatrixRotationZ(mRotationSpeed * 0.5f * deltaTime);
+    		XMMATRIX back = XMMatrixTranslation(tx, ty, tz);
+
+    		worldMatrix = worldMatrix * toOrigin * rotX * rotY * rotZ * back;
+    	}
 
     	XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
     }
