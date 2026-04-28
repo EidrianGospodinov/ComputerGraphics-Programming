@@ -85,7 +85,7 @@ namespace Rendering
 		mComponents.push_back(starModel);
 		mCollidableModels.push_back(starModel);
 
-		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Oak Tree", 20, collidableMove);
+		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Red Orb", -30, collidableMove);
 		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
 		mComponents.push_back(treeModel);
 		mCollidableModels.push_back(treeModel);
@@ -105,7 +105,7 @@ namespace Rendering
 		mComponents.push_back(star2);
 		mCollidableModels.push_back(star2);
 
-		auto tree2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Oak Tree", 20, collidableMove);
+		auto tree2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Red Orb", -30, collidableMove);
 		tree2->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 0.0f, 0.0f, 0.0f);
 		mComponents.push_back(tree2);
 		mCollidableModels.push_back(tree2);
@@ -312,6 +312,7 @@ namespace Rendering
 				if (lower.find(L"bench") != std::wstring::npos) scale = 0.003f;
 				else if (lower.find(L"star") != std::wstring::npos) scale = 0.05f;
 				else if (lower.find(L"tree") != std::wstring::npos || lower.find(L"oak") != std::wstring::npos) scale = 0.30f;
+				else if (lower.find(L"orb") != std::wstring::npos) scale = 0.30f;
 
 				model->SetPosition(-1.57f, 0.0f, 0.0f, scale, p.x, p.y, p.z);
 				model->SetVisible(true);
