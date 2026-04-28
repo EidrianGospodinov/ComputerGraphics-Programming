@@ -111,9 +111,11 @@ namespace Rendering
 		WaveState mWaveState;
 		float mWaveStateTimer;
 		const float WAVE_START_DELAY = 1.5f;
+		const float INFINITE_MODE_DELAY = 2.0f;
 		const float WAVE_MAX_DURATION = 30.0f;
 		const float WORLD_BOUNDS = 30.0f;
 		float mWaveElapsed;
+		bool mInfiniteMode;
 		void UpdateWaves(const GameTime& gameTime);
 		void StartWave(int waveIndex);
 		void RestartGame();

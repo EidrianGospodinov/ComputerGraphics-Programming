@@ -31,7 +31,7 @@ namespace Rendering
 		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
 		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
 		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f),
-		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f), mGameOverTimer(0.0f)
+		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f), mInfiniteMode(false), mGameOverTimer(0.0f)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -332,6 +332,7 @@ namespace Rendering
 		mWaveState = WaveState::WaitingToStart;
 		mWaveStateTimer = WAVE_START_DELAY;
 		mWaveElapsed = 0.0f;
+		mInfiniteMode = false;
 
 		// Hide all collidables and cars — wave system will respawn them
 		for (auto* m : mCollidableModels) m->SetVisible(false);
@@ -396,6 +397,15 @@ namespace Rendering
 				mWaveElapsed = 0.0f;
 			}
 		}
+		else if (mWaveState == WaveState::GameWon)
+		{
+			mWaveStateTimer -= dt;
+			if (mWaveStateTimer <= 0.0f)
+			{
+				mWaveState = WaveState::WaitingToStart;
+				mWaveStateTimer = WAVE_START_DELAY;
+			}
+		}
 		else if (mWaveState == WaveState::Spawning)
 		{
 			mWaveElapsed += dt;
@@ -434,7 +444,19 @@ namespace Rendering
 				mCurrentWave++;
 				if (mCurrentWave >= (int)mWaveCounts.size())
 				{
-					mWaveState = WaveState::GameWon;
+					if (!mInfiniteMode)
+					{
+						mInfiniteMode = true;
+						mCurrentWave = 0;
+						mWaveState = WaveState::GameWon;
+						mWaveStateTimer = INFINITE_MODE_DELAY;
+					}
+					else
+					{
+						mCurrentWave = 0;
+						mWaveState = WaveState::WaitingToStart;
+						mWaveStateTimer = WAVE_START_DELAY;
+					}
 				}
 				else
 				{
@@ -699,7 +721,22 @@ namespace Rendering
 			scoreLabel << L"Your current score: " << mScore << "\n";
 			if (mWaveState == WaveState::GameWon)
 			{
-				scoreLabel << L"YOU WIN! All waves complete\n";
+				scoreLabel << L"YOU WIN! Infinite Mode unlocked\n";
+			}
+			else if (mInfiniteMode)
+			{
+				scoreLabel << L"Infinite Mode\n";
+				if (mWaveState == WaveState::WaitingToStart)
+				{
+					int seconds = (int)mWaveStateTimer + 1;
+					scoreLabel << L"Next round starts in " << seconds << L"...\n";
+				}
+				else if (mWaveState == WaveState::Spawning)
+				{
+					int remaining = (int)(WAVE_MAX_DURATION - mWaveElapsed) + 1;
+					if (remaining < 0) remaining = 0;
+					scoreLabel << L"Time left: " << remaining << L"s\n";
+				}
 			}
 			else
 			{
