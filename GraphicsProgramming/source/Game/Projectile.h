@@ -41,5 +41,7 @@ namespace Rendering
 		bool mIsAlive;
 		float mMaxDistance;
 		float mDistanceTraveled;
+		static constexpr float BulletScale = 0.001f;
+		XMFLOAT3 mRotation =  XMFLOAT3(0.0f, -1.57f, 0.0f);
 	};
 }

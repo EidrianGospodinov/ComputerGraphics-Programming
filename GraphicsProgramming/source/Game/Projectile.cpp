@@ -22,7 +22,7 @@ namespace Rendering
 		mModel = new ModelFromFile(game, camera, "Content\\Models\\Bullet.fbx", L"Projectile", 0);
 		mModel->SetFallbackColor(255, 215, 0);
 		mModel->Initialize();
-		mModel->SetPosition(0.0f, 0.0f, 0.0f, 0.02f, position.x, position.y, position.z);
+		mModel->SetPosition(mRotation.x, mRotation.y, mRotation.z, BulletScale, position.x, position.y, position.z);
 	}
 
 	Projectile::~Projectile()
@@ -48,7 +48,7 @@ namespace Rendering
 
 		if (mModel != nullptr)
 		{
-			mModel->SetPosition(0.0f, 0.0f, 0.0f, 0.02f, mPosition.x, mPosition.y, mPosition.z);
+			mModel->SetPosition(mRotation.x, mRotation.y, mRotation.z, BulletScale, mPosition.x, mPosition.y, mPosition.z);
 		}
 	}
 }
