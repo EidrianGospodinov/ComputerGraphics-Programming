@@ -24,7 +24,7 @@
 namespace Rendering
 {;
 
-	const XMFLOAT4 RenderingGame::BackgroundColor = { 0.75f, 0.75f, 0.75f, 1.0f };
+	const XMFLOAT4 RenderingGame::BackgroundColor = { 0.53f, 0.81f, 0.98f, 1.0f };
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
 		: Game(instance, windowClass, windowTitle, showCommand),

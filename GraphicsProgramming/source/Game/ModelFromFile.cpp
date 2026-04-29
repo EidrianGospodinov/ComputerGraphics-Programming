@@ -329,7 +329,7 @@ namespace Rendering
             if (textureName.empty())
             {
                 
-                byte r = 1, g = 1, b = 1; 
+                byte r = mFallbackR, g = mFallbackG, b = mFallbackB; 
                 if (material != nullptr)
                 {
                     const auto& textures = material->Textures();
@@ -341,7 +341,9 @@ namespace Rendering
                     else if (matName == "Holes") { r = 40;  g = 40;  b = 40; }
                     else if (matName == "Wheels") { r = 30;  g = 30;  b = 30; }
                 }
-                CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, r, g, b);
+                CreateSolidColorTexture(mGame->Direct3DDevice(),
+                    &meshPart.TextureShaderResourceView,
+                    r, g, b);
             }
 			else if (TryCreateTextureFromFile(*mGame, textureName, &meshPart.TextureShaderResourceView) == false)
 			{

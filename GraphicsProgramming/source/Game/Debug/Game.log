@@ -9,6 +9,7 @@
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Bullet.fbx
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.fbx
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.mtl
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
@@ -36,11 +37,9 @@
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.png
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.tga
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Wheels.png
-  37 File(s) copied
-  RenderingGame.cpp
+  38 File(s) copied
+  ModelFromFile.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(235,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(241,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
   Game.vcxproj -> C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
   C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.

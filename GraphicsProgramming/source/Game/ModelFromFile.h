@@ -54,6 +54,10 @@ namespace Rendering
 		virtual void Initialize() override;
 		virtual void Draw(const GameTime& gameTime) override;
 
+		void SetFallbackColor(byte r, byte g, byte b)
+		{
+			mFallbackR = r; mFallbackG = g; mFallbackB = b;
+		}
 
 
 
@@ -108,7 +112,7 @@ namespace Rendering
 		std::wstring modelDes;
 		int mModelValue;
 		
-	
+		byte mFallbackR, mFallbackG, mFallbackB;
 
 	};
 }
