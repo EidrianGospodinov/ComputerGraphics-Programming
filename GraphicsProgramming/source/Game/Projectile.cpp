@@ -20,7 +20,7 @@ namespace Rendering
 
 
 		mModel = new ModelFromFile(game, camera, "Content\\Models\\Bullet.fbx", L"Projectile", 0);
-		mModel->SetFallbackColor(255, 215, 0); // gold
+		mModel->SetFallbackColor(255, 215, 0);
 		mModel->Initialize();
 		mModel->SetPosition(0.0f, 0.0f, 0.0f, 0.02f, position.x, position.y, position.z);
 	}
