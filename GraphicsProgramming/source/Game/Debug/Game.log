@@ -1,42 +1,46 @@
-﻿  A subdirectory or file C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Audio\gun-gunshot-02.wav
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\Road TextureMapping.fx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.cso
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.fx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.mtl
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.obj
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\oak-a.fbx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Orb.fbx
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Star.obj
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\blue sky.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.tga
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.tga
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Red Texture.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Road.jpg
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\RoadText .txt
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\sol-herbe.jpg
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.tga
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.png
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.tga
-  33 File(s) copied
-  ModelFromFile.cpp
+﻿  A subdirectory or file C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content already exists.
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Audio\gun-gunshot-02.wav
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.cso
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\BasicEffect.fx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\DiffuseLighting.fx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\Road TextureMapping.fx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.cso
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\TextureMapping.fx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Effects\include\Common.fxh
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Fonts\Arial_14_Regular.spritefont
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\bench.3ds
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.fbx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Car.mtl
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\DirectionalLightProxy.obj
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\house.3DS
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\oak-a.fbx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Orb.fbx
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Models\Star.obj
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\bench.jpg
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\blue sky.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\CarBase.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 1 D.tga
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\feuilles 2 D.tga
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Glass.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\grass.jpg
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Holes.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\house.bmp
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Red Texture.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Road.jpg
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\RoadText .txt
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\sol-herbe.jpg
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 1 D.tga
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.png
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\tronc 2 D.tga
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\content\Textures\Wheels.png
+  37 File(s) copied
+  RenderingGame.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  LINK : C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe not found or not built by the last incremental link; performing full link
-Libraryd.lib(FirstPersonCamera.obj) : warning LNK4204: 'C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Libraryd.pdb' is missing debugging information for referencing module; linking object as if no debug info
-  Game.vcxproj -> C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
-  C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
+C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(235,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\source\Game\RenderingGame.cpp(241,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Game.vcxproj -> C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe
+  C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\..\..\external\assimp\bin\assimp_release-dll_win32\assimp.dll
           1 file(s) copied.

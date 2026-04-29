@@ -138,7 +138,7 @@ namespace Rendering
 		for (int i = 0; i < 3; i++)
 		{
 			auto car = new ModelFromFile(*this, *mCamera, "Content\\Models\\Car.obj", L"A Car", 50, carMove);
-			car->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, 0.0f, 1.0f, 0.0f);
+			car->SetPosition(0.0f, -XM_PIDIV2, 0.0f, 0.5f, 0.0f, 1.0f, 0.0f);
 			car->SetVisible(false);
 			mComponents.push_back(car);
 			mShootableModels.push_back(car);
@@ -283,7 +283,7 @@ namespace Rendering
 		{
 			float carX = ((rand() % 2001) / 100.0f) - 10.0f;  // -10 to +10
 			float carZ = -((rand() % 1500) / 100.0f) - 2.0f;  // -2 to -17
-			mCars[i]->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, carX, 1.0f, carZ);
+			mCars[i]->SetPosition(0.0f, XM_PIDIV2, 0.0f, 0.5f, carX, 1.0f, carZ);
 			mCars[i]->SetVisible(true);
 		}
 
@@ -479,7 +479,8 @@ namespace Rendering
 			{
 				float carX = ((rand() % 2001) / 100.0f) - 10.0f;
 				float carZ = -((rand() % 1500) / 100.0f) - 2.0f;
-				car->SetPosition(1.0f, 0.0f, 0.0f, 0.5f, carX, 1.0f, carZ);
+				car->SetPosition(0.0f, XM_PIDIV2, 0.0f, 0.5f, carX, 1.0f, carZ);
+
 			}
 		}
 	}

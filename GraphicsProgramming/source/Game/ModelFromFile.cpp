@@ -80,6 +80,9 @@ namespace Rendering
                 return candidatePath;
             }
 
+            OutputDebugStringW((L"[ModelFromFile] No texture resolved for mesh in: " +
+                Utility::ToWideString(modelFile) + L"\n").c_str());
+
             return L"";
         }
 
@@ -323,10 +326,23 @@ namespace Rendering
 				}
 			}
 
-			if (textureName.empty())
-			{
-				CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, 255, 255, 255);
-			}
+            if (textureName.empty())
+            {
+                
+                byte r = 1, g = 1, b = 1; 
+                if (material != nullptr)
+                {
+                    const auto& textures = material->Textures();
+                
+                    // the material name to assign known colours for the car parts.
+                    std::string matName = material->Name();
+                    if (matName == "Material.001") { r = 200; g = 20;  b = 20; }
+                    else if (matName == "Glass") { r = 180; g = 220; b = 255; }
+                    else if (matName == "Holes") { r = 40;  g = 40;  b = 40; }
+                    else if (matName == "Wheels") { r = 30;  g = 30;  b = 30; }
+                }
+                CreateSolidColorTexture(mGame->Direct3DDevice(), &meshPart.TextureShaderResourceView, r, g, b);
+            }
 			else if (TryCreateTextureFromFile(*mGame, textureName, &meshPart.TextureShaderResourceView) == false)
 			{
 				std::wstring extension = PathFindExtensionW(textureName.c_str());
