@@ -2,12 +2,12 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe</FullPath>
+      <FullPath>C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Game.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\Levro\Desktop\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso</FullPath>
+      <FullPath>C:\Users\Moiezz\Documents\GitHub\ComputerGraphics-Programming\GraphicsProgramming\build\Debug\Content\Effects\DiffuseLighting.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

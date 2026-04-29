@@ -152,7 +152,7 @@ namespace Rendering
 		}
 		//house object with diffuse lighting effect:
 		mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
-		mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01f, -1.0f, 0.75f, -2.5f);
+		mObjectDiffuseLight->SetPosition(0.0f, -1.5708f, -0.0f, 0.01f, 7.0f, 0.0f, -7.0f);
 		mComponents.push_back(mObjectDiffuseLight);
 		
 		RasterizerStates::Initialize(mDirect3DDevice);
