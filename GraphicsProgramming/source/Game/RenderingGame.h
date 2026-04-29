@@ -72,6 +72,7 @@ namespace Rendering
 		Keyboard* mKeyboard;
 		Mouse*    mMouse;
 		ModelFromFile* mModel1;
+		ModelFromFile* mMotorModel;
     	std::vector<ModelFromFile*> mCars;
 	
 

@@ -28,9 +28,9 @@ namespace Rendering
 
 	RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
 		: Game(instance, windowClass, windowTitle, showCommand),
-		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr),
+		mDemo(nullptr), mDirectInput(nullptr), mKeyboard(nullptr), mMouse(nullptr), mModel1(nullptr), mMotorModel(nullptr),
 		mFpsComponent(nullptr), mRenderStateHelper(nullptr), mObjectDiffuseLight(nullptr),
-		mMenu(nullptr), mGameState(GameState::Menu), mLastFireTime(0.0f), mPickupMessageTimer(0.0f),
+		mMenu(nullptr), mGameState(GameState::Menu), mScore(0), mLastFireTime(0.0f), mPickupMessageTimer(0.0f),
 		mCurrentWave(0), mWaveState(WaveState::WaitingToStart), mWaveStateTimer(1.5f), mWaveElapsed(0.0f), mInfiniteMode(false), mGameOverTimer(0.0f)
     {
         mDepthStencilBufferEnabled = true;
@@ -76,30 +76,31 @@ namespace Rendering
 		ModelMovementSettings collidableMove(true, 2.5f);
 		ModelMovementSettings starMove(true, 2.5f, 3.0f);  // stars also spin around Y at 3 rad/sec
 
-		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
+		mModel1 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -21, collidableMove);
 		mModel1->SetPosition(-1.57f, 0.0f, -0.0f, 0.005f, -2.0f, 0.6f, 2.0f);
 		mComponents.push_back(mModel1);
 		mCollidableModels.push_back(mModel1);
-
-		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, starMove);
-		starModel->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
-		mComponents.push_back(starModel);
-		mCollidableModels.push_back(starModel);
-
-		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Red Orb", -30, collidableMove);
-		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
-		mComponents.push_back(treeModel);
-		mCollidableModels.push_back(treeModel);
 
 		auto bench3 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
 		bench3->SetPosition(-1.57f, 0.0f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
 		mComponents.push_back(bench3);
 		mCollidableModels.push_back(bench3);
 
-		auto bench4 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -20, collidableMove);
-		bench4->SetPosition(-1.57f, 0.0f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
+		auto bench4 = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds", L"A Bench", -23, collidableMove);
+		bench4->SetPosition(1.57f, 1.57f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
 		mComponents.push_back(bench4);
 		mCollidableModels.push_back(bench4);
+
+		auto starModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, starMove);
+		starModel->SetPosition(-1.57f, 0.0f, -0.0f, 0.05f, -2.0f, 0.6f, 0.0f);
+		mComponents.push_back(starModel);
+		mCollidableModels.push_back(starModel);
+
+		auto treeModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\Orb.fbx", L"Red Orb", -35, collidableMove);
+		treeModel->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 4.0f, 0.0f, 4.0f);
+		mComponents.push_back(treeModel);
+		mCollidableModels.push_back(treeModel);
+
 
 		auto star2 = new ModelFromFile(*this, *mCamera, "Content\\Models\\Star.obj", L"A Star", 20, starMove);
 		star2->SetPosition(-1.57f, 0.0f, 0.0f, 0.05f, 0.0f, 0.6f, 0.0f);
@@ -110,6 +111,11 @@ namespace Rendering
 		tree2->SetPosition(0.0f, 0.0f, 0.0f, 0.50f, 0.0f, 0.0f, 0.0f);
 		mComponents.push_back(tree2);
 		mCollidableModels.push_back(tree2);
+
+		mMotorModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\motor.fbx", L"A motor", 20, false);
+		mMotorModel->SetPosition(0.0f, 0.0f, 0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
+		mComponents.push_back(mMotorModel);
+		//mCollidableModels.push_back(motor);
 
 
 		// All collidables start hidden — wave system spawns them
@@ -209,6 +215,7 @@ namespace Rendering
 		mProjectiles.clear();
 
 		mModel1 = nullptr;
+		mMotorModel = nullptr;
 		mCars.clear();
 
 		DeleteObject(mFpsComponent);
@@ -313,9 +320,16 @@ namespace Rendering
 				if (lower.find(L"bench") != std::wstring::npos) scale = 0.003f;
 				else if (lower.find(L"star") != std::wstring::npos) scale = 0.05f;
 				else if (lower.find(L"tree") != std::wstring::npos || lower.find(L"oak") != std::wstring::npos) scale = 0.30f;
-				else if (lower.find(L"orb") != std::wstring::npos) scale = 0.30f;
+				else if (lower.find(L"orb") != std::wstring::npos) scale = 0.0030f;
+				if (lower.find(L"bench") != std::wstring::npos)
+				{
+					model->SetPosition(0.0f, 0.0f, 0.0f, scale, p.x, p.y, p.z);
 
-				model->SetPosition(-1.57f, 0.0f, 0.0f, scale, p.x, p.y, p.z);
+				}
+				else
+				{
+					model->SetPosition(-1.57f, 0.0f, 0.0f, scale, p.x, p.y, p.z);
+				}
 				model->SetVisible(true);
 				spawned++;
 			}
@@ -639,6 +653,13 @@ namespace Rendering
 		BoundingSphere cameraSphere;
 		XMStoreFloat3(&cameraSphere.Center, mCamera->PositionVector());
 		cameraSphere.Radius = 0.8f;  // smaller pickup radius so player can navigate past objects
+
+		if (mMotorModel != nullptr && mCamera != nullptr)
+		{
+			XMFLOAT3 cameraPosition;
+			XMStoreFloat3(&cameraPosition, mCamera->PositionVector());
+			mMotorModel->SetPosition(0.0f, 0.0f, 0.0f, 0.01f, cameraPosition.x-0.1f, 0.5f, cameraPosition.z);
+		}
 
 		DetectingCollsion_AllCollidables(cameraSphere);
 
