@@ -78,7 +78,7 @@ namespace Rendering
         ID3DX11EffectVariable* variable = mEffect->GetVariableByName("WorldViewProjection");
          time = mEffect->GetVariableByName("Time")->AsScalar();
          //Sets speed that the road will move at
-        mEffect->GetVariableByName("Speed")->AsScalar()->SetFloat(0.2f); 
+        mEffect->GetVariableByName("Speed")->AsScalar()->SetFloat(-0.2f); 
         if (variable == nullptr)
         {
             throw GameException("ID3DX11Effect::GetVariableByName() could not find the specified variable.", hr);
